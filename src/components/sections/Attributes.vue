@@ -29,14 +29,7 @@ const { setAttribute } = store
 <style scoped>
 .attributes {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 75px 50px;
   gap: 10px;
-}
-
-.modifier {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: flex-end;
 }
 </style>
