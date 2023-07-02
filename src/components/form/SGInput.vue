@@ -1,18 +1,24 @@
 <template>
   <label>
     {{ label }}
-    <input v-if="type === 'number'" v-model.number="value" type="number" />
-    <input v-else v-model="value" type="text" />
+    <input v-if="type === 'number'" v-model.number="value" type="number" :disabled="disabled" />
+    <input v-else v-model="value" type="text" :disabled="disabled" />
   </label>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
 
-const props = defineProps<{
-  modelValue: string | number
-  label?: string
-}>()
+const props = withDefaults(
+  defineProps<{
+    modelValue: string | number
+    label?: string
+    disabled?: boolean
+  }>(),
+  {
+    disabled: false
+  }
+)
 
 const emit = defineEmits(['update:modelValue'])
 
@@ -29,5 +35,6 @@ label {
   display: flex;
   flex-direction: column;
   padding: 5px;
+  text-transform: capitalize;
 }
 </style>

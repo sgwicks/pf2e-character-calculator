@@ -3,11 +3,15 @@
     <div class="attributes">
       <template v-for="(attribute, key) in attributes">
         <SGInput
-          :model-value="attributes[key].value"
+          :model-value="attribute.value"
           :label="key"
           @update:model-value="(val) => setAttribute(key, val)"
         />
-        <div>{{ key.slice(0, 3) }} modifier: {{ attributes[key].modifier }}</div>
+        <SGInput
+          :model-value="`${attribute.modifier >= 0 ? '+' : ''}${attribute.modifier}`"
+          label="Modifier"
+          disabled
+        />
       </template>
     </div>
   </SGSection>
@@ -26,5 +30,12 @@ const { attributes, setAttribute } = useAttributeStore()
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 10px;
+}
+
+.modifier {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-end;
 }
 </style>
