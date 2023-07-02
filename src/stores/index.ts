@@ -35,6 +35,13 @@ interface Skill {
   armour: number
 }
 
+const emptySkill = {
+  attribute: '',
+  proficiency: 0,
+  item: 0,
+  armour: 0
+}
+
 export const useStore = defineStore('store', () => {
   const level = ref(0)
 
@@ -94,10 +101,77 @@ export const useStore = defineStore('store', () => {
 
   const skills = reactive<{ [k: string]: Skill }>({
     acrobatics: {
-      attribute: 'dexterity',
-      proficiency: 0,
-      item: 0,
-      armour: 0
+      ...emptySkill,
+      attribute: 'dexterity'
+    },
+    arcana: {
+      ...emptySkill,
+      attribute: 'intelligence'
+    },
+    athletics: {
+      ...emptySkill,
+      attribute: 'strength'
+    },
+    crafting: {
+      ...emptySkill,
+      attribute: 'intelligence'
+    },
+    deception: {
+      ...emptySkill,
+      attribute: 'charisma'
+    },
+    diplomacy: {
+      ...emptySkill,
+      attribute: 'charisma'
+    },
+    intimidation: {
+      ...emptySkill,
+      attribute: 'charisma'
+    },
+    lore_1: {
+      ...emptySkill,
+      attribute: 'intelligence'
+    },
+    lore_2: {
+      ...emptySkill,
+      attribute: 'intelligence'
+    },
+
+    medicine: {
+      ...emptySkill,
+      attribute: 'wisdom'
+    },
+    nature: {
+      ...emptySkill,
+      attribute: 'wisdom'
+    },
+    occultism: {
+      ...emptySkill,
+      attribute: 'intelligence'
+    },
+    performance: {
+      ...emptySkill,
+      attribute: 'charisma'
+    },
+    religion: {
+      ...emptySkill,
+      attribute: 'wisdom'
+    },
+    society: {
+      ...emptySkill,
+      attribute: 'intelligence'
+    },
+    stealth: {
+      ...emptySkill,
+      attribute: 'dexterity'
+    },
+    survival: {
+      ...emptySkill,
+      attribute: 'wisdom'
+    },
+    thievery: {
+      ...emptySkill,
+      attribute: 'dexterity'
     }
   })
 

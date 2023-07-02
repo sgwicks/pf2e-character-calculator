@@ -1,6 +1,6 @@
 <template>
   <table>
-    <tr style="background-color: blueviolet">
+    <tr style="background-color: blueviolet; color: white; text-align: center">
       <td>T</td>
       <td>E</td>
       <td>M</td>
