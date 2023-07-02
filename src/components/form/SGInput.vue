@@ -1,7 +1,8 @@
 <template>
   <label>
     {{ label }}
-    <input v-model="value" />
+    <input v-if="type === 'number'" v-model.number="value" type="number" />
+    <input v-else v-model="value" type="text" />
   </label>
 </template>
 
@@ -9,7 +10,7 @@
 import { computed } from 'vue'
 
 const props = defineProps<{
-  modelValue: string
+  modelValue: string | number
   label?: string
 }>()
 
@@ -19,6 +20,8 @@ const value = computed({
   get: () => props.modelValue,
   set: (val) => emit('update:modelValue', val)
 })
+
+const type = typeof props.modelValue === 'number' ? 'number' : 'text'
 </script>
 
 <style scoped>

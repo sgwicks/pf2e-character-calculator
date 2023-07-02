@@ -5,11 +5,14 @@
     </div>
   </header>
 
-  <main></main>
+  <main>
+    <Attributes />
+  </main>
 </template>
 
 <script setup lang="ts">
-import PlayerInfo from './components/layout/PlayerInfo.vue'
+import PlayerInfo from './components/sections/PlayerInfo.vue'
+import Attributes from './components/sections/Attributes.vue'
 </script>
 
 <style scoped>
