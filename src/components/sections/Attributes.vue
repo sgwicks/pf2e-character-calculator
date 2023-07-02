@@ -1,7 +1,7 @@
 <template>
   <SGSection title="Attributes">
     <div class="attributes">
-      <template v-for="(attribute, key) in attributes">
+      <template v-for="(attribute, key) in store.attributes">
         <SGInput
           :model-value="attribute.value"
           :label="key"
@@ -20,9 +20,10 @@
 <script setup lang="ts">
 import SGSection from '../layout/SGSection.vue'
 import SGInput from '../form/SGInput.vue'
-import { useAttributeStore } from '@/stores/attributes'
+import { useStore } from '@/stores/'
 
-const { attributes, setAttribute } = useAttributeStore()
+const store = useStore()
+const { setAttribute } = store
 </script>
 
 <style scoped>

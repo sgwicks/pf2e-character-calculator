@@ -10,6 +10,7 @@
       <SGInput v-model="character.alignment" label="Alignment" />
       <SGInput v-model="character.traits" label="Traits" />
       <SGInput v-model="character.deity" label="Deity" />
+      <SGInput v-model="level" label="Level" />
     </div>
   </SGSection>
 </template>
@@ -18,6 +19,11 @@
 import { ref } from 'vue'
 import SGInput from '../form/SGInput.vue'
 import SGSection from '../layout/SGSection.vue'
+import { useStore } from '@/stores/'
+import { storeToRefs } from 'pinia'
+
+const store = useStore()
+const { level } = storeToRefs(store)
 
 const playerName = ref('')
 const character = ref({
