@@ -8,19 +8,6 @@
   font-weight: normal;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
 @media (min-width: 1024px) {
   body {
     display: flex;
@@ -34,23 +21,19 @@ a,
   }
 }
 
+main {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 section {
   padding: 20px;
   color: black;
   background-color: white;
   border: 1px solid red;
-  min-width: 750px;
 }
 
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
 input[type='number'] {
-  -moz-appearance: textfield;
+  appearance: textfield;
   width: 40px;
 }

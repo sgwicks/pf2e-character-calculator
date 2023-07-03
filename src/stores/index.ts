@@ -175,12 +175,16 @@ export const useStore = defineStore('store', () => {
     }
   })
 
+  function getProficiencyValue(prof: number) {
+    return prof ? prof + level.value : 0
+  }
+
   function getSkillValue(name: string | number) {
     const skill: Skill = skills[name]
     if (!skill) return 0
     const { attribute, proficiency, item, armour } = skill
-    const addLevel = proficiency ? level.value : 0
-    return getAttributeModifier(attribute) + addLevel + proficiency + item + armour
+
+    return getAttributeModifier(attribute) + getProficiencyValue(proficiency) + item + armour
   }
 
   function setSkillProficiency(name: string | number, val: number) {
@@ -197,6 +201,7 @@ export const useStore = defineStore('store', () => {
     getAttributeModifier,
     setAttribute,
     skills,
+    getProficiencyValue,
     getSkillValue,
     setSkillProficiency,
     setSkillItem

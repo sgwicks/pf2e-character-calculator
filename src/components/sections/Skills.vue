@@ -8,7 +8,7 @@
         :label="skill.attribute.slice(0, 3)"
         disabled
       />
-      <SGInput :model-value="proficiencyValue(skill.proficiency)" label="Prof" disabled />
+      <SGInput :model-value="getProficiencyValue(skill.proficiency)" label="Prof" disabled />
       <ProficiencyLevel
         :model-value="skill.proficiency"
         @update:model-value="(val) => setSkillProficiency(key, val)"
@@ -33,13 +33,14 @@ import { useStore } from '@/stores/'
 import { storeToRefs } from 'pinia'
 
 const store = useStore()
-const { getAttributeModifier, getSkillValue, setSkillProficiency, setSkillItem } = store
+const {
+  getAttributeModifier,
+  getProficiencyValue,
+  getSkillValue,
+  setSkillProficiency,
+  setSkillItem
+} = store
 const { level, skills } = storeToRefs(store)
-
-const proficiencyValue = (prof: number) => {
-  if (!prof) return 0
-  return prof + level.value
-}
 </script>
 
 <style scoped>
