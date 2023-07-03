@@ -3,7 +3,7 @@
     <SGInput :model-value="armourClass" label="AC" disabled />
     <SGInput :model-value="getProficiencyValue(proficiency)" label="Prof" disabled />
     <SGInput :model-value="getAttributeModifier('dexterity')" label="Dex" disabled />
-    <SGInput :model-value="dexCap || 0" label="Cap" disabled />
+    <SGInput :model-value="dexCap === null ? '-' : dexCap" label="Cap" disabled />
     <fieldset>
       <label>
         U
@@ -73,7 +73,7 @@ const proficiency = computed(() => {
 const dexCap = ref<number | null>(null)
 
 const dexToAc = computed(() => {
-  if (!dexCap.value) return 0
+  if (dexCap.value === null) return getAttributeModifier('dexterity')
   return dexCap.value > getAttributeModifier('dexterity')
     ? getAttributeModifier('dexterity')
     : dexCap.value
@@ -81,6 +81,6 @@ const dexToAc = computed(() => {
 const item = ref(0)
 
 const armourClass = computed(
-  () => item.value + dexToAc.value + getProficiencyValue(proficiency.value)
+  () => 10 + item.value + dexToAc.value + getProficiencyValue(proficiency.value)
 )
 </script>
