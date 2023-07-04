@@ -1,19 +1,27 @@
 <template>
   <label>
     {{ label }}
-    <input v-if="type === 'number'" v-model.number="value" type="number" :disabled="disabled" />
-    <input v-else v-model="value" type="text" :disabled="disabled" />
+    <input
+      v-if="type === 'number'"
+      v-model.number="value"
+      type="number"
+      :disabled="disabled"
+      v-maska:[mask]
+    />
+    <input v-else v-model="value" type="text" :disabled="disabled" v-maska:[mask] />
   </label>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { vMaska, type MaskInputOptions } from 'maska'
 
 const props = withDefaults(
   defineProps<{
-    modelValue: string | number
+    modelValue: string | number | null
     label?: string
     disabled?: boolean
+    mask?: MaskInputOptions
   }>(),
   {
     disabled: false
@@ -23,7 +31,7 @@ const props = withDefaults(
 const emit = defineEmits(['update:modelValue'])
 
 const value = computed({
-  get: () => props.modelValue,
+  get: () => (props.modelValue === null ? '' : props.modelValue),
   set: (val) => emit('update:modelValue', val)
 })
 

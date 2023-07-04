@@ -10,6 +10,7 @@
     <Skills />
     <ArmourClass />
     <Armour />
+    <WeaponList />
   </main>
 </template>
 
@@ -19,6 +20,7 @@ import Attributes from './components/sections/Attributes.vue'
 import Skills from './components/sections/Skills.vue'
 import ArmourClass from './components/sections/ArmourClass.vue'
 import Armour from './components/sections/equipment/Armour.vue'
+import WeaponList from './components/sections/WeaponList.vue'
 </script>
 
 <style scoped></style>

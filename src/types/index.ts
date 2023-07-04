@@ -7,6 +7,11 @@ type Cost = {
   type: Coin
 }
 
+type Dice = {
+  amount: number
+  size: 2 | 4 | 6 | 8 | 10 | 12 | 20
+}
+
 type Bulk = 'L' | number
 
 interface Item {
@@ -36,4 +41,22 @@ interface Armour extends Item {
   speedPenalty: number
   strengthReq: number
   group: ArmourGroup
+  traits: string[]
+}
+
+interface Weapon extends Item {
+  type: 'melee' | 'ranged'
+  class: 'simple' | 'martial' | 'other'
+  other: string | null
+  dice: Dice
+  bludgeoning: boolean
+  piercing: boolean
+  slashing: boolean
+  specialised: boolean
+  item: number
+  traits: string[]
+}
+
+interface Proficiencies {
+  [k: string]: 0 | 2 | 4 | 6 | 8
 }
