@@ -1,27 +1,29 @@
-import { reactive } from 'vue'
-import { defineStore } from 'pinia'
+import { computed, reactive } from 'vue'
+import { defineStore, storeToRefs } from 'pinia'
 import { useMainStore } from './main'
 import { useAttributeStore } from './attribute'
+import { useEquipmentStore } from './equipment'
 
 interface Skill {
   attribute: string
   proficiency: number
   item: number
-  armour: number
+  armour: boolean
 }
 
 const emptySkill = {
   attribute: '',
   proficiency: 0,
   item: 0,
-  armour: 0
+  armour: false
 }
 
 export const useSkillStore = defineStore('skill', () => {
   const skills = reactive<{ [k: string]: Skill }>({
     acrobatics: {
       ...emptySkill,
-      attribute: 'dexterity'
+      attribute: 'dexterity',
+      armour: true
     },
     arcana: {
       ...emptySkill,
@@ -29,7 +31,8 @@ export const useSkillStore = defineStore('skill', () => {
     },
     athletics: {
       ...emptySkill,
-      attribute: 'strength'
+      attribute: 'strength',
+      armour: true
     },
     crafting: {
       ...emptySkill,
@@ -82,7 +85,8 @@ export const useSkillStore = defineStore('skill', () => {
     },
     stealth: {
       ...emptySkill,
-      attribute: 'dexterity'
+      attribute: 'dexterity',
+      armour: true
     },
     survival: {
       ...emptySkill,
@@ -90,7 +94,8 @@ export const useSkillStore = defineStore('skill', () => {
     },
     thievery: {
       ...emptySkill,
-      attribute: 'dexterity'
+      attribute: 'dexterity',
+      armour: true
     }
   })
 
@@ -99,9 +104,14 @@ export const useSkillStore = defineStore('skill', () => {
     const { getProficiencyValue } = useMainStore()
     const skill: Skill = skills[name]
     if (!skill) return 0
-    const { attribute, proficiency, item, armour } = skill
+    const { attribute, proficiency, item } = skill
 
-    return getAttributeModifier(attribute) + getProficiencyValue(proficiency) + item + armour
+    return (
+      getAttributeModifier(attribute) +
+      getProficiencyValue(proficiency) +
+      item +
+      getArmourCheckPenalty.value
+    )
   }
 
   function setSkillProficiency(name: string | number, val: number) {
@@ -112,10 +122,20 @@ export const useSkillStore = defineStore('skill', () => {
     skills[name].item = val
   }
 
+  const getArmourCheckPenalty = computed(() => {
+    const attributeStore = useAttributeStore()
+    const equipmentStore = useEquipmentStore()
+    const { attributes } = storeToRefs(attributeStore)
+    const { armour } = storeToRefs(equipmentStore)
+    if (attributes.value.strength.value >= armour.value.strengthReq) return 0
+    else return armour.value.checkPenalty
+  })
+
   return {
     skills,
     getSkillValue,
     setSkillProficiency,
-    setSkillItem
+    setSkillItem,
+    getArmourCheckPenalty
   }
 })

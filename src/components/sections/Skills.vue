@@ -18,8 +18,7 @@
         label="Item"
         @update:model-value="(val) => setSkillItem(key, val)"
       />
-      <span>-</span>
-      <SGInput :model-value="skill.armour" label="Armour" disabled />
+      <SGInput v-if="skill.armour" :model-value="getArmourCheckPenalty" label="Armour" disabled />
     </div>
   </SGSection>
 </template>
@@ -39,7 +38,7 @@ const { getAttributeModifier } = useAttributeStore()
 
 const skillStore = useSkillStore()
 const { getSkillValue, setSkillProficiency, setSkillItem } = skillStore
-const { skills } = storeToRefs(skillStore)
+const { skills, getArmourCheckPenalty } = storeToRefs(skillStore)
 </script>
 
 <style scoped>

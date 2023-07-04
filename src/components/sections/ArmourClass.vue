@@ -3,26 +3,8 @@
     <SGInput :model-value="armourClass" label="AC" disabled />
     <SGInput :model-value="getProficiencyValue(proficiency)" label="Prof" disabled />
     <SGInput :model-value="getAttributeModifier('dexterity')" label="Dex" disabled />
-    <SGInput :model-value="dexCap === null ? '' : dexCap" label="Cap" disabled />
-    <fieldset>
-      <label>
-        U
-        <input v-model="equipped" name="equipped" type="radio" value="U" />
-      </label>
-      <label>
-        L
-        <input v-model="equipped" name="equipped" type="radio" value="L" />
-      </label>
-      <label>
-        M
-        <input v-model="equipped" name="equipped" type="radio" value="M" />
-      </label>
-      <label>
-        H
-        <input v-model="equipped" name="equipped" type="radio" value="H" />
-      </label>
-    </fieldset>
-    <SGInput v-model="item" label="Item" />
+    <SGInput :model-value="armour.dexCap === null ? '' : armour.dexCap" label="Cap" disabled />
+    <SGInput :model-value="armour.ac" label="Item" disabled />
     <label>
       Unarmoured
       <ProficiencyLevel v-model="unarmouredProficiency" />
@@ -49,19 +31,21 @@ import SGInput from '../form/SGInput.vue'
 import ProficiencyLevel from '../form/ProficiencyLevel.vue'
 import { useMainStore } from '@/stores/main'
 import { useAttributeStore } from '@/stores/attribute'
+import { useEquipmentStore } from '@/stores/equipment'
+import { storeToRefs } from 'pinia'
 
 const { getProficiencyValue } = useMainStore()
 const { getAttributeModifier } = useAttributeStore()
+const equipmentStore = useEquipmentStore()
+const { armour } = storeToRefs(equipmentStore)
 
 const unarmouredProficiency = ref(0)
 const lightProficiency = ref(0)
 const mediumProficiency = ref(0)
 const heavyProficiency = ref(0)
 
-const equipped = ref('U')
-
 const proficiency = computed(() => {
-  switch (equipped.value) {
+  switch (armour.value.category) {
     default:
     case 'U':
       return unarmouredProficiency.value
@@ -73,17 +57,15 @@ const proficiency = computed(() => {
       return heavyProficiency.value
   }
 })
-const dexCap = ref<number | null>(null)
 
 const dexToAc = computed(() => {
-  if (dexCap.value === null) return getAttributeModifier('dexterity')
-  return dexCap.value > getAttributeModifier('dexterity')
+  if (armour.value.dexCap === null) return getAttributeModifier('dexterity')
+  return armour.value.dexCap > getAttributeModifier('dexterity')
     ? getAttributeModifier('dexterity')
-    : dexCap.value
+    : armour.value.dexCap
 })
-const item = ref(0)
 
 const armourClass = computed(
-  () => 10 + item.value + dexToAc.value + getProficiencyValue(proficiency.value)
+  () => 10 + armour.value.ac + dexToAc.value + getProficiencyValue(proficiency.value)
 )
 </script>
