@@ -19,10 +19,10 @@
 import { ref } from 'vue'
 import SGInput from '../form/SGInput.vue'
 import SGSection from '../layout/SGSection.vue'
-import { useStore } from '@/stores/'
+import { useMainStore } from '@/stores/main'
 import { storeToRefs } from 'pinia'
 
-const store = useStore()
+const store = useMainStore()
 const { level } = storeToRefs(store)
 
 const playerName = ref('')

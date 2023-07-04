@@ -29,18 +29,17 @@ import SGSection from '../layout/SGSection.vue'
 import SGInput from '../form/SGInput.vue'
 import ProficiencyLevel from '../form/ProficiencyLevel.vue'
 
-import { useStore } from '@/stores/'
+import { useMainStore } from '@/stores/main'
+import { useAttributeStore } from '@/stores/attribute'
+import { useSkillStore } from '@/stores/skill'
 import { storeToRefs } from 'pinia'
 
-const store = useStore()
-const {
-  getAttributeModifier,
-  getProficiencyValue,
-  getSkillValue,
-  setSkillProficiency,
-  setSkillItem
-} = store
-const { level, skills } = storeToRefs(store)
+const { getProficiencyValue } = useMainStore()
+const { getAttributeModifier } = useAttributeStore()
+
+const skillStore = useSkillStore()
+const { getSkillValue, setSkillProficiency, setSkillItem } = skillStore
+const { skills } = storeToRefs(skillStore)
 </script>
 
 <style scoped>

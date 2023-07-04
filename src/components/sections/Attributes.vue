@@ -20,9 +20,9 @@
 <script setup lang="ts">
 import SGSection from '../layout/SGSection.vue'
 import SGInput from '../form/SGInput.vue'
-import { useStore } from '@/stores/'
+import { useAttributeStore } from '@/stores/attribute'
 
-const store = useStore()
+const store = useAttributeStore()
 const { setAttribute } = store
 </script>
 

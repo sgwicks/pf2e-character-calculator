@@ -3,7 +3,7 @@
     <SGInput :model-value="armourClass" label="AC" disabled />
     <SGInput :model-value="getProficiencyValue(proficiency)" label="Prof" disabled />
     <SGInput :model-value="getAttributeModifier('dexterity')" label="Dex" disabled />
-    <SGInput :model-value="dexCap === null ? '-' : dexCap" label="Cap" disabled />
+    <SGInput :model-value="dexCap === null ? '' : dexCap" label="Cap" disabled />
     <fieldset>
       <label>
         U
@@ -47,8 +47,11 @@ import { ref, computed } from 'vue'
 import SGSection from '../layout/SGSection.vue'
 import SGInput from '../form/SGInput.vue'
 import ProficiencyLevel from '../form/ProficiencyLevel.vue'
-import { useStore } from '@/stores'
-const { getAttributeModifier, getProficiencyValue } = useStore()
+import { useMainStore } from '@/stores/main'
+import { useAttributeStore } from '@/stores/attribute'
+
+const { getProficiencyValue } = useMainStore()
+const { getAttributeModifier } = useAttributeStore()
 
 const unarmouredProficiency = ref(0)
 const lightProficiency = ref(0)

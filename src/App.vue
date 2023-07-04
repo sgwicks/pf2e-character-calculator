@@ -8,7 +8,7 @@
   <main>
     <Attributes />
     <Skills />
-    <Armour />
+    <ArmourClass />
   </main>
 </template>
 
@@ -16,7 +16,7 @@
 import PlayerInfo from './components/sections/PlayerInfo.vue'
 import Attributes from './components/sections/Attributes.vue'
 import Skills from './components/sections/Skills.vue'
-import Armour from './components/sections/Armour.vue'
+import ArmourClass from './components/sections/ArmourClass.vue'
 </script>
 
 <style scoped></style>
