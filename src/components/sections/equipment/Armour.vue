@@ -18,6 +18,8 @@
     <SGInput v-model="armour.level" label="Level" />
     <!-- Bulk -->
     <SGInput v-model="armour.bulk" label="Bulk" />
+    ---
+    <Shield />
   </SGSection>
 </template>
 
@@ -25,6 +27,7 @@
 import SGSection from '@/components/layout/SGSection.vue'
 import SGInput from '@/components/form/SGInput.vue'
 import ArmourType from '@/components/form/ArmourType.vue'
+import Shield from './Shield.vue'
 import { computed } from 'vue'
 import { useEquipmentStore } from '@/stores/equipment'
 import { storeToRefs } from 'pinia'

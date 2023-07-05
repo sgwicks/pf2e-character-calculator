@@ -4,7 +4,8 @@
     <SGInput :model-value="getProficiencyValue(proficiency)" label="Prof" disabled />
     <SGInput :model-value="getAttributeModifier('dexterity')" label="Dex" disabled />
     <SGInput :model-value="armour.dexCap === null ? '' : armour.dexCap" label="Cap" disabled />
-    <SGInput :model-value="armour.ac" label="Item" disabled />
+    <SGInput :model-value="armour.ac" label="Armour" disabled />
+    <SGInput :model-value="shieldToAc" label="Shield" disabled />
     <label>
       Unarmoured
       <ProficiencyLevel v-model="unarmouredProficiency" />
@@ -37,7 +38,7 @@ import { storeToRefs } from 'pinia'
 const { getProficiencyValue } = useMainStore()
 const { getAttributeModifier } = useAttributeStore()
 const equipmentStore = useEquipmentStore()
-const { armour } = storeToRefs(equipmentStore)
+const { armour, shield } = storeToRefs(equipmentStore)
 
 const unarmouredProficiency = ref(0)
 const lightProficiency = ref(0)
@@ -65,7 +66,10 @@ const dexToAc = computed(() => {
     : armour.value.dexCap
 })
 
+const shieldToAc = computed(() => (shield.value.raised ? shield.value.ac : 0))
+
 const armourClass = computed(
-  () => 10 + armour.value.ac + dexToAc.value + getProficiencyValue(proficiency.value)
+  () =>
+    10 + armour.value.ac + dexToAc.value + getProficiencyValue(proficiency.value) + shieldToAc.value
 )
 </script>

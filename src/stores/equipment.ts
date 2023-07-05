@@ -55,5 +55,19 @@ export const useEquipmentStore = defineStore('equipment', () => {
     return weaponProficiencies[type] + level.value
   }
 
-  return { armour, weapons, weaponProficiencies, getWeaponProficiency }
+  const shield = reactive<Shield>({
+    ac: 0,
+    hardness: 0,
+    hp: 0,
+    bt: 0,
+    currentHp: 0,
+    raised: false,
+    name: '',
+    rarity: 'common',
+    price: null,
+    level: 0,
+    bulk: 0
+  })
+
+  return { armour, weapons, weaponProficiencies, getWeaponProficiency, shield }
 })

@@ -57,6 +57,15 @@ interface Weapon extends Item {
   traits: string[]
 }
 
+interface Shield extends Item {
+  ac: number
+  hardness: number
+  hp: number
+  bt: number
+  currentHp: number
+  raised: boolean
+}
+
 interface Attributes {
   strength: {
     value: number
