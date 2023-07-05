@@ -1,6 +1,7 @@
-import { reactive } from 'vue'
+import { reactive, computed } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 import { useMainStore } from './main'
+import { useAttributeStore } from './attribute'
 
 const emptyWeapon: Weapon = {
   name: '',
@@ -40,6 +41,21 @@ export const useEquipmentStore = defineStore('equipment', () => {
     traits: []
   })
 
+  const getArmourCheckPenalty = computed(() => {
+    const attributeStore = useAttributeStore()
+    const { attributes } = storeToRefs(attributeStore)
+    if (attributes.value.strength.value >= armour.strengthReq) return 0
+    else return armour.checkPenalty
+  })
+
+  const getArmourSpeedPenalty = computed(() => {
+    if (armour.speedPenalty === 0) return 0
+    const attributeStore = useAttributeStore()
+    const { attributes } = storeToRefs(attributeStore)
+    if (attributes.value.strength.value >= armour.strengthReq) return armour.speedPenalty + 5
+    else return armour.speedPenalty
+  })
+
   const weapons: Weapon[] = reactive([{ ...emptyWeapon }, { ...emptyWeapon, type: 'ranged' }])
 
   const weaponProficiencies: Proficiencies = reactive({
@@ -69,5 +85,13 @@ export const useEquipmentStore = defineStore('equipment', () => {
     bulk: 0
   })
 
-  return { armour, weapons, weaponProficiencies, getWeaponProficiency, shield }
+  return {
+    armour,
+    getArmourCheckPenalty,
+    getArmourSpeedPenalty,
+    weapons,
+    weaponProficiencies,
+    getWeaponProficiency,
+    shield
+  }
 })

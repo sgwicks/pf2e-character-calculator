@@ -1,4 +1,4 @@
-import { computed, reactive } from 'vue'
+import { reactive } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 import { useMainStore } from './main'
 import { useAttributeStore } from './attribute'
@@ -102,6 +102,8 @@ export const useSkillStore = defineStore('skill', () => {
   function getSkillValue(name: string | number) {
     const { getAttributeModifier } = useAttributeStore()
     const { getProficiencyValue } = useMainStore()
+    const equipmentStore = useEquipmentStore()
+    const { getArmourCheckPenalty } = storeToRefs(equipmentStore)
     const skill: Skill = skills[name]
     if (!skill) return 0
     const { attribute, proficiency, item } = skill
@@ -122,20 +124,10 @@ export const useSkillStore = defineStore('skill', () => {
     skills[name].item = val
   }
 
-  const getArmourCheckPenalty = computed(() => {
-    const attributeStore = useAttributeStore()
-    const equipmentStore = useEquipmentStore()
-    const { attributes } = storeToRefs(attributeStore)
-    const { armour } = storeToRefs(equipmentStore)
-    if (attributes.value.strength.value >= armour.value.strengthReq) return 0
-    else return armour.value.checkPenalty
-  })
-
   return {
     skills,
     getSkillValue,
     setSkillProficiency,
-    setSkillItem,
-    getArmourCheckPenalty
+    setSkillItem
   }
 })
