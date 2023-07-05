@@ -1,5 +1,6 @@
 <template>
   <SGSection title="Weapons">
+    <h3>Proficiencies</h3>
     <label>
       Simple
       <ProficiencyLevel v-model="weaponProficiencies.simple" />

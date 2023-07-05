@@ -1,5 +1,6 @@
 <template>
   ---
+  <h3>Weapon</h3>
   <SGInput v-model="weapon.name" label="Name" />
   <fieldset>
     <legend>To Hit</legend>
