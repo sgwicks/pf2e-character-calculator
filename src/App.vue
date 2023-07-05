@@ -7,6 +7,7 @@
 
   <main>
     <Attributes />
+    <SavingThrowsVue />
     <Skills />
     <ArmourClass />
     <Armour />
@@ -21,6 +22,7 @@ import Skills from './components/sections/Skills.vue'
 import ArmourClass from './components/sections/ArmourClass.vue'
 import Armour from './components/sections/equipment/Armour.vue'
 import WeaponList from './components/sections/WeaponList.vue'
+import SavingThrowsVue from './components/sections/SavingThrows.vue'
 </script>
 
 <style scoped></style>
