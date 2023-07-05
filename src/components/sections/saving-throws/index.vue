@@ -7,6 +7,6 @@
 </template>
 
 <script setup lang="ts">
-import SGSection from '../layout/SGSection.vue'
+import SGSection from '@/components/layout/SGSection.vue'
 import SavingThrow from './SavingThrow.vue'
 </script>

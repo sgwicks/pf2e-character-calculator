@@ -10,8 +10,8 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import SGInput from '../form/SGInput.vue'
-import ProficiencyLevel from '../form/ProficiencyLevel.vue'
+import SGInput from '@/components/form/SGInput.vue'
+import ProficiencyLevel from '@/components/form/ProficiencyLevel.vue'
 
 import { useMainStore } from '@/stores/main'
 import { useAttributeStore } from '@/stores/attribute'

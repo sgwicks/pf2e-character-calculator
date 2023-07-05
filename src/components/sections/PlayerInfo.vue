@@ -5,7 +5,26 @@
       <SGInput v-model="character.name" label="Character Name" />
       <SGInput v-model="character.ancestry" label="Ancestry & Heritage" />
       <SGInput v-model="character.background" label="Background" />
-      <SGInput v-model="character.class" label="Class" />
+      <label>
+        Character Class
+        <select v-model="character.class.name">
+          <option
+            v-for="characterClass in characterClasses"
+            :key="characterClass.name"
+            :value="characterClass.name"
+          >
+            {{ characterClass.name }}
+          </option>
+        </select>
+      </label>
+      <label>
+        Key Skill
+        <select v-model="character.class.keySkill" :disabled="keySkillOptions.length < 2">
+          <option v-for="attribute in keySkillOptions" :key="attribute" :value="attribute">
+            {{ attribute }}
+          </option>
+        </select>
+      </label>
       <SGInput v-model="character.size" label="Size" />
       <SGInput v-model="character.alignment" label="Alignment" />
       <SGInput v-model="character.traits" label="Traits" />
@@ -16,26 +35,33 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import SGInput from '../form/SGInput.vue'
 import SGSection from '../layout/SGSection.vue'
 import { useMainStore } from '@/stores/main'
 import { storeToRefs } from 'pinia'
 
 const store = useMainStore()
-const { level } = storeToRefs(store)
+const { level, characterClasses, character } = storeToRefs(store)
 
 const playerName = ref('')
-const character = ref({
-  name: '',
-  ancestry: '',
-  background: '',
-  class: '',
-  size: '',
-  alignment: '',
-  traits: '',
-  deity: ''
-})
+
+const keySkillOptions = computed(
+  () =>
+    characterClasses.value.find(({ name }) => name === character.value.class.name)?.keySkill || []
+)
+
+const className = computed(() => character.value.class.name)
+
+watch(
+  className,
+  (val, oldVal) => {
+    if (val !== oldVal) {
+      character.value.class.keySkill = keySkillOptions.value[0]
+    }
+  },
+  { deep: true }
+)
 </script>
 
 <style scoped>
@@ -44,5 +70,18 @@ const character = ref({
   gap: 10px;
   grid-template-columns: 1fr 1fr 1fr;
   min-width: 750px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+}
+
+select {
+  background-color: white;
+  border: 1px solid #888;
+  margin-top: 5px;
+  padding: 2px;
+  border-radius: 3px;
 }
 </style>

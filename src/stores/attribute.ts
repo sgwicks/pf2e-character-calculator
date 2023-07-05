@@ -1,33 +1,6 @@
 import { reactive } from 'vue'
 import { defineStore } from 'pinia'
 
-interface Attributes {
-  strength: {
-    value: number
-    modifier: number
-  }
-  dexterity: {
-    value: number
-    modifier: number
-  }
-  constitution: {
-    value: number
-    modifier: number
-  }
-  intelligence: {
-    value: number
-    modifier: number
-  }
-  wisdom: {
-    value: number
-    modifier: number
-  }
-  charisma: {
-    value: number
-    modifier: number
-  }
-}
-
 export const useAttributeStore = defineStore('attribute', () => {
   const attributes = reactive<Attributes>({
     strength: {

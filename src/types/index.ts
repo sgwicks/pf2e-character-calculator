@@ -57,6 +57,40 @@ interface Weapon extends Item {
   traits: string[]
 }
 
+interface Attributes {
+  strength: {
+    value: number
+    modifier: number
+  }
+  dexterity: {
+    value: number
+    modifier: number
+  }
+  constitution: {
+    value: number
+    modifier: number
+  }
+  intelligence: {
+    value: number
+    modifier: number
+  }
+  wisdom: {
+    value: number
+    modifier: number
+  }
+  charisma: {
+    value: number
+    modifier: number
+  }
+}
+
+type Attribute = keyof Attributes
+
 interface Proficiencies {
   [k: string]: 0 | 2 | 4 | 6 | 8
+}
+
+interface CharacterClass {
+  name: string
+  keySkill: Attribute[]
 }

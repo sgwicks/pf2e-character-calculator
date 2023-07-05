@@ -1,0 +1,27 @@
+<template>
+  <SGSection title="Class DC">
+    <SGInput :model-value="classDC" disabled />
+    10
+    <SGInput :model-value="getClassKeySkill()" label="Key" disabled />
+    <SGInput :model-value="getProficiencyValue(proficiency)" label="Prof" disabled />
+    <ProficiencyLevel v-model="proficiency" />
+    <SGInput v-model="item" label="Item" />
+  </SGSection>
+</template>
+
+<script setup lang="ts">
+import SGSection from '@/components/layout/SGSection.vue'
+import SGInput from '@/components/form/SGInput.vue'
+import ProficiencyLevel from '../form/ProficiencyLevel.vue'
+import { computed, ref } from 'vue'
+
+import { useMainStore } from '@/stores/main'
+const { getProficiencyValue, getClassKeySkill } = useMainStore()
+
+const classDC = computed(
+  () => 10 + getClassKeySkill() + getProficiencyValue(proficiency.value) + item.value
+)
+
+const proficiency = ref(0)
+const item = ref(0)
+</script>
