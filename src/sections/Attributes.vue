@@ -18,8 +18,8 @@
 </template>
 
 <script setup lang="ts">
-import SGSection from '../layout/SGSection.vue'
-import SGInput from '../form/SGInput.vue'
+import SGSection from '@/components/layout/SGSection.vue'
+import SGInput from '@/components/form/SGInput.vue'
 import { useAttributeStore } from '@/stores/attribute'
 
 const store = useAttributeStore()

@@ -36,8 +36,8 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import SGInput from '../form/SGInput.vue'
-import SGSection from '../layout/SGSection.vue'
+import SGInput from '@/components/form/SGInput.vue'
+import SGSection from '@/components/layout/SGSection.vue'
 import { useMainStore } from '@/stores/main'
 import { storeToRefs } from 'pinia'
 

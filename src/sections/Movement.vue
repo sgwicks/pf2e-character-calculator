@@ -7,8 +7,8 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import SGSection from '../layout/SGSection.vue'
-import SGInput from '../form/SGInput.vue'
+import SGSection from '@/components/layout/SGSection.vue'
+import SGInput from '@/components/form/SGInput.vue'
 
 import { useEquipmentStore } from '@/stores/equipment'
 import { storeToRefs } from 'pinia'

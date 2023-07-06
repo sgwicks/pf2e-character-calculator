@@ -12,7 +12,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import SGInput from '@/components/form/SGInput.vue'
 import SGCheckbox from '@/components/form/SGCheckbox.vue'
 

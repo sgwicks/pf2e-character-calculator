@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import SGSection from '../layout/SGSection.vue'
-import SGInput from '../form/SGInput.vue'
+import SGSection from '@/components/layout/SGSection.vue'
+import SGInput from '@/components/form/SGInput.vue'
 
 const hp = reactive({
   max: 0,

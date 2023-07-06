@@ -24,13 +24,14 @@
 </template>
 
 <script setup lang="ts">
-import SGSection from '../layout/SGSection.vue'
-import SGInput from '../form/SGInput.vue'
-import ProficiencyLevel from '../form/ProficiencyLevel.vue'
+import SGSection from '@/components/layout/SGSection.vue'
+import SGInput from '@/components/form/SGInput.vue'
+import ProficiencyLevel from '@/components/form/ProficiencyLevel.vue'
 
 import { useMainStore } from '@/stores/main'
 import { useAttributeStore } from '@/stores/attribute'
 import { useSkillStore } from '@/stores/skill'
+import { useEquipmentStore } from '@/stores/equipment'
 import { storeToRefs } from 'pinia'
 
 const { getProficiencyValue } = useMainStore()
@@ -38,7 +39,10 @@ const { getAttributeModifier } = useAttributeStore()
 
 const skillStore = useSkillStore()
 const { getSkillValue, setSkillProficiency, setSkillItem } = skillStore
-const { skills, getArmourCheckPenalty } = storeToRefs(skillStore)
+const { skills } = storeToRefs(skillStore)
+
+const equipmentStore = useEquipmentStore()
+const { getArmourCheckPenalty } = storeToRefs(equipmentStore)
 </script>
 
 <style scoped>

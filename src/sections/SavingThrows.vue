@@ -8,5 +8,5 @@
 
 <script setup lang="ts">
 import SGSection from '@/components/layout/SGSection.vue'
-import SavingThrow from './SavingThrow.vue'
+import SavingThrow from '@/components/SavingThrow.vue'
 </script>

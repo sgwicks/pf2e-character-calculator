@@ -15,10 +15,10 @@
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import SGSection from '../layout/SGSection.vue'
-import Weapon from './equipment/Weapon.vue'
+import SGSection from '@/components/layout/SGSection.vue'
+import Weapon from '@/components/equipment/Weapon.vue'
 import { useEquipmentStore } from '@/stores/equipment'
-import ProficiencyLevel from '../form/ProficiencyLevel.vue'
+import ProficiencyLevel from '@/components/form/ProficiencyLevel.vue'
 
 const equipmentStore = useEquipmentStore()
 const { weapons, weaponProficiencies } = storeToRefs(equipmentStore)

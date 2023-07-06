@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import SGSection from '@/components/layout/SGSection.vue'
 import SGInput from '@/components/form/SGInput.vue'
-import ProficiencyLevel from '../form/ProficiencyLevel.vue'
+import ProficiencyLevel from '@/components/form/ProficiencyLevel.vue'
 import { computed, ref } from 'vue'
 
 import { useMainStore } from '@/stores/main'

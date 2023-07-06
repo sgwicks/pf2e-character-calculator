@@ -11,7 +11,7 @@
   <main>
     <Attributes />
     <ClassDC />
-    <SavingThrowsVue />
+    <SavingThrows />
     <Skills />
     <ArmourClass />
     <Armour />
@@ -20,18 +20,18 @@
 </template>
 
 <script setup lang="ts">
-import PlayerInfo from './components/sections/PlayerInfo.vue'
-import Perception from './components/sections/Perception.vue'
-import HitPoints from './components/sections/HitPoints.vue'
-import Movement from './components/sections/Movement.vue'
+import PlayerInfo from './sections/PlayerInfo.vue'
+import Perception from './sections/Perception.vue'
+import HitPoints from './sections/HitPoints.vue'
+import Movement from './sections/Movement.vue'
 
-import Attributes from './components/sections/Attributes.vue'
-import ClassDC from './components/sections/ClassDC.vue'
-import Skills from './components/sections/Skills.vue'
-import ArmourClass from './components/sections/ArmourClass.vue'
-import Armour from './components/sections/equipment/Armour.vue'
-import WeaponList from './components/sections/WeaponList.vue'
-import SavingThrowsVue from './components/sections/saving-throws/index.vue'
+import Attributes from './sections/Attributes.vue'
+import ClassDC from './sections/ClassDC.vue'
+import Skills from './sections/Skills.vue'
+import ArmourClass from './sections/ArmourClass.vue'
+import Armour from '@/components/equipment/Armour.vue'
+import WeaponList from './sections/WeaponList.vue'
+import SavingThrows from './sections/SavingThrows.vue'
 </script>
 
 <style scoped></style>
