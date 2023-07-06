@@ -16,6 +16,7 @@
     <ArmourClass />
     <Armour />
     <WeaponList />
+    <Feats />
   </main>
 </template>
 
@@ -32,6 +33,7 @@ import ArmourClass from './sections/ArmourClass.vue'
 import Armour from '@/components/equipment/Armour.vue'
 import WeaponList from './sections/WeaponList.vue'
 import SavingThrows from './sections/SavingThrows.vue'
+import Feats from './sections/Feats.vue'
 </script>
 
 <style scoped></style>
