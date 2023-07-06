@@ -1,20 +1,26 @@
 <template>
     <!-- Ancestry -->
-    <SGSection title="Ancestry Feats">
-        <Feat :required-level="1" />
-        <Feat v-for="level in ancestryFeats" :required-level="level" :key="`ancestry-feat-${level}`" />
-    </SGSection>
-    <!-- Class -->
-    <SGSection title="Class Feats">
-        <Feat v-for="level in classFeats" :required-level="level" :key="`class-feat-${level}`" />
-    </SGSection>
-    <!-- Skill -->
-    <SGSection title="Skill Feats">
-        <Feat v-for="level in skillFeats" :required-level="level" :key="`skill-feat-${level}`" />
-    </SGSection>
-    <!-- General -->
-    <SGSection title="General Feats">
-        <Feat v-for="level in generalFeats" :required-level="level" :key="`general-feat-${level}`" />
+    <SGSection title="Feats">
+        <div><h3>Ancestry Feats</h3>
+            <Feat :required-level="1" />
+            <Feat v-for="level in ancestryFeats" :required-level="level" :key="`ancestry-feat-${level}`" />
+        </div>
+        <!-- Class -->
+        <div>
+            <h3>Class Feats</h3>
+            <Feat v-for="level in classFeats" :required-level="level" :key="`class-feat-${level}`" />
+        </div>
+        <!-- Skill -->
+        <div>
+            <h3>Skill Feats</h3>
+            <Feat v-for="level in skillFeats" :required-level="level" :key="`skill-feat-${level}`" />
+
+        </div>
+        <!-- General -->
+<div>
+    <h3>General Feats</h3>
+    <Feat v-for="level in generalFeats" :required-level="level" :key="`general-feat-${level}`" />
+</div>
     </SGSection>
 </template>
 
