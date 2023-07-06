@@ -1,6 +1,7 @@
 <template>
   <header>
     <div class="wrapper">
+      <ActionsExplainer />
       <PlayerInfo />
       <Perception />
       <HitPoints />
@@ -34,6 +35,7 @@ import Armour from '@/components/equipment/Armour.vue'
 import WeaponList from './sections/WeaponList.vue'
 import SavingThrows from './sections/SavingThrows.vue'
 import Feats from './sections/Feats.vue'
+import ActionsExplainer from './components/ActionsExplainer.vue'
 </script>
 
 <style scoped></style>

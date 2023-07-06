@@ -103,3 +103,5 @@ interface CharacterClass {
   name: string
   keySkill: Attribute[]
 }
+
+type Action = 'bonus' | 'single' | 'double' | 'triple' | 'reaction'
