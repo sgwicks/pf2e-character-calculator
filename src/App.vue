@@ -18,6 +18,7 @@
     <Armour />
     <WeaponList />
     <Feats />
+    <ActionList />
   </main>
 </template>
 
@@ -26,6 +27,7 @@ import PlayerInfo from './sections/PlayerInfo.vue'
 import Perception from './sections/Perception.vue'
 import HitPoints from './sections/HitPoints.vue'
 import Movement from './sections/Movement.vue'
+import ActionsExplainer from './components/ActionsExplainer.vue'
 
 import Attributes from './sections/Attributes.vue'
 import ClassDC from './sections/ClassDC.vue'
@@ -35,7 +37,7 @@ import Armour from '@/components/equipment/Armour.vue'
 import WeaponList from './sections/WeaponList.vue'
 import SavingThrows from './sections/SavingThrows.vue'
 import Feats from './sections/Feats.vue'
-import ActionsExplainer from './components/ActionsExplainer.vue'
+import ActionList from './sections/ActionList.vue'
 </script>
 
 <style scoped></style>

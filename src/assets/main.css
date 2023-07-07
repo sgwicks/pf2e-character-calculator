@@ -38,3 +38,15 @@ input[type='number'] {
   appearance: textfield;
   width: 40px;
 }
+
+.flex {
+  display: flex;
+}
+
+.flex.column {
+  flex-direction: column;
+}
+
+hr {
+  margin-block: 8px;
+}
