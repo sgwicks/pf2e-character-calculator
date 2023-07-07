@@ -36,7 +36,6 @@ const src = computed(() => {
 <style scoped>
 .action-icon-wrapper {
   height: var(--size);
-  width: var(--size);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -44,7 +43,6 @@ const src = computed(() => {
 }
 
 img {
-  width: 100%;
-  max-height: 100%;
+  height: 100%;
 }
 </style>
