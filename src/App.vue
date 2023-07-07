@@ -19,6 +19,7 @@
     <WeaponList />
     <Feats />
     <ActionList />
+    <SpellDC />
   </main>
 </template>
 
@@ -38,6 +39,7 @@ import WeaponList from './sections/WeaponList.vue'
 import SavingThrows from './sections/SavingThrows.vue'
 import Feats from './sections/Feats.vue'
 import ActionList from './sections/ActionList.vue'
+import SpellDC from './sections/SpellDC.vue'
 </script>
 
 <style scoped></style>
