@@ -1,24 +1,18 @@
 <template>
   <SGSection title="Armour">
     <SGInput v-model="armour.name" label="Armour" />
-    <!-- Category (U, L, M, H) -->
-    Category
-    <ArmourType v-model="armour.category" />
     <!-- AC -->
     <SGInput v-model="armour.ac" label="AC" />
     <!-- Dex Cap -->
-    <SGInput v-model="dexCapComputed" label="Dex Cap" />
+    <SGInput v-model="dexCapComputed" label="Dex Cap" class="number-input" />
     <!-- Check Penalty -->
     <SGInput v-model="armour.checkPenalty" label="Check Penalty" />
     <!-- Speed Penalty -->
     <SGInput v-model="armour.speedPenalty" label="Speed Penalty" />
     <!-- Strength Req -->
     <SGInput v-model="armour.strengthReq" label="Strength Requirement" />
-    <!-- Level -->
-    <SGInput v-model="armour.level" label="Level" />
-    <!-- Bulk -->
-    <SGInput v-model="armour.bulk" label="Bulk" />
-    ---
+    <!-- Category (U, L, M, H) -->
+    <ArmourType v-model="armour.category" />
     <Shield />
   </SGSection>
 </template>
@@ -36,10 +30,11 @@ const equipmentStore = useEquipmentStore()
 const { armour } = storeToRefs(equipmentStore)
 
 const dexCapComputed = computed({
-  get: () => (armour.value.dexCap ? armour.value.dexCap : 0),
+  get: () => (armour.value.dexCap === null ? null : armour.value.dexCap),
   set: (val: any) => {
-    if (val === undefined || val === null) armour.value.dexCap = null
-    else if (typeof val === 'number') armour.value.dexCap = val
+    console.log(val)
+    if (val === undefined || val === null || val === '') armour.value.dexCap = null
+    else armour.value.dexCap = Number(val)
   }
 })
 </script>

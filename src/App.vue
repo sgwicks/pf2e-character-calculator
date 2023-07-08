@@ -1,21 +1,21 @@
 <template>
   <header>
-    <PlayerInfo class="col-span-full" />
-    <Perception class="col-span-4 flex wrap" />
-    <HitPoints class="col-span-4 flex wrap" />
-    <Movement class="col-span-4 flex wrap" />
+    <PlayerInfo class="col-span-full row-span-7" />
+    <Perception class="col-span-5 row-span-4 flex wrap" />
+    <HitPoints class="col-span-7 row-span-7 flex wrap" />
+    <Movement class="col-span-5 row-span-3 flex wrap" />
   </header>
 
   <main>
-    <Attributes class="row-span-5 col-span-4" />
-    <ArmourClass class="row-span-3 col-span-4 flex wrap" />
-    <Armour class="row-span-6 col-span-4 flex wrap" />
-    <SavingThrows class="row-span-3 col-span-4 flex wrap" />
-    <ClassDC class="row-span-1 col-span-4 flex wrap" />
-    <WeaponList class="col-span-6" />
-    <Skills class="col-span-6" />
+    <Attributes class="row-span-11 col-span-2" />
+    <SavingThrows class="row-span-7 col-span-5 flex wrap space-between" />
+    <ArmourClass class="row-span-7 col-span-5 flex wrap" />
+    <Armour class="row-span-4 col-span-10 flex wrap" />
+    <WeaponList class="row-span-26 col-span-6" />
+    <Skills class="row-span-26 col-span-6" />
     <Feats class="col-span-12 flex wrap" />
     <ActionsExplainer class="col-span-2" />
+    <ClassDC class="row-span-2 col-span-4 flex wrap" />
     <ActionList class="col-span-10" />
     <SpellDC class="row-span-2 col-span-2" />
     <SpellList class="col-span-10" />

@@ -1,5 +1,6 @@
 <template>
   <fieldset>
+    <legend>Category</legend>
     <label>
       U
       <input v-model="equipped" name="equipped" type="radio" value="U" />

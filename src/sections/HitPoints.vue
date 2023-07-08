@@ -1,6 +1,15 @@
 <template>
   <SGSection title="Health">
-    <SGInput v-for="(value, key) in hp" v-model="hp[key]" :label="key" />
+    <SGInput v-model="hp.max" label="Max" />
+    <SGInput v-model="hp.current" label="Current" />
+    <SGInput v-model="hp.temporary" label="Temp" />
+    <SGInput v-model="hp.dying" label="Dying" />
+    <SGInput v-model="hp.wounded" label="Wounded" />
+    <div style="width: 100%">
+      <SGInput v-model="hp.resistances" label="Resistances" />
+      <SGInput v-model="hp.immunities" label="Immunites" />
+      <SGInput v-model="hp.conditions" label="Conditions" />
+    </div>
   </SGSection>
 </template>
 

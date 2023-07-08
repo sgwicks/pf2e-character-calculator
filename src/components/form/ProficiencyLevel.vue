@@ -1,6 +1,6 @@
 <template>
   <table>
-    <tr style="background-color: blueviolet; color: white; text-align: center">
+    <tr>
       <td>T</td>
       <td>E</td>
       <td>M</td>
@@ -46,4 +46,24 @@ const legendary = computed({
 })
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+table {
+  height: 4rem;
+  margin: 8px;
+}
+
+td {
+  padding-inline: 6px;
+}
+
+tr:first-of-type {
+  background-color: blueviolet;
+  color: white;
+  text-align: center;
+}
+
+tr:not(:first-of-type) td {
+  border: 1px solid black;
+  padding-block: 4px;
+}
+</style>

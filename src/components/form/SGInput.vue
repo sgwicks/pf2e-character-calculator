@@ -42,7 +42,10 @@ const type = typeof props.modelValue === 'number' ? 'number' : 'text'
 label {
   display: flex;
   flex-direction: column;
-  padding: 5px;
+  margin: 8px 4px;
   text-transform: capitalize;
+  justify-content: space-between;
+  font-weight: 600;
+  height: 4rem;
 }
 </style>

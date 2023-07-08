@@ -27,7 +27,7 @@ main,
 header {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-auto-rows: auto;
+  grid-auto-rows: 4rem;
 }
 
 section {
@@ -42,9 +42,13 @@ h3 {
   width: 100%;
 }
 
-input[type='number'] {
+input[type='number'],
+.number-input input {
   appearance: textfield;
-  width: 40px;
+  font-size: 1.8rem;
+  min-height: 1.5em;
+  width: 2em;
+  margin: 2px;
 }
 
 hr {
@@ -65,16 +69,36 @@ hr {
 
 .flex {
   display: flex;
-}
 
-.flex.column {
-  flex-direction: column;
-}
+  &.column {
+    flex-direction: column;
+  }
 
-.flex.wrap {
-  flex-flow: wrap;
+  &.wrap {
+    flex-flow: wrap;
+  }
+
+  &.space-between {
+    justify-content: space-between;
+  }
 }
 
 .col-span-full {
   grid-column: 1/-1;
+}
+
+.row-span-26 {
+  grid-row: span 26;
+}
+
+/* Specific Classes */
+
+.equals {
+  margin-block-start: 1em;
+  font-size: 200%;
+  margin-inline: 5px;
+
+  &::before {
+    content: '=';
+  }
 }

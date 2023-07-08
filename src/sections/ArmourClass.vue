@@ -1,27 +1,36 @@
 <template>
   <SGSection title="Armour Class">
     <SGInput :model-value="armourClass" label="AC" disabled />
+    <span class="equals" />
     <SGInput :model-value="getProficiencyValue(proficiency)" label="Prof" disabled />
     <SGInput :model-value="getAttributeModifier('dexterity')" label="Dex" disabled />
-    <SGInput :model-value="armour.dexCap === null ? '' : armour.dexCap" label="Cap" disabled />
+    <SGInput
+      :model-value="armour.dexCap === null ? '' : armour.dexCap"
+      label="Cap"
+      disabled
+      class="number-input"
+    />
     <SGInput :model-value="armour.ac" label="Armour" disabled />
     <SGInput :model-value="shieldToAc" label="Shield" disabled />
-    <label>
-      Unarmoured
-      <ProficiencyLevel v-model="unarmouredProficiency" />
-    </label>
-    <label>
-      Light
-      <ProficiencyLevel v-model="lightProficiency" />
-    </label>
-    <label>
-      Medium
-      <ProficiencyLevel v-model="mediumProficiency" />
-    </label>
-    <label>
-      Heavy
-      <ProficiencyLevel v-model="heavyProficiency" />
-    </label>
+    <fieldset class="flex wrap">
+      <legend>Proficiencies</legend>
+      <label>
+        Unarmoured
+        <ProficiencyLevel v-model="unarmouredProficiency" />
+      </label>
+      <label>
+        Light
+        <ProficiencyLevel v-model="lightProficiency" />
+      </label>
+      <label>
+        Medium
+        <ProficiencyLevel v-model="mediumProficiency" />
+      </label>
+      <label>
+        Heavy
+        <ProficiencyLevel v-model="heavyProficiency" />
+      </label>
+    </fieldset>
   </SGSection>
 </template>
 

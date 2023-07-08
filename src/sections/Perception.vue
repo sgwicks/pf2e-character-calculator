@@ -1,10 +1,11 @@
 <template>
   <SGSection title="Perception">
-    <SGInput :model-value="perception" label="Perception" disabled />
+    <SGInput :model-value="perception" label="Per" disabled />
+    <span class="equals" />
     <SGInput :model-value="getAttributeModifier('wisdom')" label="Wis" disabled />
     <ProficiencyLevel v-model="proficiency" />
     <SGInput v-model="item" label="Item" />
-    <SGInput v-model="senses" label="Senses" />
+    <SGInput v-model="senses" label="Senses" style="width: 100%" />
   </SGSection>
 </template>
 

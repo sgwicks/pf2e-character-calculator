@@ -1,11 +1,10 @@
 <template>
-  <h3>{{ title }}</h3>
-  <SGInput :model-value="save" disabled />
+  <SGInput :model-value="save" disabled :label="title" />
+  <span class="equals" />
   <SGInput :model-value="getAttributeModifier(attribute)" :label="attribute.slice(0, 3)" disabled />
   <SGInput :model-value="getProficiencyValue(proficiency)" label="prof" disabled />
   <SGInput v-model="item" label="Item" />
   <ProficiencyLevel v-model="proficiency" />
-  ---
 </template>
 
 <script setup lang="ts">
