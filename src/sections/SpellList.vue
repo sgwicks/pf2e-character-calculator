@@ -1,12 +1,12 @@
 <template>
-  <SGSection title="Actions">
-    <Action />
+  <SGSection title="Spells">
+    <Action is-spell />
     <hr />
-    <Action />
+    <Action is-spell />
     <hr />
-    <Action />
+    <Action is-spell />
     <hr />
-    <Action />
+    <Action is-spell />
   </SGSection>
 </template>
 

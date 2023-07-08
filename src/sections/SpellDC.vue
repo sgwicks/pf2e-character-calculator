@@ -1,16 +1,18 @@
 <template>
-  <SGSection title="Spell Attack Roll">
-    <SGInput :model-value="spellAttackRoll" label="Roll" disabled />
-    <SGInput :model-value="keySkill" label="Key" disabled />
-    <SGInput :model-value="spellAttackProficiency" label="Prof" disabled />
-    <ProficiencyLevel v-model="spellAttackProficiency" />
-  </SGSection>
-  <SGSection title="Spell Save DC">
-    <SGInput :model-value="spellDC" label="DC" disabled />
-    <SGInput :model-value="keySkill" label="Key" disabled />
-    <SGInput :model-value="spellDCProficiency" label="Prof" disabled />
-    <ProficiencyLevel v-model="spellDCProficiency" />
-  </SGSection>
+  <div>
+    <SGSection title="Spell Attack Roll">
+      <SGInput :model-value="spellAttackRoll" label="Roll" disabled />
+      <SGInput :model-value="keySkill" label="Key" disabled />
+      <SGInput :model-value="spellAttackProficiency" label="Prof" disabled />
+      <ProficiencyLevel v-model="spellAttackProficiency" />
+    </SGSection>
+    <SGSection title="Spell Save DC">
+      <SGInput :model-value="spellDC" label="DC" disabled />
+      <SGInput :model-value="keySkill" label="Key" disabled />
+      <SGInput :model-value="spellDCProficiency" label="Prof" disabled />
+      <ProficiencyLevel v-model="spellDCProficiency" />
+    </SGSection>
+  </div>
 </template>
 
 <script setup lang="ts">
