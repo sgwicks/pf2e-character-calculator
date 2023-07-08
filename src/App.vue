@@ -1,9 +1,9 @@
 <template>
   <header>
     <PlayerInfo class="col-span-full" />
-    <Perception class="col-span-4" />
-    <HitPoints class="col-span-4" />
-    <Movement class="col-span-4" />
+    <Perception class="col-span-4 flex wrap" />
+    <HitPoints class="col-span-4 flex wrap" />
+    <Movement class="col-span-4 flex wrap" />
   </header>
 
   <main>
@@ -14,7 +14,7 @@
     <ClassDC class="row-span-1 col-span-4 flex wrap" />
     <WeaponList class="col-span-6" />
     <Skills class="col-span-6" />
-    <Feats class="col-span-12 flex" />
+    <Feats class="col-span-12 flex wrap" />
     <ActionsExplainer class="col-span-2" />
     <ActionList class="col-span-10" />
     <SpellDC class="row-span-2 col-span-2" />

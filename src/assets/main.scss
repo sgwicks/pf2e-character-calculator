@@ -35,7 +35,11 @@ section {
   color: black;
   background-color: white;
   border: 1px solid red;
-  grid-column: span 3;
+}
+
+h2,
+h3 {
+  width: 100%;
 }
 
 input[type='number'] {
