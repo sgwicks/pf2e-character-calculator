@@ -13,7 +13,7 @@
     <Shield class="row-span-3 col-span-4 flex wrap" />
     <Armour class="row-span-4 col-span-6 flex wrap" />
     <WeaponList class="row-span-26 col-span-6" />
-    <Skills class="row-span-26 col-span-6" />
+    <Skills class="row-span-25 col-span-6" />
     <Feats class="col-span-12 flex wrap" />
     <ActionsExplainer class="col-span-2" />
     <ClassDC class="row-span-2 col-span-4 flex wrap" />

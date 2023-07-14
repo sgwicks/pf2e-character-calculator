@@ -1,56 +1,69 @@
 <template>
-  ---
-  <h3>Weapon</h3>
-  <SGInput v-model="weapon.name" label="Name" />
-  <fieldset>
-    <legend>To Hit</legend>
-    <SGInput :model-value="toHit" disabled />
-    <span>=</span>
-    <SGInput :model-value="attribute" label="Att" disabled />
-    <fieldset>
-      <label>
-        Melee
-        <input type="radio" v-model="weapon.type" name="weapon-type" value="melee" />
-      </label>
-      <label>
-        Ranged
-        <input type="radio" v-model="weapon.type" name="weapon-type" value="ranged" />
-      </label>
+  <hr />
+  <SGInput v-model="weapon.name" label="Weapon" />
+  <div class="weapon">
+    <!-- To Hit -->
+    <fieldset class="flex wrap">
+      <legend>To Hit</legend>
+      <div class="flex wrap full-width">
+        <SGInput :model-value="toHit" label="Total" disabled />
+        <span class="equals" />
+        <SGInput :model-value="attribute" label="Att" disabled />
+        <span class="plus" />
+        <SGInput :model-value="proficiency" label="Prof" disabled />
+        <span class="plus" />
+        <SGInput v-model="weapon.item" label="Item" />
+      </div>
+      <fieldset class="full-width flex space-around">
+        <label>
+          Melee
+          <input type="radio" v-model="weapon.type" name="weapon-type" value="melee" />
+        </label>
+        <label>
+          Ranged
+          <input type="radio" v-model="weapon.type" name="weapon-type" value="ranged" />
+        </label>
+      </fieldset>
+      <fieldset class="full-width flex space-around">
+        <label>
+          Simple
+          <input type="radio" v-model="weapon.class" name="weapon-class" value="simple" />
+        </label>
+        <label>
+          Martial
+          <input type="radio" v-model="weapon.class" name="weapon-class" value="martial" />
+        </label>
+        <label>
+          Other
+          <input type="radio" v-model="weapon.class" name="weapon-class" value="other" />
+        </label>
+      </fieldset>
     </fieldset>
-    <SGInput :model-value="proficiency" label="Prof" disabled />
+
+    <!-- Damage -->
     <fieldset>
-      <label>
-        Simple
-        <input type="radio" v-model="weapon.class" name="weapon-class" value="simple" />
-      </label>
-      <label>
-        Martial
-        <input type="radio" v-model="weapon.class" name="weapon-class" value="martial" />
-      </label>
-      <label>
-        Other
-        <input type="radio" v-model="weapon.class" name="weapon-class" value="other" />
-      </label>
+      <legend>Damage</legend>
+      <div class="full-width flex wrap">
+        <SGInput v-model="diceString" label="Dice" style="width: 6em" />
+        <span v-if="weapon.type === 'melee'" class="plus" />
+        <SGInput v-if="weapon.type === 'melee'" :model-value="attribute" label="Str" disabled />
+      </div>
+      <div class="flex column">
+        <label class="flex space-between">
+          Bludgeoning
+          <SGCheckbox v-model="weapon.bludgeoning" />
+        </label>
+        <label class="flex space-between">
+          Piercing
+          <SGCheckbox v-model="weapon.piercing" />
+        </label>
+        <label class="flex space-between">
+          Slashing
+          <SGCheckbox v-model="weapon.slashing" />
+        </label>
+      </div>
     </fieldset>
-    <SGInput v-model="weapon.item" label="Item" />
-  </fieldset>
-  <fieldset>
-    <legend>Damage</legend>
-    <SGInput v-model="diceString" label="Dice" />
-    <SGInput v-if="weapon.type === 'melee'" :model-value="attribute" label="Str" disabled />
-    <label>
-      B
-      <SGCheckbox v-model="weapon.bludgeoning" />
-    </label>
-    <label>
-      P
-      <SGCheckbox v-model="weapon.piercing" />
-    </label>
-    <label>
-      S
-      <SGCheckbox v-model="weapon.slashing" />
-    </label>
-  </fieldset>
+  </div>
   <SGInput v-model="weapon.other" label="Other" />
 </template>
 
@@ -105,3 +118,15 @@ const diceString = computed({
   }
 })
 </script>
+
+<style lang="scss" scoped>
+.weapon {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  width: 100%;
+}
+
+fieldset {
+  margin: 4px;
+}
+</style>

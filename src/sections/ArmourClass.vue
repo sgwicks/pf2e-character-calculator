@@ -3,14 +3,20 @@
     <SGInput :model-value="armourClass" label="AC" disabled />
     <span class="equals" />
     <SGInput :model-value="getProficiencyValue(proficiency)" label="Prof" disabled />
-    <SGInput :model-value="getAttributeModifier('dexterity')" label="Dex" disabled />
-    <SGInput
-      :model-value="armour.dexCap === null ? '' : armour.dexCap"
-      label="Cap"
-      disabled
-      class="number-input"
-    />
+    <span class="plus" />
+    <div class="flex dex-or-cap">
+      <SGInput :model-value="getAttributeModifier('dexterity')" label="Dex" disabled />
+      <span class="or">OR</span>
+      <SGInput
+        :model-value="armour.dexCap === null ? '' : armour.dexCap"
+        label="Cap"
+        disabled
+        class="number-input cap"
+      />
+    </div>
+    <span class="plus" />
     <SGInput :model-value="armour.ac" label="Armour" disabled />
+    <span class="plus" />
     <SGInput :model-value="shieldToAc" label="Shield" disabled />
     <fieldset class="flex wrap">
       <legend>Proficiencies</legend>
@@ -91,5 +97,27 @@ fieldset {
   grid-template-rows: repeat(2, 1fr);
   justify-items: center;
   align-items: center;
+}
+
+.dex-or-cap {
+  position: relative;
+  text-align: center;
+  :deep(input) {
+    text-align: center;
+  }
+}
+
+.or {
+  border: 1px solid white;
+  height: 2.2em;
+  position: absolute;
+  top: 2.5rem;
+  right: 40%;
+  left: 40%;
+  text-align: center;
+  font-size: 80%;
+  font-weight: 900;
+  background: white;
+  line-height: 1.9em;
 }
 </style>

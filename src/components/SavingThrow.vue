@@ -2,7 +2,9 @@
   <SGInput :model-value="save" disabled :label="title" />
   <span class="equals" />
   <SGInput :model-value="getAttributeModifier(attribute)" :label="attribute.slice(0, 3)" disabled />
+  <span class="plus" />
   <SGInput :model-value="getProficiencyValue(proficiency)" label="prof" disabled />
+  <span class="plus" />
   <SGInput v-model="item" label="Item" />
   <ProficiencyLevel v-model="proficiency" />
 </template>

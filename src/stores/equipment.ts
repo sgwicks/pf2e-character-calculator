@@ -56,7 +56,11 @@ export const useEquipmentStore = defineStore('equipment', () => {
     else return armour.speedPenalty
   })
 
-  const weapons: Weapon[] = reactive([{ ...emptyWeapon }, { ...emptyWeapon, type: 'ranged' }])
+  const weapons: Weapon[] = reactive([
+    { ...emptyWeapon },
+    { ...emptyWeapon, type: 'ranged' },
+    { ...emptyWeapon }
+  ])
 
   const weaponProficiencies: Proficiencies = reactive({
     simple: 0,

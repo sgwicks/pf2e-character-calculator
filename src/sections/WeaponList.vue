@@ -1,14 +1,16 @@
 <template>
   <SGSection title="Weapons">
     <h3>Proficiencies</h3>
-    <label>
-      Simple
-      <ProficiencyLevel v-model="weaponProficiencies.simple" />
-    </label>
-    <label>
-      Martial
-      <ProficiencyLevel v-model="weaponProficiencies.martial" />
-    </label>
+    <div class="flex">
+      <label>
+        Simple
+        <ProficiencyLevel v-model="weaponProficiencies.simple" />
+      </label>
+      <label>
+        Martial
+        <ProficiencyLevel v-model="weaponProficiencies.martial" />
+      </label>
+    </div>
     <Weapon v-for="(weapon, i) in weapons" :key="`weapon-${i}`" :weapon="weapon" />
   </SGSection>
 </template>

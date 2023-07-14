@@ -58,12 +58,12 @@ input[type='number'],
 }
 
 hr {
-  margin-block: 8px;
+  margin-block: 16px 12px;
 }
 
 /* General Classes */
 
-@for $i from 1 through 12 {
+@for $i from 1 through 26 {
   .col-span-#{$i} {
     grid-column: span $i;
   }
@@ -91,14 +91,18 @@ hr {
   &.space-between {
     justify-content: space-between;
   }
+
+  &.space-around {
+    justify-content: space-around;
+  }
 }
 
 .col-span-full {
   grid-column: 1/-1;
 }
 
-.row-span-26 {
-  grid-row: span 26;
+.full-width {
+  width: 100%;
 }
 
 /* Specific Classes */
@@ -110,5 +114,14 @@ hr {
 
   &::before {
     content: '=';
+  }
+}
+
+.plus {
+  margin-block-start: 1em;
+  font-size: 200%;
+
+  &::before {
+    content: '+';
   }
 }

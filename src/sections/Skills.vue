@@ -2,17 +2,19 @@
   <SGSection title="Skills">
     <div v-for="(skill, key) in skills" class="skill-row">
       <SGInput :model-value="getSkillValue(key)" :label="key.toString()" disabled />
-      <span>=</span>
+      <span class="equals" />
       <SGInput
         :model-value="getAttributeModifier(skill.attribute)"
         :label="skill.attribute.slice(0, 3)"
         disabled
       />
+      <span class="plus" />
       <SGInput :model-value="getProficiencyValue(skill.proficiency)" label="Prof" disabled />
       <ProficiencyLevel
         :model-value="skill.proficiency"
         @update:model-value="(val) => setSkillProficiency(key, val)"
       />
+      <span class="plus" />
       <SGInput
         :model-value="skill.item"
         label="Item"
@@ -48,8 +50,8 @@ const { getArmourCheckPenalty } = storeToRefs(equipmentStore)
 <style scoped>
 .skill-row {
   display: grid;
-  grid-template-columns: 50px 25px repeat(2, 50px) 100px 50px 5px 50px;
-  column-gap: 10px;
+  grid-template-columns: 50px 25px 50px 15px 50px 125px 15px 50px 50px 50px;
+  column-gap: 15px;
   align-items: end;
 }
 
