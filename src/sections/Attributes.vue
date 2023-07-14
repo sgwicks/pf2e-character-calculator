@@ -11,6 +11,7 @@
           :model-value="`${attribute.modifier >= 0 ? '+' : ''}${attribute.modifier}`"
           label="Modifier"
           disabled
+          class="number-input"
         />
       </template>
     </div>
@@ -29,7 +30,6 @@ const { setAttribute } = store
 <style scoped>
 .attributes {
   display: grid;
-  grid-template-columns: 75px 50px;
-  gap: 10px;
+  grid-template-columns: auto auto;
 }
 </style>

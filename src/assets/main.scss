@@ -31,7 +31,7 @@ header {
 }
 
 section {
-  padding: 20px;
+  padding: 10px 20px;
   color: black;
   background-color: white;
   border: 1px solid red;
@@ -40,13 +40,19 @@ section {
 h2,
 h3 {
   width: 100%;
+  margin: 0;
+  line-height: normal;
+}
+
+input,
+select {
+  font-size: 1.5rem;
 }
 
 input[type='number'],
 .number-input input {
   appearance: textfield;
-  font-size: 1.8rem;
-  min-height: 1.5em;
+  font-size: 1.5rem;
   width: 2em;
   margin: 2px;
 }
@@ -72,6 +78,10 @@ hr {
 
   &.column {
     flex-direction: column;
+  }
+
+  &.row {
+    flex-direction: row;
   }
 
   &.wrap {

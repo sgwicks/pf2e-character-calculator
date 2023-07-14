@@ -1,5 +1,5 @@
 <template>
-  <label>
+  <label :class="{ number: type === 'number' }">
     {{ label }}
     <input
       v-if="type === 'number'"
@@ -38,7 +38,7 @@ const value = computed({
 const type = typeof props.modelValue === 'number' ? 'number' : 'text'
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 label {
   display: flex;
   flex-direction: column;
@@ -47,5 +47,10 @@ label {
   justify-content: space-between;
   font-weight: 600;
   height: 4rem;
+
+  &.number {
+    width: 6em;
+    max-width: max-content;
+  }
 }
 </style>

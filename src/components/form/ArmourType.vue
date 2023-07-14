@@ -1,20 +1,20 @@
 <template>
-  <fieldset>
+  <fieldset class="flex column space-between">
     <legend>Category</legend>
-    <label>
-      U
+    <label class="flex space-between">
+      Unarmoured
       <input v-model="equipped" name="equipped" type="radio" value="U" />
     </label>
-    <label>
-      L
+    <label class="flex space-between">
+      Light
       <input v-model="equipped" name="equipped" type="radio" value="L" />
     </label>
-    <label>
-      M
+    <label class="flex space-between">
+      Medium
       <input v-model="equipped" name="equipped" type="radio" value="M" />
     </label>
-    <label>
-      H
+    <label class="flex space-between">
+      Heavy
       <input v-model="equipped" name="equipped" type="radio" value="H" />
     </label>
   </fieldset>

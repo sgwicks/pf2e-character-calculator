@@ -2,15 +2,16 @@
   <header>
     <PlayerInfo class="col-span-full row-span-7" />
     <Perception class="col-span-5 row-span-4 flex wrap" />
-    <HitPoints class="col-span-7 row-span-7 flex wrap" />
-    <Movement class="col-span-5 row-span-3 flex wrap" />
+    <HitPoints class="col-span-7 row-span-6 flex wrap" />
+    <Movement class="col-span-5 row-span-2 flex wrap" />
   </header>
 
   <main>
-    <Attributes class="row-span-11 col-span-2" />
-    <SavingThrows class="row-span-7 col-span-5 flex wrap space-between" />
-    <ArmourClass class="row-span-7 col-span-5 flex wrap" />
-    <Armour class="row-span-4 col-span-10 flex wrap" />
+    <Attributes class="row-span-9 col-span-2" />
+    <SavingThrows class="row-span-6 col-span-5 flex wrap space-between" />
+    <ArmourClass class="row-span-6 col-span-5 flex wrap" />
+    <Shield class="row-span-3 col-span-4 flex wrap" />
+    <Armour class="row-span-4 col-span-6 flex wrap" />
     <WeaponList class="row-span-26 col-span-6" />
     <Skills class="row-span-26 col-span-6" />
     <Feats class="col-span-12 flex wrap" />
@@ -40,6 +41,7 @@ import Feats from './sections/Feats.vue'
 import ActionList from './sections/ActionList.vue'
 import SpellList from './sections/SpellList.vue'
 import SpellDC from './sections/SpellDC.vue'
+import Shield from './components/equipment/Shield.vue'
 </script>
 
 <style scoped></style>

@@ -82,3 +82,14 @@ const armourClass = computed(
     10 + armour.value.ac + dexToAc.value + getProficiencyValue(proficiency.value) + shieldToAc.value
 )
 </script>
+
+<style scoped lang="scss">
+fieldset {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  justify-items: center;
+  align-items: center;
+}
+</style>
