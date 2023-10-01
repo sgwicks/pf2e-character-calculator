@@ -1,4 +1,5 @@
 <template>
+  <div v-if="user">
   <header>
     <PlayerInfo class="col-span-full row-span-7" />
     <Perception class="col-span-5 row-span-4 flex wrap" />
@@ -7,20 +8,26 @@
   </header>
 
   <main>
-    <Attributes class="row-span-9 col-span-2" />
-    <SavingThrows class="row-span-6 col-span-5 flex wrap space-between" />
-    <ArmourClass class="row-span-6 col-span-5 flex wrap" />
-    <Shield class="row-span-3 col-span-4 flex wrap" />
-    <Armour class="row-span-4 col-span-6 flex wrap" />
-    <WeaponList class="row-span-26 col-span-6" />
-    <Skills class="row-span-25 col-span-6" />
-    <Feats class="row-span-24 col-span-12 flex wrap" />
-    <ActionsExplainer class="row-span-3 col-span-2" />
-    <ClassDC class="row-span-3 col-span-6 flex wrap" />
-    <ActionList class="row-span-26 col-span-12" />
-    <SpellDC class="row-span-3 col-span-10 flex" />
-    <SpellList class="row-span-26 col-span-12" />
-  </main>
+    <!-- Character Sheet -->
+      <Attributes class="row-span-9 col-span-2" />
+      <SavingThrows class="row-span-6 col-span-5 flex wrap space-between" />
+      <ArmourClass class="row-span-6 col-span-5 flex wrap" />
+      <Shield class="row-span-3 col-span-4 flex wrap" />
+      <Armour class="row-span-4 col-span-6 flex wrap" />
+      <WeaponList class="row-span-26 col-span-6" />
+      <Skills class="row-span-25 col-span-6" />
+      <Feats class="row-span-24 col-span-12 flex wrap" />
+      <ActionsExplainer class="row-span-3 col-span-2" />
+      <ClassDC class="row-span-3 col-span-6 flex wrap" />
+      <ActionList class="row-span-26 col-span-12" />
+      <SpellDC class="row-span-3 col-span-10 flex" />
+      <SpellList class="row-span-26 col-span-12" />
+      <!-- Login form -->
+    </main>
+  </div>
+  <div v-else>
+    <SignIn />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -42,6 +49,13 @@ import ActionList from './sections/ActionList.vue'
 import SpellList from './sections/SpellList.vue'
 import SpellDC from './sections/SpellDC.vue'
 import Shield from './components/equipment/Shield.vue'
+import SignIn from './sections/SignIn.vue'
+
+import { useUserStore } from './stores/user'
+
+const userStore = useUserStore();
+const { getUser } = userStore;
+const user = getUser()
 </script>
 
 <style scoped></style>

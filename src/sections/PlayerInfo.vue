@@ -1,7 +1,7 @@
 <template>
   <SGSection title="PlayerInfo">
     <div class="player-info">
-      <SGInput v-model="playerName" label="Player Name" />
+      <SGInput :model-value="playerName" label="Player Name" disabled />
       <SGInput v-model="character.name" label="Character Name" />
       <SGInput v-model="character.ancestry" label="Ancestry & Heritage" />
       <SGInput v-model="character.background" label="Background" />
@@ -39,12 +39,15 @@ import { computed, ref, watch } from 'vue'
 import SGInput from '@/components/form/SGInput.vue'
 import SGSection from '@/components/layout/SGSection.vue'
 import { useMainStore } from '@/stores/main'
+import { useUserStore } from '@/stores/user'
 import { storeToRefs } from 'pinia'
 
-const store = useMainStore()
-const { level, characterClasses, character } = storeToRefs(store)
+const mainStore = useMainStore()
+const userStore = useUserStore()
+const { level, characterClasses, character } = storeToRefs(mainStore)
+const { user } = storeToRefs(userStore)
 
-const playerName = ref('')
+const playerName = user.value?.name || ''
 
 const keySkillOptions = computed(
   () =>
