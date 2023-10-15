@@ -8,7 +8,7 @@ import { type Component, type Ref, onBeforeMount, shallowRef } from 'vue'
 import NavBar from '@/sections/NavBar.vue'
 
 // Router components
-import Login from '@/pages/Login.vue'
+import Login from '@/pages/LoginPage.vue'
 import CharacterSheet from '@/pages/CharacterSheet.vue'
 
 const routes: { [k: string]: Component } = {

@@ -1,14 +1,14 @@
 <template>
-  <form @submit.prevent="submit">
-    <label>
+  <form class="flex column" @submit.prevent="submit">
+    <label class="flex space-between margin-y-sm">
       Email
-      <input v-model="email" />
+      <input v-model="email" class="margin-x-sm" />
     </label>
-    <label>
+    <label class="flex space-between- margin-y-sm">
       Password
-      <input v-model="password" type="password" />
+      <input v-model="password" type="password" class="margin-x-sm" />
     </label>
-    <button>Submit</button>
+    <button class="margin-md">Submit</button>
   </form>
   <div v-if="error" style="color: red">Incorrect login</div>
 </template>

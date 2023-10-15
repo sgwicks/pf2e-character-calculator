@@ -109,6 +109,45 @@ hr {
   width: 100%;
 }
 
+$sizes: (
+  'sm': 8px,
+  'md': 16px,
+  'lg': 24px
+);
+
+@each $name, $size in $sizes {
+  .margin-left-#{$name} {
+    margin-left: $size;
+  }
+
+  .margin-right-#{$name} {
+    margin-right: $size;
+  }
+
+  .margin-top-#{$name} {
+    margin-top: $size;
+  }
+
+  .margin-bottom-#{$name} {
+    margin-bottom: $size;
+  }
+
+  .margin-x-#{$name} {
+    @extend .margin-left-#{$name};
+    @extend .margin-right-#{$name};
+  }
+
+  .margin-y-#{$name} {
+    @extend .margin-top-#{$name};
+    @extend .margin-bottom-#{$name};
+  }
+
+  .margin-#{$name} {
+    @extend .margin-y-#{$name};
+    @extend .margin-x-#{$name};
+  }
+}
+
 /* Specific Classes */
 
 .equals {
