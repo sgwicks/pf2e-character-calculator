@@ -130,4 +130,4 @@ export const useSkillStore = defineStore('skill', () => {
     setSkillProficiency,
     setSkillItem
   }
-})
+}, {persist: true})

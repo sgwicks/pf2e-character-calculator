@@ -61,4 +61,4 @@ export const useAttributeStore = defineStore('attribute', () => {
     getAttributeModifier,
     setAttribute
   }
-})
+}, {persist: true})

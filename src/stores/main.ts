@@ -126,4 +126,4 @@ export const useMainStore = defineStore('main', () => {
     character,
     getClassKeySkill
   }
-})
+}, {persist: true})

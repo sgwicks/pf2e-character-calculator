@@ -98,4 +98,4 @@ export const useEquipmentStore = defineStore('equipment', () => {
     getWeaponProficiency,
     shield
   }
-})
+}, {persist: true})
