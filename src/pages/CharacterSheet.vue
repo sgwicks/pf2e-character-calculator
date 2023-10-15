@@ -47,15 +47,17 @@ import Shield from '@/components/equipment/Shield.vue'
 import { useUserStore } from '@/stores/user'
 import { onBeforeMount } from 'vue'
 
+import { useRouterStore } from '@/stores/router'
+
+const { setComponent } = useRouterStore()
+
 const userStore = useUserStore()
 const { getUser } = userStore
 const user = getUser()
 
-const emit = defineEmits(['push'])
-
 onBeforeMount(() => {
   if (!user.value) {
-    emit('push', '/')
+    setComponent('/')
   }
 })
 </script>

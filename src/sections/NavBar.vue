@@ -1,21 +1,19 @@
 <template>
   <header class="full-width flex justify-end">
-    <button v-if="user" @click="logout">Logout</button>
+    <RouterLink v-if="user" to="/" @click="logout">Logout</RouterLink>
   </header>
 </template>
 
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user'
+import RouterLink from '@/router/RouterLink.vue'
 
 const userStore = useUserStore()
 const { getUser, setUser } = userStore
 
 const user = getUser()
 
-const emit = defineEmits(['push'])
-
 const logout = async () => {
   await setUser(null)
-  emit('push', '/')
 }
 </script>

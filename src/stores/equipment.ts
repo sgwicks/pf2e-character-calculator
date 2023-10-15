@@ -21,7 +21,10 @@ const emptyWeapon: Weapon = {
   bulk: 0,
   item: 0,
   rarity: 'common',
-  level: 0
+  level: 0,
+  hardness: 0,
+  max_hp: 0,
+  break_threshold: 0
 }
 
 export const useEquipmentStore = defineStore(
@@ -40,7 +43,10 @@ export const useEquipmentStore = defineStore(
       group: null,
       rarity: 'common',
       price: null,
-      traits: []
+      traits: [],
+      hardness: 0,
+      max_hp: 0,
+      break_threshold: 0
     })
 
     const getArmourCheckPenalty = computed(() => {
@@ -88,7 +94,9 @@ export const useEquipmentStore = defineStore(
       rarity: 'common',
       price: null,
       level: 0,
-      bulk: 0
+      bulk: 0,
+      max_hp: 0,
+      break_threshold: 0
     })
 
     return {
