@@ -1,5 +1,5 @@
 <template>
-  <div v-if="user">
+  <div v-if="user && user.characters.length">
     <RouterLink v-for="character in user.characters" :key="character.id" to="/character">
       {{ character.name }}
     </RouterLink>
