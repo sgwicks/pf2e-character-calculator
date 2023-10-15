@@ -95,6 +95,10 @@ hr {
   &.space-around {
     justify-content: space-around;
   }
+
+  &.justify-end {
+    justify-content: end;
+  }
 }
 
 .col-span-full {

@@ -12,7 +12,7 @@ export const useUserStore = defineStore('user', () => {
 
     const getUser = () => user;
     
-    const setUser = async (authUser: User) => {
+    const setUser = async (authUser: User | null) => {
       user.value = authUser
       return
     }
