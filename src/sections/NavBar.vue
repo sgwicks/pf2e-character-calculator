@@ -5,17 +5,17 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from '@/stores/user';
+import { useUserStore } from '@/stores/user'
 
-const userStore = useUserStore();
-const { getUser, setUser } = userStore;
+const userStore = useUserStore()
+const { getUser, setUser } = userStore
 
 const user = getUser()
 
 const emit = defineEmits(['push'])
 
 const logout = async () => {
-  await setUser(null);
+  await setUser(null)
   emit('push', '/')
 }
 </script>

@@ -4,8 +4,8 @@
 </template>
 
 <script setup lang="ts">
-import { type Component, type Ref, onBeforeMount, shallowRef } from 'vue';
-import NavBar from '@/sections/NavBar.vue';
+import { type Component, type Ref, onBeforeMount, shallowRef } from 'vue'
+import NavBar from '@/sections/NavBar.vue'
 
 // Router components
 import Login from '@/pages/Login.vue'

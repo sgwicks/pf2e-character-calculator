@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import Router from './router/Router.vue';
+import Router from './router/Router.vue'
 </script>
 
 <style scoped></style>
