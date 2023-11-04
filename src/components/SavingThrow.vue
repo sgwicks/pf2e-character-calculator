@@ -1,7 +1,7 @@
 <template>
   <SGInput :model-value="save" disabled :label="title" />
   <span class="equals" />
-  <SGInput :model-value="getAttributeModifier(attribute)" :label="attribute.slice(0, 3)" disabled />
+  <SGInput :model-value="value" :label="attribute.slice(0, 3)" disabled />
   <span class="plus" />
   <SGInput :model-value="getProficiencyValue(proficiency)" label="prof" disabled />
   <span class="plus" />
@@ -15,19 +15,21 @@ import SGInput from '@/components/form/SGInput.vue'
 import ProficiencyLevel from '@/components/form/ProficiencyLevel.vue'
 
 import { useMainStore } from '@/stores/main'
-import { useAttributeStore } from '@/stores/attribute'
+
+import { useCharacterStore } from '@/stores/character'
 
 const props = defineProps<{
   title: string
-  attribute: string
+  attribute: Attribute
 }>()
 
+const { character } = useCharacterStore()
+const value = character?.abilities[props.attribute] || 0
+
 const { getProficiencyValue } = useMainStore()
-const { getAttributeModifier } = useAttributeStore()
+
 const proficiency = ref(0)
 const item = ref(0)
 
-const save = computed(
-  () => getAttributeModifier(props.attribute) + getProficiencyValue(proficiency.value) + item.value
-)
+const save = computed(() => value + getProficiencyValue(proficiency.value) + item.value)
 </script>

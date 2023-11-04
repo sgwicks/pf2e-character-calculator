@@ -68,14 +68,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import SGInput from '@/components/form/SGInput.vue'
 import SGCheckbox from '@/components/form/SGCheckbox.vue'
 
-import { useAttributeStore } from '@/stores/attribute'
+import { useCharacterStore } from '@/stores/character'
 import { useEquipmentStore } from '@/stores/equipment'
 
-const { getAttributeModifier } = useAttributeStore()
+const { character } = useCharacterStore()
 
 const equipmentStore = useEquipmentStore()
 const { getWeaponProficiency } = equipmentStore
@@ -86,9 +86,10 @@ const props = defineProps<{
 
 const { weapon } = props
 
-const attribute = computed(() =>
-  weapon.type === 'melee' ? getAttributeModifier('strength') : getAttributeModifier('dexterity')
-)
+const strength = character?.abilities.strength || 0
+const dexterity = character?.abilities.dexterity || 0
+
+const attribute = computed(() => (weapon.type === 'melee' ? strength : dexterity))
 
 const proficiency = computed(() =>
   weapon.class === 'other' ? getWeaponProficiency(weapon.other) : getWeaponProficiency(weapon.class)

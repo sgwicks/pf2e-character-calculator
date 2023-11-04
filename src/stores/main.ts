@@ -1,6 +1,6 @@
 import { ref, reactive } from 'vue'
-import { defineStore } from 'pinia'
-import { useAttributeStore } from './attribute'
+import { defineStore, storeToRefs } from 'pinia'
+import { useCharacterStore } from './character'
 
 export const useMainStore = defineStore(
   'main',
@@ -102,30 +102,17 @@ export const useMainStore = defineStore(
       }
     ])
 
-    const character = ref({
-      name: '',
-      ancestry: '',
-      background: '',
-      class: {
-        name: '',
-        keySkill: ''
-      },
-      size: '',
-      alignment: '',
-      traits: '',
-      deity: ''
-    })
-
     const getClassKeySkill = () => {
-      const { getAttributeModifier } = useAttributeStore()
-      return getAttributeModifier(character.value.class.keySkill)
+      const characterStore = useCharacterStore()
+      const { character } = storeToRefs(characterStore)
+      if (!character.value) return 0
+      return character.value.abilities[character.value.character_classes[0].ability_options[0]]
     }
 
     return {
       level,
       getProficiencyValue,
       characterClasses,
-      character,
       getClassKeySkill
     }
   },
