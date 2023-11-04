@@ -3,13 +3,15 @@
     <RouterLink
       v-for="character in user.characters"
       :key="character.id"
-      to="/character"
+      :to="`/character/${character.id}`"
       class="router-button margin-y-sm"
     >
       {{ character.name }}
     </RouterLink>
   </div>
-  <RouterLink to="/character" class="router-button margin-y-sm"> Create new character </RouterLink>
+  <RouterLink to="/character/new" class="router-button margin-y-sm">
+    Create new character
+  </RouterLink>
 </template>
 
 <script setup lang="ts">
