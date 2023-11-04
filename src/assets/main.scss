@@ -168,3 +168,36 @@ $sizes: (
     content: '+';
   }
 }
+
+@keyframes squish {
+  0% {
+    transform: scale(100%);
+  }
+
+  100% {
+    transform: scale(95%);
+  }
+}
+
+a.router-button {
+  color: inherit;
+  line-height: 150px;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid;
+  border-color: inherit;
+  width: 200px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: map-get($sizes, 'md');
+
+  &:hover {
+    background-color: #eee;
+    transition: background-color 0.5s ease-out;
+  }
+
+  &:active {
+    animation: squish 0.04s ease-out;
+  }
+}

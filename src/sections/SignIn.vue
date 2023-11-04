@@ -17,9 +17,9 @@
 import { ref } from 'vue'
 import { login } from '@/api/auth'
 import { useUserStore } from '@/stores/user'
-import { useRouterStore } from '@/stores/router'
+import { useRouter } from 'vue-router'
 
-const { setComponent } = useRouterStore()
+const router = useRouter()
 
 const userStore = useUserStore()
 const { setUser } = userStore
@@ -34,7 +34,7 @@ const submit = async () => {
     const res = await login(email.value, password.value)
     error.value = false
     await setUser(res.data.data)
-    setComponent('/character-select')
+    router.push('/character-select')
   } catch (err) {
     error.value = true
   }

@@ -47,9 +47,9 @@ import Shield from '@/components/equipment/Shield.vue'
 import { useUserStore } from '@/stores/user'
 import { onBeforeMount } from 'vue'
 
-import { useRouterStore } from '@/stores/router'
+import { useRouter } from 'vue-router'
 
-const { setComponent } = useRouterStore()
+const router = useRouter()
 
 const userStore = useUserStore()
 const { getUser } = userStore
@@ -57,7 +57,7 @@ const user = getUser()
 
 onBeforeMount(() => {
   if (!user.value) {
-    setComponent('/')
+    router.push('/')
   }
 })
 </script>
