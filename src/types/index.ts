@@ -20,6 +20,9 @@ interface Item {
   price: Cost | null
   level: number
   bulk: Bulk
+  hardness: number
+  max_hp: number
+  break_threshold: number
 }
 
 type ArmourCategory = 'U' | 'L' | 'M' | 'H'
@@ -100,8 +103,64 @@ interface Proficiencies {
 }
 
 interface CharacterClass {
+  // name: string
+  // keySkill: Attribute[]
+  id: number
   name: string
-  keySkill: Attribute[]
+  level: number
+  hit_points_per_level: number
+  ability_options: Attribute[]
 }
 
-type Action = 'bonus' | 'single' | 'double' | 'triple' | 'reaction'
+interface Skill {
+  id: number
+  name: string
+  ability: Attribute
+  armour: boolean
+  proficiency: number
+  item: number
+}
+
+interface Feat {
+  id: number
+  name: string
+  description: string
+}
+
+interface Action {
+  id: number
+  name: string
+  description: string
+  action: ActionTime
+  traits: string[] | null
+  source_book: string
+  source_page: number
+  is_spell: boolean
+  components: string[] | null
+}
+
+interface Character {
+  id: number
+  name: string
+  ancestry: string | null
+  heritage: string | null
+  background: string | null
+  size: string | null
+  alignment: string | null
+  traits: string[] | null
+  deity: string | null
+  abilities: {
+    [key in Attribute]: number
+  }
+  skills: Skill[]
+  feats: Feat[]
+  actions: []
+  character_classes: CharacterClass[]
+  items: Item[]
+  user: {
+    id: number
+    name: string
+  }
+}
+
+type ActionTime = 'bonus' | 'single' | 'double' | 'triple' | 'reaction'

@@ -95,6 +95,10 @@ hr {
   &.space-around {
     justify-content: space-around;
   }
+
+  &.justify-end {
+    justify-content: end;
+  }
 }
 
 .col-span-full {
@@ -103,6 +107,45 @@ hr {
 
 .full-width {
   width: 100%;
+}
+
+$sizes: (
+  'sm': 8px,
+  'md': 16px,
+  'lg': 24px
+);
+
+@each $name, $size in $sizes {
+  .margin-left-#{$name} {
+    margin-left: $size;
+  }
+
+  .margin-right-#{$name} {
+    margin-right: $size;
+  }
+
+  .margin-top-#{$name} {
+    margin-top: $size;
+  }
+
+  .margin-bottom-#{$name} {
+    margin-bottom: $size;
+  }
+
+  .margin-x-#{$name} {
+    @extend .margin-left-#{$name};
+    @extend .margin-right-#{$name};
+  }
+
+  .margin-y-#{$name} {
+    @extend .margin-top-#{$name};
+    @extend .margin-bottom-#{$name};
+  }
+
+  .margin-#{$name} {
+    @extend .margin-y-#{$name};
+    @extend .margin-x-#{$name};
+  }
 }
 
 /* Specific Classes */
@@ -123,5 +166,38 @@ hr {
 
   &::before {
     content: '+';
+  }
+}
+
+@keyframes squish {
+  0% {
+    transform: scale(100%);
+  }
+
+  100% {
+    transform: scale(95%);
+  }
+}
+
+a.router-button {
+  color: inherit;
+  line-height: 150px;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid;
+  border-color: inherit;
+  width: 200px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: map-get($sizes, 'md');
+
+  &:hover {
+    background-color: #eee;
+    transition: background-color 0.5s ease-out;
+  }
+
+  &:active {
+    animation: squish 0.04s ease-out;
   }
 }
