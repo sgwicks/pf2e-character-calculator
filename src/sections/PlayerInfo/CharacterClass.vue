@@ -13,7 +13,7 @@
         <option v-if="index > 0" value="remove">{{ '<-- remove -->' }}</option>
       </select>
     </label>
-    <SGInput :model-value="characterClass.level" label="Level" disabled />
+    <SGInput v-model="levelModel" label="Level" />
     <label>
       Key Skill
       <select v-model="selectedAbilityModel">
@@ -72,6 +72,17 @@ const selectedAbilityModel = computed<string>({
       level: characterClass.value.level,
       key_ability: val
     })
+    syncApiCharacterDown(character.value.id)
+  }
+})
+
+const levelModel = computed<number>({
+  get: () => characterClass.value?.level || 0,
+  set: async (val) => {
+    if (!character.value || !characterClass.value || !val) return
+    // No point patching if we're not changing anything
+    if (val === characterClass.value.level) return
+    await updateCharacterClass(character.value.id, characterClass.value.id, { level: val })
     syncApiCharacterDown(character.value.id)
   }
 })

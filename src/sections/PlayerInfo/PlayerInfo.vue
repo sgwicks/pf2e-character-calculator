@@ -3,7 +3,7 @@
     <div class="player-info">
       <SGInput :model-value="playerName" label="Player Name" disabled />
       <SGInput v-model="character.name" label="Character Name" />
-      <SGInput v-model="character.ancestry" label="Ancestry & Heritage" />
+      <SGInput v-model="character.ancestry" label="Ancestry" />
       <SGInput v-model="character.heritage" label="Heritage" />
       <SGInput v-model="character.background" label="Background" />
       <SGInput v-model="character.size" label="Size" />

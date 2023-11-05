@@ -15,7 +15,7 @@ const fetchCharacterClasses = async () => {
 const updateCharacterClass = async (
   characterId: number,
   classId: number,
-  { level, key_ability }: { level: number; key_ability: string }
+  { level, key_ability }: { level: number; key_ability?: string }
 ) => {
   return client.patch(`/characters/${characterId}/character_classes/${classId}`, {
     level,
