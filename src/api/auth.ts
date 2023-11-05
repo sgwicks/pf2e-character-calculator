@@ -1,8 +1,8 @@
-import axios from 'axios'
+import client from '.'
 
 const login = (username: string, password: string) => {
-  return axios.post(
-    'http://localhost:8000/api/v1/auth/login',
+  return client.post(
+    '/auth/login',
     {},
     {
       auth: {

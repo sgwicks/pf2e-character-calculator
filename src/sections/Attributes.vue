@@ -16,11 +16,15 @@
 import SGSection from '@/components/layout/SGSection.vue'
 import SGInput from '@/components/form/SGInput.vue'
 import { useCharacterStore } from '@/stores/character'
+import { storeToRefs } from 'pinia'
 
 const characterStore = useCharacterStore()
-const { abilities } = characterStore
+const { abilities } = storeToRefs(characterStore)
 
 const alterAbility = (ability: Attribute, value: number) => {
-  abilities[ability] = Number(value)
+  abilities.value = {
+    ...abilities.value,
+    [ability]: Number(value)
+  }
 }
 </script>

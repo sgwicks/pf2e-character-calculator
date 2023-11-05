@@ -20,7 +20,9 @@ export const useUserStore = defineStore(
       return
     }
 
-    return { user, getUser, setUser }
+    const authToken: Ref<string | null> = ref(null)
+
+    return { user, authToken, getUser, setUser }
   },
   { persist: true }
 )

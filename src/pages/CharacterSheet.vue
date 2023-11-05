@@ -70,8 +70,8 @@ const { getUser } = userStore
 const user = getUser()
 
 const characterStore = useCharacterStore()
-const { getCharacter, setCharacter } = characterStore
-const character = getCharacter()
+const { syncApiCharacterDown } = characterStore
+const { character } = storeToRefs(characterStore)
 
 const errorStore = useErrorStore()
 const { error } = storeToRefs(errorStore)
@@ -90,7 +90,7 @@ onBeforeMount(() => {
     return
   }
 
-  const character = user.value.characters[charId - 1]
+  const userCharacter = user.value.characters[charId - 1]
 
   if (!character) {
     error.value = 'No character with that id'
@@ -98,7 +98,8 @@ onBeforeMount(() => {
     return
   }
 
-  setCharacter(character)
+  character.value = userCharacter
+  syncApiCharacterDown(charId)
 })
 </script>
 
