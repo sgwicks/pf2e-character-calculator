@@ -14,14 +14,15 @@ import SGSection from '@/components/layout/SGSection.vue'
 import SGInput from '@/components/form/SGInput.vue'
 import ProficiencyLevel from '@/components/form/ProficiencyLevel.vue'
 
-import { useMainStore } from '@/stores/main'
+import { useCharacterStore } from '@/stores/character'
+
 import { ref, computed } from 'vue'
 
 const props = defineProps<{
   wisdom: number
 }>()
 
-const { getProficiencyValue } = useMainStore()
+const { getProficiencyValue } = useCharacterStore()
 
 const proficiency = ref(0)
 const item = ref(0)

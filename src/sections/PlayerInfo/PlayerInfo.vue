@@ -10,7 +10,7 @@
       <SGInput v-model="character.alignment" label="Alignment" />
       <SGInput v-model="traits" label="Traits" />
       <SGInput v-model="character.deity" label="Deity" />
-      <SGInput v-model="level" label="Level" />
+      <SGInput :model-value="level" label="Level" disabled />
     </div>
   </SGSection>
 </template>
@@ -18,18 +18,16 @@
 <script setup lang="ts">
 import SGInput from '@/components/form/SGInput.vue'
 import SGSection from '@/components/layout/SGSection.vue'
-import { useMainStore } from '@/stores/main'
 import { useUserStore } from '@/stores/user'
 import { useCharacterStore } from '@/stores/character'
 import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
 
-const mainStore = useMainStore()
 const userStore = useUserStore()
 const characterStore = useCharacterStore()
-const { level } = storeToRefs(mainStore)
+
 const { user } = storeToRefs(userStore)
-const { character } = storeToRefs(characterStore)
+const { character, level } = storeToRefs(characterStore)
 
 const traits = computed<string | null>({
   get: () => character.value?.traits || null,

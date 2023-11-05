@@ -6,13 +6,13 @@
 import { ref } from 'vue'
 import SGInput from './form/SGInput.vue'
 
-import { useMainStore } from '@/stores/main'
+import { useCharacterStore } from '@/stores/character'
 import { storeToRefs } from 'pinia'
 
-const mainStore = useMainStore()
-const { level } = storeToRefs(mainStore)
+const characterStore = useCharacterStore()
+const { level } = storeToRefs(characterStore)
 
-const props = defineProps<{
+defineProps<{
   requiredLevel: number
 }>()
 

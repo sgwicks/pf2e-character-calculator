@@ -1,6 +1,5 @@
 import { reactive, computed } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
-import { useMainStore } from './main'
 import { useCharacterStore } from './character'
 
 const emptyWeapon: Weapon = {
@@ -50,8 +49,8 @@ export const useEquipmentStore = defineStore(
     })
 
     const characterStore = useCharacterStore()
-    const { character } = storeToRefs(characterStore)
-    const { strength } = character.value?.abilities.strength || 0
+    const { abilities } = storeToRefs(characterStore)
+    const { strength } = abilities.value || 0
 
     const getArmourCheckPenalty = computed(() => {
       if (strength >= armour.strengthReq) return 0
@@ -78,8 +77,9 @@ export const useEquipmentStore = defineStore(
     function getWeaponProficiency(type: string | null) {
       if (!type) return 0
       if (!weaponProficiencies[type]) return 0
-      const mainStore = useMainStore()
-      const { level } = storeToRefs(mainStore)
+
+      const characterStore = useCharacterStore()
+      const { level } = storeToRefs(characterStore)
       return weaponProficiencies[type] + level.value
     }
 

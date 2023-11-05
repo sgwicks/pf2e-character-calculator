@@ -28,6 +28,22 @@ export const useCharacterStore = defineStore(
       }
     })
 
+    const level = computed(() => {
+      if (!character.value) return 0
+      return character.value.character_classes.reduce((acc, character_class) => {
+        return (acc += character_class.level)
+      }, 0)
+    })
+
+    function getProficiencyValue(prof: number) {
+      return prof ? prof + level.value : 0
+    }
+
+    function getClassKeySkill(index: number) {
+      if (!character.value) return 0
+      return character.value.abilities[character.value.character_classes[index].ability_options[0]]
+    }
+
     // When we update character, update the API after 3 seconds
     const save = debounce(async (val) => {
       if (isEqual(val, prevCharacter.value)) return
@@ -53,6 +69,9 @@ export const useCharacterStore = defineStore(
     return {
       character,
       abilities,
+      level,
+      getProficiencyValue,
+      getClassKeySkill,
       syncApiCharacterDown
     }
   },

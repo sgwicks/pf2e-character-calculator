@@ -14,8 +14,6 @@ import { ref, computed } from 'vue'
 import SGInput from '@/components/form/SGInput.vue'
 import ProficiencyLevel from '@/components/form/ProficiencyLevel.vue'
 
-import { useMainStore } from '@/stores/main'
-
 import { useCharacterStore } from '@/stores/character'
 import { storeToRefs } from 'pinia'
 
@@ -28,7 +26,7 @@ const characterStore = useCharacterStore()
 const { abilities } = storeToRefs(characterStore)
 const value = computed(() => abilities.value[props.attribute] || 0)
 
-const { getProficiencyValue } = useMainStore()
+const { getProficiencyValue } = useCharacterStore()
 
 const proficiency = ref(0)
 const item = ref(0)

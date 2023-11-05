@@ -45,7 +45,7 @@ import { ref, computed } from 'vue'
 import SGSection from '@/components/layout/SGSection.vue'
 import SGInput from '@/components/form/SGInput.vue'
 import ProficiencyLevel from '@/components/form/ProficiencyLevel.vue'
-import { useMainStore } from '@/stores/main'
+import { useCharacterStore } from '@/stores/character'
 import { useEquipmentStore } from '@/stores/equipment'
 import { storeToRefs } from 'pinia'
 
@@ -53,7 +53,7 @@ const props = defineProps<{
   dexterity: number
 }>()
 
-const { getProficiencyValue } = useMainStore()
+const { getProficiencyValue } = useCharacterStore()
 const equipmentStore = useEquipmentStore()
 const { armour, shield } = storeToRefs(equipmentStore)
 
