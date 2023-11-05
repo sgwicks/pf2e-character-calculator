@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user'
-import RouterLink from 'vue-router'
+import { RouterLink } from 'vue-router'
 
 const userStore = useUserStore()
 const { getUser, setUser } = userStore

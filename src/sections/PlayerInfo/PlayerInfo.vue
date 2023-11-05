@@ -5,21 +5,6 @@
       <SGInput :model-value="character.name" label="Character Name" disabled />
       <SGInput :model-value="character.ancestry" label="Ancestry & Heritage" disabled />
       <SGInput :model-value="character.background" label="Background" disabled />
-      <label>
-        Character Class
-        <SGInput :model-value="character.character_classes[0].name" disabled />
-      </label>
-      <label>
-        Key Skill
-        <select
-          :v-model="character.character_classes[0].ability_options"
-          :disabled="keySkillOptions.length < 2"
-        >
-          <option v-for="attribute in keySkillOptions" :key="attribute" :value="attribute">
-            {{ attribute }}
-          </option>
-        </select>
-      </label>
       <SGInput :model-value="character.size" label="Size" disabled />
       <SGInput :model-value="character.alignment" label="Alignment" disabled />
       <SGInput :model-value="character.traits?.join(',') || ''" label="Traits" disabled />
@@ -30,25 +15,22 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import SGInput from '@/components/form/SGInput.vue'
 import SGSection from '@/components/layout/SGSection.vue'
 import { useMainStore } from '@/stores/main'
 import { useUserStore } from '@/stores/user'
 import { storeToRefs } from 'pinia'
 
-const props = defineProps<{
+defineProps<{
   character: Character
 }>()
 
 const mainStore = useMainStore()
 const userStore = useUserStore()
-const { level, characterClasses } = storeToRefs(mainStore)
+const { level } = storeToRefs(mainStore)
 const { user } = storeToRefs(userStore)
 
 const playerName = user.value?.name || ''
-
-const keySkillOptions = computed(() => props.character.character_classes[0].ability_options)
 </script>
 
 <style scoped>
