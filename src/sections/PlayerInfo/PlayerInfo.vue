@@ -1,15 +1,16 @@
 <template>
-  <SGSection title="PlayerInfo">
+  <SGSection v-if="character" title="PlayerInfo">
     <div class="player-info">
       <SGInput :model-value="playerName" label="Player Name" disabled />
-      <SGInput :model-value="character.name" label="Character Name" disabled />
-      <SGInput :model-value="character.ancestry" label="Ancestry & Heritage" disabled />
-      <SGInput :model-value="character.background" label="Background" disabled />
-      <SGInput :model-value="character.size" label="Size" disabled />
-      <SGInput :model-value="character.alignment" label="Alignment" disabled />
-      <SGInput :model-value="character.traits?.join(',') || ''" label="Traits" disabled />
-      <SGInput :model-value="character.deity" label="Deity" disabled />
-      <SGInput :model-value="level" label="Level" disabled />
+      <SGInput v-model="character.name" label="Character Name" />
+      <SGInput v-model="character.ancestry" label="Ancestry & Heritage" />
+      <SGInput v-model="character.heritage" label="Heritage" />
+      <SGInput v-model="character.background" label="Background" />
+      <SGInput v-model="character.size" label="Size" />
+      <SGInput v-model="character.alignment" label="Alignment" />
+      <SGInput v-model="traits" label="Traits" />
+      <SGInput v-model="character.deity" label="Deity" />
+      <SGInput v-model="level" label="Level" />
     </div>
   </SGSection>
 </template>
@@ -19,16 +20,28 @@ import SGInput from '@/components/form/SGInput.vue'
 import SGSection from '@/components/layout/SGSection.vue'
 import { useMainStore } from '@/stores/main'
 import { useUserStore } from '@/stores/user'
+import { useCharacterStore } from '@/stores/character'
 import { storeToRefs } from 'pinia'
-
-defineProps<{
-  character: Character
-}>()
+import { computed } from 'vue'
 
 const mainStore = useMainStore()
 const userStore = useUserStore()
+const characterStore = useCharacterStore()
 const { level } = storeToRefs(mainStore)
 const { user } = storeToRefs(userStore)
+const { character } = storeToRefs(characterStore)
+
+const traits = computed<string | null>({
+  get: () => character.value?.traits || null,
+  set: (val: string | null) => {
+    if (!character.value) return
+    if (!val) {
+      character.value.traits = null
+    } else {
+      character.value.traits = val
+    }
+  }
+})
 
 const playerName = user.value?.name || ''
 </script>

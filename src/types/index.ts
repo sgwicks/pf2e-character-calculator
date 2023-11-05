@@ -147,7 +147,7 @@ interface Character {
   background: string | null
   size: string | null
   alignment: string | null
-  traits: string[] | null
+  traits: string | null
   deity: string | null
   abilities: {
     [key in Attribute]: number
