@@ -3,7 +3,7 @@
     <div v-for="(skill, key) in skills" class="skill-row" :key="key">
       <SGInput
         :model-value="
-          attributes[skill.ability] +
+          abilities[skill.ability] +
           getProficiencyValue(skill.proficiency) +
           skill.item +
           (skill.armour ? getArmourCheckPenalty : 0)
@@ -13,13 +13,16 @@
       />
       <span class="equals" />
       <SGInput
-        :model-value="attributes[skill.ability]"
+        :model-value="abilities[skill.ability]"
         :label="skill.ability.slice(0, 3)"
         disabled
       />
       <span class="plus" />
       <SGInput :model-value="getProficiencyValue(skill.proficiency)" label="Prof" disabled />
-      <ProficiencyLevel :model-value="skill.proficiency" disabled />
+      <ProficiencyLevel
+        :model-value="skill.proficiency"
+        @update:model-value="(val) => handleSkillProficiency(skill.id, val)"
+      />
       <span class="plus" />
       <SGInput :model-value="skill.item" label="Item" disabled />
       <SGInput v-if="skill.armour" :model-value="getArmourCheckPenalty" label="Armour" disabled />
@@ -35,16 +38,20 @@ import ProficiencyLevel from '@/components/form/ProficiencyLevel.vue'
 import { useCharacterStore } from '@/stores/character'
 import { useEquipmentStore } from '@/stores/equipment'
 import { storeToRefs } from 'pinia'
+import { updateSkillProficiency } from '@/api/skill'
 
-defineProps<{
-  attributes: Character['abilities']
-  skills: Character['skills']
-}>()
-
-const { getProficiencyValue } = useCharacterStore()
+const characterStore = useCharacterStore()
+const { getProficiencyValue, syncApiCharacterDown } = characterStore
+const { character, abilities, skills } = storeToRefs(characterStore)
 
 const equipmentStore = useEquipmentStore()
 const { getArmourCheckPenalty } = storeToRefs(equipmentStore)
+
+const handleSkillProficiency = async (skillId: number, proficiency: number) => {
+  if (!character.value) return
+  await updateSkillProficiency(character.value.id, skillId, proficiency)
+  syncApiCharacterDown(character.value.id)
+}
 </script>
 
 <style scoped>

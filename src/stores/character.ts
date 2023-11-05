@@ -24,9 +24,11 @@ export const useCharacterStore = defineStore(
       get: () => character.value?.abilities || baseAttributes,
       set: (val: Character['abilities']) => {
         if (!character.value) return
-        character.value.abilities = val
+        character.value.abilities = cloneDeep(val)
       }
     })
+
+    const skills = computed<Character['skills']>(() => character.value?.skills || [])
 
     const level = computed(() => {
       if (!character.value) return 0
@@ -46,6 +48,7 @@ export const useCharacterStore = defineStore(
 
     // When we update character, update the API after 3 seconds
     const save = debounce(async (val) => {
+      console.log(val)
       if (isEqual(val, prevCharacter.value)) return
 
       try {
@@ -69,6 +72,7 @@ export const useCharacterStore = defineStore(
     return {
       character,
       abilities,
+      skills,
       level,
       getProficiencyValue,
       getClassKeySkill,

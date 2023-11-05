@@ -18,11 +18,7 @@
     <Shield class="row-span-3 col-span-4 flex wrap" />
     <Armour class="row-span-4 col-span-6 flex wrap" />
     <WeaponList class="row-span-26 col-span-6" />
-    <Skills
-      :attributes="character.abilities"
-      :skills="character.skills"
-      class="row-span-25 col-span-6"
-    />
+    <Skills class="row-span-25 col-span-6" />
     <Feats class="row-span-24 col-span-12 flex wrap" />
     <ActionsExplainer class="row-span-3 col-span-2" />
     <ClassDC class="row-span-3 col-span-6 flex wrap" />
