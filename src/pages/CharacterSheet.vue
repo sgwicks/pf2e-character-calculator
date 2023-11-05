@@ -97,7 +97,11 @@ onBeforeMount(() => {
   character.value = userCharacter
 
   // Resets the character on page reload
-  syncApiCharacterDown(charId)
+  try {
+    syncApiCharacterDown(charId)
+  } catch (err) {
+    router.push('/')
+  }
 })
 </script>
 

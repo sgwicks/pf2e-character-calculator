@@ -48,7 +48,6 @@ export const useCharacterStore = defineStore(
 
     // When we update character, update the API after 3 seconds
     const save = debounce(async (val) => {
-      console.log(val)
       if (isEqual(val, prevCharacter.value)) return
 
       try {
