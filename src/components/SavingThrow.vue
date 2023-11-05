@@ -17,19 +17,21 @@ import ProficiencyLevel from '@/components/form/ProficiencyLevel.vue'
 import { useMainStore } from '@/stores/main'
 
 import { useCharacterStore } from '@/stores/character'
+import { storeToRefs } from 'pinia'
 
 const props = defineProps<{
   title: string
   attribute: Attribute
 }>()
 
-const { character } = useCharacterStore()
-const value = character?.abilities[props.attribute] || 0
+const characterStore = useCharacterStore()
+const { abilities } = storeToRefs(characterStore)
+const value = computed(() => abilities.value[props.attribute] || 0)
 
 const { getProficiencyValue } = useMainStore()
 
 const proficiency = ref(0)
 const item = ref(0)
 
-const save = computed(() => value + getProficiencyValue(proficiency.value) + item.value)
+const save = computed(() => value.value + getProficiencyValue(proficiency.value) + item.value)
 </script>

@@ -9,7 +9,7 @@
 
   <main v-if="character">
     <!-- Character Sheet -->
-    <Attributes :attributes="character.abilities" class="row-span-9 col-span-2" />
+    <Attributes class="row-span-9 col-span-2" />
     <SavingThrows class="row-span-6 col-span-5 flex wrap space-between" />
     <ArmourClass
       :dexterity="character.abilities.dexterity"

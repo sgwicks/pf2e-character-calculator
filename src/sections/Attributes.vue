@@ -1,8 +1,12 @@
 <template>
   <SGSection title="Attributes">
     <div class="flex column">
-      <template v-for="(attribute, key) in props.attributes" :key="key">
-        <SGInput :model-value="attribute" :label="key" disabled />
+      <template v-for="(ability, key) in abilities" :key="key">
+        <SGInput
+          :model-value="ability"
+          :label="key"
+          @update:model-value="(value) => alterAbility(key, value)"
+        />
       </template>
     </div>
   </SGSection>
@@ -11,8 +15,12 @@
 <script setup lang="ts">
 import SGSection from '@/components/layout/SGSection.vue'
 import SGInput from '@/components/form/SGInput.vue'
+import { useCharacterStore } from '@/stores/character'
 
-const props = defineProps<{
-  attributes: Character['abilities']
-}>()
+const characterStore = useCharacterStore()
+const { abilities } = characterStore
+
+const alterAbility = (ability: Attribute, value: number) => {
+  abilities[ability] = Number(value)
+}
 </script>
