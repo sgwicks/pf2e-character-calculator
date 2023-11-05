@@ -34,7 +34,6 @@ const { armour } = storeToRefs(equipmentStore)
 const dexCapComputed = computed({
   get: () => (armour.value.dexCap === null ? null : armour.value.dexCap),
   set: (val: any) => {
-    console.log(val)
     if (val === undefined || val === null || val === '') armour.value.dexCap = null
     else armour.value.dexCap = Number(val)
   }

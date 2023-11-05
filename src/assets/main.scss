@@ -47,6 +47,7 @@ h3 {
 input,
 select {
   font-size: 1.5rem;
+  width: 100%;
 }
 
 input[type='number'],
@@ -54,7 +55,7 @@ input[type='number'],
   appearance: textfield;
   font-size: 1.5rem;
   width: 2em;
-  margin: 2px;
+  margin: 0 2px;
 }
 
 hr {
@@ -71,6 +72,14 @@ hr {
   .row-span-#{$i} {
     grid-row: span $i;
   }
+
+  .columns-#{$i} {
+    grid-template-columns: repeat($i, 1fr);
+  }
+}
+
+.grid {
+  display: grid;
 }
 
 .flex {
@@ -145,6 +154,10 @@ $sizes: (
   .margin-#{$name} {
     @extend .margin-y-#{$name};
     @extend .margin-x-#{$name};
+  }
+
+  .gap-#{$name} {
+    gap: $size;
   }
 }
 

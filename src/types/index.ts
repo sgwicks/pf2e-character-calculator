@@ -103,13 +103,12 @@ interface Proficiencies {
 }
 
 interface CharacterClass {
-  // name: string
-  // keySkill: Attribute[]
   id: number
   name: string
   level: number
   hit_points_per_level: number
   ability_options: Attribute[]
+  chosen_ability: Attribute | null
 }
 
 interface Skill {
@@ -147,7 +146,7 @@ interface Character {
   background: string | null
   size: string | null
   alignment: string | null
-  traits: string[] | null
+  traits: string | null
   deity: string | null
   abilities: {
     [key in Attribute]: number

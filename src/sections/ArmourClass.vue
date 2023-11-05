@@ -5,7 +5,7 @@
     <SGInput :model-value="getProficiencyValue(proficiency)" label="Prof" disabled />
     <span class="plus" />
     <div class="flex dex-or-cap">
-      <SGInput :model-value="getAttributeModifier('dexterity')" label="Dex" disabled />
+      <SGInput :model-value="dexterity" label="Dex" disabled />
       <span class="or">OR</span>
       <SGInput
         :model-value="armour.dexCap === null ? '' : armour.dexCap"
@@ -45,13 +45,15 @@ import { ref, computed } from 'vue'
 import SGSection from '@/components/layout/SGSection.vue'
 import SGInput from '@/components/form/SGInput.vue'
 import ProficiencyLevel from '@/components/form/ProficiencyLevel.vue'
-import { useMainStore } from '@/stores/main'
-import { useAttributeStore } from '@/stores/attribute'
+import { useCharacterStore } from '@/stores/character'
 import { useEquipmentStore } from '@/stores/equipment'
 import { storeToRefs } from 'pinia'
 
-const { getProficiencyValue } = useMainStore()
-const { getAttributeModifier } = useAttributeStore()
+const props = defineProps<{
+  dexterity: number
+}>()
+
+const { getProficiencyValue } = useCharacterStore()
 const equipmentStore = useEquipmentStore()
 const { armour, shield } = storeToRefs(equipmentStore)
 
@@ -75,10 +77,8 @@ const proficiency = computed(() => {
 })
 
 const dexToAc = computed(() => {
-  if (armour.value.dexCap === null) return getAttributeModifier('dexterity')
-  return armour.value.dexCap > getAttributeModifier('dexterity')
-    ? getAttributeModifier('dexterity')
-    : armour.value.dexCap
+  if (armour.value.dexCap === null) return props.dexterity
+  return armour.value.dexCap > props.dexterity ? props.dexterity : armour.value.dexCap
 })
 
 const shieldToAc = computed(() => (shield.value.raised ? shield.value.ac : 0))

@@ -1,17 +1,11 @@
 <template>
   <SGSection title="Attributes">
-    <div class="attributes">
-      <template v-for="(attribute, key) in store.attributes">
+    <div class="flex column">
+      <template v-for="(ability, key) in abilities" :key="key">
         <SGInput
-          :model-value="attribute.value"
+          :model-value="ability"
           :label="key"
-          @update:model-value="(val) => setAttribute(key, val)"
-        />
-        <SGInput
-          :model-value="`${attribute.modifier >= 0 ? '+' : ''}${attribute.modifier}`"
-          label="Modifier"
-          disabled
-          class="number-input"
+          @update:model-value="(value) => alterAbility(key, value)"
         />
       </template>
     </div>
@@ -21,15 +15,16 @@
 <script setup lang="ts">
 import SGSection from '@/components/layout/SGSection.vue'
 import SGInput from '@/components/form/SGInput.vue'
-import { useAttributeStore } from '@/stores/attribute'
+import { useCharacterStore } from '@/stores/character'
+import { storeToRefs } from 'pinia'
 
-const store = useAttributeStore()
-const { setAttribute } = store
-</script>
+const characterStore = useCharacterStore()
+const { abilities } = storeToRefs(characterStore)
 
-<style scoped>
-.attributes {
-  display: grid;
-  grid-template-columns: auto auto;
+const alterAbility = (ability: Attribute, value: number) => {
+  abilities.value = {
+    ...abilities.value,
+    [ability]: Number(value)
+  }
 }
-</style>
+</script>
