@@ -12,6 +12,12 @@ const baseAttributes: Character['abilities'] = {
   charisma: 0
 }
 
+const baseSavingThrows: Character['saving_throws'] = {
+  fortitude: 0,
+  reflex: 0,
+  will: 0
+}
+
 export const useCharacterStore = defineStore(
   'character',
   () => {
@@ -27,6 +33,10 @@ export const useCharacterStore = defineStore(
         character.value.abilities = cloneDeep(val)
       }
     })
+
+    const savingThrows = computed<Character['saving_throws']>(
+      () => character.value?.saving_throws || baseSavingThrows
+    )
 
     const skills = computed<Character['skills']>(() => character.value?.skills || [])
 
@@ -51,7 +61,6 @@ export const useCharacterStore = defineStore(
       if (isEqual(val, prevCharacter.value)) return
 
       try {
-        console.log('saving')
         const updatedCharacter = await patchCharacter(val.id, val)
         character.value = cloneDeep(updatedCharacter.data.data)
         prevCharacter.value = cloneDeep(updatedCharacter.data.data)
@@ -71,6 +80,7 @@ export const useCharacterStore = defineStore(
     return {
       character,
       abilities,
+      savingThrows,
       skills,
       level,
       getProficiencyValue,

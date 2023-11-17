@@ -1,8 +1,8 @@
 <template>
   <SGSection title="Saving Throws">
-    <SavingThrow title="Fortitude" attribute="constitution" />
-    <SavingThrow title="Reflex" attribute="dexterity" />
-    <SavingThrow title="Will" attribute="wisdom" />
+    <SavingThrow title="fortitude" attribute="constitution" />
+    <SavingThrow title="reflex" attribute="dexterity" />
+    <SavingThrow title="will" attribute="wisdom" />
   </SGSection>
 </template>
 

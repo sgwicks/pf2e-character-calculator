@@ -138,6 +138,14 @@ interface Action {
   components: string[] | null
 }
 
+interface SavingThrows {
+  fortitude: number
+  reflex: number
+  will: number
+}
+
+type SavingThrow = keyof SavingThrows
+
 interface Character {
   id: number
   name: string
@@ -151,6 +159,7 @@ interface Character {
   abilities: {
     [key in Attribute]: number
   }
+  saving_throws: SavingThrows
   skills: Skill[]
   feats: Feat[]
   actions: []
