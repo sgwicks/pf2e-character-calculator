@@ -107,11 +107,11 @@ export const useCharacterStore = defineStore(
 
     watch(character, save, { deep: true })
 
-    const syncApiCharacterDown = async (id: number) => {
+    const syncApiCharacterDown = debounce(async (id: number) => {
       const response = await fetchCharacter(id)
       character.value = cloneDeep(response.data.data)
       prevCharacter.value = cloneDeep(response.data.data)
-    }
+    }, 500)
 
     return {
       character,
