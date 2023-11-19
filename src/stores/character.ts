@@ -18,6 +18,32 @@ const baseSavingThrows: Character['saving_throws'] = {
   will: 0
 }
 
+const basePerception: Character['perception'] = {
+  proficiency: 0,
+  item: 0,
+  senses: []
+}
+
+const baseMovement: Character['movement'] = {
+  base: 0,
+  burrow: 0,
+  climb: 0,
+  fly: 0,
+  swim: 0
+}
+
+const baseHealth: Character['health'] = {
+  max: 0,
+  current: 0,
+  temporary: 0,
+  dying: 0,
+  wounded: 0,
+  resistances: [],
+  weaknesses: [],
+  immunities: [],
+  conditions: []
+}
+
 export const useCharacterStore = defineStore(
   'character',
   () => {
@@ -37,6 +63,16 @@ export const useCharacterStore = defineStore(
     const savingThrows = computed<Character['saving_throws']>(
       () => character.value?.saving_throws || baseSavingThrows
     )
+
+    const perception = computed<Character['perception']>(
+      () => character.value?.perception || basePerception
+    )
+
+    const movement = computed<Character['movement']>(
+      () => character.value?.movement || baseMovement
+    )
+
+    const health = computed<Character['health']>(() => character.value?.health || baseHealth)
 
     const skills = computed<Character['skills']>(() => character.value?.skills || [])
 
@@ -81,6 +117,9 @@ export const useCharacterStore = defineStore(
       character,
       abilities,
       savingThrows,
+      perception,
+      movement,
+      health,
       skills,
       level,
       getProficiencyValue,
