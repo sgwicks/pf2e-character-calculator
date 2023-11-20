@@ -98,8 +98,10 @@ interface Attributes {
 
 type Attribute = keyof Attributes
 
+type Proficiency = 0 | 2 | 4 | 6 | 8
+
 interface Proficiencies {
-  [k: string]: 0 | 2 | 4 | 6 | 8
+  [k: string]: Proficiency
 }
 
 interface CharacterClass {
@@ -116,7 +118,7 @@ interface Skill {
   name: string
   ability: Attribute
   armour: boolean
-  proficiency: number
+  proficiency: Proficiency
   item: number
 }
 
@@ -138,13 +140,39 @@ interface Action {
   components: string[] | null
 }
 
-interface SavingThrows {
-  fortitude: number
-  reflex: number
-  will: number
+interface CharacterSavingThrows {
+  fortitude: Proficiency
+  reflex: Proficiency
+  will: Proficiency
 }
 
-type SavingThrow = keyof SavingThrows
+type SavingThrow = keyof CharacterSavingThrows
+
+interface CharacterMovement {
+  base: number
+  burrow: number
+  climb: number
+  fly: number
+  swim: number
+}
+
+interface CharacterPerception {
+  proficiency: Proficiency
+  item: number
+  senses: string[]
+}
+
+interface CharacterHealth {
+  max: number
+  current: number
+  temporary: number
+  dying: number
+  wounded: number
+  resistances: string[]
+  weaknesses: string[]
+  immunities: string[]
+  conditions: string[]
+}
 
 interface Character {
   id: number
@@ -156,10 +184,13 @@ interface Character {
   alignment: string | null
   traits: string | null
   deity: string | null
+  perception: CharacterPerception
+  movement: CharacterMovement
+  health: CharacterHealth
   abilities: {
     [key in Attribute]: number
   }
-  saving_throws: SavingThrows
+  saving_throws: CharacterSavingThrows
   skills: Skill[]
   feats: Feat[]
   actions: []

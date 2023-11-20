@@ -1,6 +1,6 @@
 <template>
   <header v-if="character">
-    <PlayerInfo class="col-span-full row-span-6" />
+    <PlayerInfo class="col-span-full row-span-5" />
     <CharacterClasses :character="character" class="col-span-full row-span-2" />
     <Perception :wisdom="character.abilities.wisdom" class="col-span-5 row-span-4 flex wrap" />
     <HitPoints class="col-span-7 row-span-6 flex wrap" />

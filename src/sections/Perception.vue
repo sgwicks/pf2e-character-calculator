@@ -1,6 +1,6 @@
 <template>
   <SGSection title="Perception">
-    <SGInput :model-value="perception" label="Per" disabled />
+    <SGInput :model-value="computedPerception" label="Per" disabled />
     <span class="equals" />
     <SGInput :model-value="wisdom" label="Wis" disabled />
     <ProficiencyLevel v-model="proficiency" />
@@ -13,23 +13,67 @@
 import SGSection from '@/components/layout/SGSection.vue'
 import SGInput from '@/components/form/SGInput.vue'
 import ProficiencyLevel from '@/components/form/ProficiencyLevel.vue'
+import { updatePerception } from '@/api/perception'
+import { debounce } from 'lodash'
 
 import { useCharacterStore } from '@/stores/character'
 
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
 
 const props = defineProps<{
   wisdom: number
 }>()
 
-const { getProficiencyValue } = useCharacterStore()
+const characterStore = useCharacterStore()
+const { getProficiencyValue, syncApiCharacterDown } = characterStore
+const { character, perception } = storeToRefs(characterStore)
 
-const proficiency = ref(0)
-const item = ref(0)
+const proficiency = computed<Proficiency>({
+  get: () => perception.value.proficiency,
+  set: debounce(async (val: Proficiency) => {
+    if (!character.value) return
+    await updatePerception(
+      {
+        ...perception.value,
+        proficiency: val
+      },
+      character.value.id
+    )
+    syncApiCharacterDown(character.value.id)
+  }, 500)
+})
 
-const perception = computed(
-  () => props.wisdom + getProficiencyValue(proficiency.value) + item.value
+const item = computed<number>({
+  get: () => perception.value.item,
+  set: debounce(async (val: number) => {
+    if (!character.value) return
+    await updatePerception(
+      {
+        ...perception.value,
+        item: val || 0
+      },
+      character.value.id
+    )
+    syncApiCharacterDown(character.value.id)
+  }, 500)
+})
+const senses = computed<string | null>({
+  get: () => perception.value.senses.join(', '),
+  set: debounce(async (val: string | null) => {
+    if (!character.value) return
+    await updatePerception(
+      {
+        ...perception.value,
+        senses: val ? val.split(',') : []
+      },
+      character.value.id
+    )
+    syncApiCharacterDown(character.value.id)
+  }, 500)
+})
+
+const computedPerception = computed(
+  () => props.wisdom + getProficiencyValue(perception.value.proficiency) + perception.value.item
 )
-
-const senses = ref('')
 </script>

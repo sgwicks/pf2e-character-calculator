@@ -10,7 +10,6 @@
       <SGInput v-model="character.alignment" label="Alignment" />
       <SGInput v-model="traits" label="Traits" />
       <SGInput v-model="character.deity" label="Deity" />
-      <SGInput :model-value="level" label="Level" disabled />
     </div>
   </SGSection>
 </template>

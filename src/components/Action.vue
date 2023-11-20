@@ -45,7 +45,7 @@ const props = defineProps<{
 
 const action = ref<{
   name: string
-  cost: Action | null
+  cost: ActionTime | null
   traits: string[]
   page: number
   description: string
@@ -64,7 +64,7 @@ const traits = computed({
   set: (val) => (action.value.traits = val.split(',').map((trait) => trait.trim()))
 })
 
-const costs: Action[] = ['bonus', 'single', 'double', 'triple', 'reaction']
+const costs: ActionTime[] = ['bonus', 'single', 'double', 'triple', 'reaction']
 
 const prepared = ref(false)
 

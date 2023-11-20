@@ -13,7 +13,7 @@ import action_r from '@/assets/action_r.png'
 import { computed } from 'vue'
 
 const props = defineProps<{
-  action: Action
+  action: ActionTime
   size: number
 }>()
 
