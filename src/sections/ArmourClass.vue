@@ -8,14 +8,14 @@
       <SGInput :model-value="dexterity" label="Dex" disabled />
       <span class="or">OR</span>
       <SGInput
-        :model-value="armour.dexCap === null ? '' : armour.dexCap"
+        :model-value="armour.dex_cap === null ? '' : armour.dex_cap"
         label="Cap"
         disabled
         class="number-input cap"
       />
     </div>
     <span class="plus" />
-    <SGInput :model-value="armour.ac" label="Armour" disabled />
+    <SGInput :model-value="armour.armour_class" label="Armour" disabled />
     <span class="plus" />
     <SGInput :model-value="shieldToAc" label="Shield" disabled />
     <fieldset class="flex wrap">
@@ -65,27 +65,31 @@ const heavyProficiency = ref(0)
 const proficiency = computed(() => {
   switch (armour.value.category) {
     default:
-    case 'U':
+    case 'unarmoured':
       return unarmouredProficiency.value
-    case 'L':
+    case 'light':
       return lightProficiency.value
-    case 'M':
+    case 'medium':
       return mediumProficiency.value
-    case 'H':
+    case 'heavy':
       return heavyProficiency.value
   }
 })
 
 const dexToAc = computed(() => {
-  if (armour.value.dexCap === null) return props.dexterity
-  return armour.value.dexCap > props.dexterity ? props.dexterity : armour.value.dexCap
+  if (armour.value.dex_cap === null) return props.dexterity
+  return armour.value.dex_cap > props.dexterity ? props.dexterity : armour.value.dex_cap
 })
 
 const shieldToAc = computed(() => (shield.value.raised ? shield.value.ac : 0))
 
 const armourClass = computed(
   () =>
-    10 + armour.value.ac + dexToAc.value + getProficiencyValue(proficiency.value) + shieldToAc.value
+    10 +
+    armour.value.armour_class +
+    dexToAc.value +
+    getProficiencyValue(proficiency.value) +
+    shieldToAc.value
 )
 </script>
 
