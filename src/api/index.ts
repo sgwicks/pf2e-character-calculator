@@ -7,6 +7,7 @@ const client = axios.create({
 })
 
 client.interceptors.request.use((request) => {
+  // TODO: Refresh auth
   const token = Cookies.get('bearer')
 
   if (token) {
