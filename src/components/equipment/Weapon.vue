@@ -122,11 +122,7 @@ const isRanged = computed({
 
 const attribute = computed(() => (isRanged.value ? dexterity : strength))
 
-const proficiency = computed(() =>
-  props.weapon.category === 'A'
-    ? getWeaponProficiency(props.weapon.name)
-    : getWeaponProficiency(props.weapon.category)
-)
+const proficiency = computed(() => getWeaponProficiency(props.weapon.category))
 
 const toHit = computed(() => attribute.value + proficiency.value)
 

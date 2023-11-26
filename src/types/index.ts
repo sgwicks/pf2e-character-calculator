@@ -94,8 +94,17 @@ type Attribute = keyof Attributes
 type Proficiency = 0 | 2 | 4 | 6 | 8
 
 interface Proficiencies {
-  [k: string]: Proficiency
+  unarmoured: Proficiency
+  light: Proficiency
+  medium: Proficiency
+  heavy: Proficiency
+  unarmed: Proficiency
+  simple: Proficiency
+  martial: Proficiency
+  other: string
 }
+
+type ProficiencyKey = keyof Proficiencies
 
 interface CharacterClass {
   id: number
@@ -191,6 +200,7 @@ interface Character {
   items: Item[]
   armours: Armour[]
   weapons: Weapon[]
+  proficiencies: Proficiencies
   user: {
     id: number
     name: string

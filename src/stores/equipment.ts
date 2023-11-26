@@ -59,19 +59,30 @@ export const useEquipmentStore = defineStore('equipment', () => {
     })
   })
 
-  const weaponProficiencies: Proficiencies = reactive({
-    U: 0,
-    S: 0,
-    M: 0
-  })
+  function weaponProficiencyMapper(type: Weapon['category']) {
+    switch (type) {
+      case 'U':
+        return 'unarmed'
+      case 'S':
+        return 'simple'
+      case 'M':
+        return 'martial'
+      case 'A':
+      default:
+        return 'other'
+    }
+  }
 
-  function getWeaponProficiency(type: string | null) {
+  function getWeaponProficiency(type: Weapon['category']) {
     if (!type) return 0
-    if (!weaponProficiencies[type]) return 0
+
+    const proficiency = weaponProficiencyMapper(type)
+    if (proficiency === 'other') return 0 // TODO: Handle Advanced weapons
+    if (!character?.value?.proficiencies[proficiency]) return 0
 
     const characterStore = useCharacterStore()
     const { level } = storeToRefs(characterStore)
-    return weaponProficiencies[type] + level.value
+    return character.value.proficiencies[proficiency] + level.value
   }
 
   const shield = reactive<Shield>({
@@ -92,7 +103,6 @@ export const useEquipmentStore = defineStore('equipment', () => {
     getArmourCheckPenalty,
     getArmourSpeedPenalty,
     weapons,
-    weaponProficiencies,
     getWeaponProficiency,
     shield
   }
