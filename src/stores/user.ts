@@ -5,7 +5,10 @@ type User = {
   id: number
   name: string
   email: string
-  characters: Character[]
+  characters: {
+    id: Character['id']
+    name: Character['name']
+  }[]
 }
 
 export const useUserStore = defineStore(

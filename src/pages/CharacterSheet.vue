@@ -86,16 +86,6 @@ onBeforeMount(() => {
     return
   }
 
-  const userCharacter = user.value.characters[charId - 1]
-
-  if (!character) {
-    error.value = 'No character with that id'
-    router.push('/error')
-    return
-  }
-
-  character.value = userCharacter
-
   // Resets the character on page reload
   try {
     syncApiCharacterDown(charId)

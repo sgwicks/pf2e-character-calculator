@@ -12,20 +12,14 @@ type Dice = {
   size: 2 | 4 | 6 | 8 | 10 | 12 | 20
 }
 
-type Bulk = 'L' | number
-
 interface Item {
+  id: number
   name: string
-  rarity: Rarity
-  price: Cost | null
-  level: number
-  bulk: Bulk
-  hardness: number
-  max_hp: number
-  break_threshold: number
+  price: number
+  bulk: number
 }
 
-type ArmourCategory = 'U' | 'L' | 'M' | 'H'
+type ArmourCategory = 'unarmoured' | 'light' | 'medium' | 'heavy'
 type ArmourGroup =
   | null
   | 'cloth'
@@ -38,11 +32,11 @@ type ArmourGroup =
 
 interface Armour extends Item {
   category: ArmourCategory
-  ac: number
-  dexCap: number | null
-  checkPenalty: number
-  speedPenalty: number
-  strengthReq: number
+  armour_class: number
+  dex_cap: number | null
+  check_penalty: number
+  speed_penalty: number
+  strength: number
   group: ArmourGroup
   traits: string[]
 }
@@ -196,6 +190,7 @@ interface Character {
   actions: []
   character_classes: CharacterClass[]
   items: Item[]
+  armours: Armour[]
   user: {
     id: number
     name: string
@@ -203,3 +198,9 @@ interface Character {
 }
 
 type ActionTime = 'bonus' | 'single' | 'double' | 'triple' | 'reaction'
+
+type Result = {
+  id: number
+  label: string
+  value: string
+}

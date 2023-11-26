@@ -1,8 +1,9 @@
-import { reactive, computed } from 'vue'
+import { reactive, computed, ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 import { useCharacterStore } from './character'
 
 const emptyWeapon: Weapon = {
+  id: 0,
   name: '',
   type: 'melee',
   class: 'simple',
@@ -16,98 +17,84 @@ const emptyWeapon: Weapon = {
   slashing: false,
   specialised: false,
   traits: [],
-  price: null,
+  price: 0,
   bulk: 0,
-  item: 0,
-  rarity: 'common',
-  level: 0,
-  hardness: 0,
-  max_hp: 0,
-  break_threshold: 0
+  item: 0
 }
 
-export const useEquipmentStore = defineStore(
-  'equipment',
-  () => {
-    const armour = reactive<Armour>({
-      name: '',
-      category: 'U',
-      ac: 0,
-      dexCap: null,
-      checkPenalty: 0,
-      speedPenalty: 0,
-      strengthReq: 0,
-      level: 0,
-      bulk: 0,
-      group: null,
-      rarity: 'common',
-      price: null,
-      traits: [],
-      hardness: 0,
-      max_hp: 0,
-      break_threshold: 0
-    })
+const emptyArmour: Armour = {
+  id: 0,
+  name: '',
+  category: 'unarmoured',
+  armour_class: 0,
+  dex_cap: null,
+  check_penalty: 0,
+  speed_penalty: 0,
+  strength: 0,
+  bulk: 0,
+  group: null,
+  price: 0,
+  traits: []
+}
+
+export const useEquipmentStore = defineStore('equipment', () => {
+  const characterStore = useCharacterStore()
+  const { abilities, character } = storeToRefs(characterStore)
+  const { strength } = abilities.value || 0
+
+  const armour = computed<Armour>(() => character.value?.armours?.[0] || emptyArmour)
+
+  const getArmourCheckPenalty = computed(() => {
+    if (strength >= armour.value.strength) return 0
+    else return armour.value.check_penalty
+  })
+
+  const getArmourSpeedPenalty = computed(() => {
+    if (armour.value.speed_penalty === 0) return 0
+    if (strength >= armour.value.strength) return armour.value.speed_penalty + 5
+    else return armour.value.speed_penalty
+  })
+
+  const weapons: Weapon[] = reactive([
+    { ...emptyWeapon },
+    { ...emptyWeapon, type: 'ranged' },
+    { ...emptyWeapon }
+  ])
+
+  const weaponProficiencies: Proficiencies = reactive({
+    simple: 0,
+    martial: 0
+  })
+
+  function getWeaponProficiency(type: string | null) {
+    if (!type) return 0
+    if (!weaponProficiencies[type]) return 0
 
     const characterStore = useCharacterStore()
-    const { abilities } = storeToRefs(characterStore)
-    const { strength } = abilities.value || 0
+    const { level } = storeToRefs(characterStore)
+    return weaponProficiencies[type] + level.value
+  }
 
-    const getArmourCheckPenalty = computed(() => {
-      if (strength >= armour.strengthReq) return 0
-      else return armour.checkPenalty
-    })
+  const shield = reactive<Shield>({
+    id: 0,
+    ac: 0,
+    hardness: 0,
+    hp: 0,
+    bt: 0,
+    currentHp: 0,
+    raised: false,
+    name: '',
+    price: 0,
+    bulk: 0
+  })
 
-    const getArmourSpeedPenalty = computed(() => {
-      if (armour.speedPenalty === 0) return 0
-      if (strength >= armour.strengthReq) return armour.speedPenalty + 5
-      else return armour.speedPenalty
-    })
-
-    const weapons: Weapon[] = reactive([
-      { ...emptyWeapon },
-      { ...emptyWeapon, type: 'ranged' },
-      { ...emptyWeapon }
-    ])
-
-    const weaponProficiencies: Proficiencies = reactive({
-      simple: 0,
-      martial: 0
-    })
-
-    function getWeaponProficiency(type: string | null) {
-      if (!type) return 0
-      if (!weaponProficiencies[type]) return 0
-
-      const characterStore = useCharacterStore()
-      const { level } = storeToRefs(characterStore)
-      return weaponProficiencies[type] + level.value
-    }
-
-    const shield = reactive<Shield>({
-      ac: 0,
-      hardness: 0,
-      hp: 0,
-      bt: 0,
-      currentHp: 0,
-      raised: false,
-      name: '',
-      rarity: 'common',
-      price: null,
-      level: 0,
-      bulk: 0,
-      max_hp: 0,
-      break_threshold: 0
-    })
-
-    return {
-      armour,
-      getArmourCheckPenalty,
-      getArmourSpeedPenalty,
-      weapons,
-      weaponProficiencies,
-      getWeaponProficiency,
-      shield
-    }
-  },
-  { persist: true }
-)
+  return {
+    armour,
+    getArmourCheckPenalty,
+    getArmourSpeedPenalty,
+    weapons,
+    weaponProficiencies,
+    getWeaponProficiency,
+    shield
+  }
+})
