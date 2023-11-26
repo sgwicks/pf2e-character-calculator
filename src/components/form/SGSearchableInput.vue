@@ -1,7 +1,7 @@
 <template>
   <div class="searchable-input-wrapper">
-    <SGInput :model-value="modelValue.label" @update:model-value="handleQuery" :label="label" />
-    <ul v-if="results">
+    <SGInput :model-value="queryStr" @update:model-value="handleQuery" :label="label" />
+    <ul v-if="results" ref="resultsList">
       <li v-for="result in results" :key="result.value" @click="() => select(result)">
         {{ result.label }}
       </li>
@@ -10,24 +10,34 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { onMounted, ref, computed, watch, onUnmounted } from 'vue'
 import SGInput from './SGInput.vue'
-import { fetchArmours } from '@/api/armour'
+import { debounce } from 'lodash'
+import type { AxiosResponse } from 'axios'
 
 const props = defineProps<{
   modelValue: Result
   label?: string
   disabled?: boolean
+  query: (string: string) => Promise<AxiosResponse<any, any>>
 }>()
 
-const emit = defineEmits(['update:modelValue'])
+const resultsList = ref(null)
 
-const query = ref<string>('')
+const emit = defineEmits(['update:modelValue', 'blur'])
 
-const handleQuery = (val: string) => {
+const queryStr = ref<string>(props.modelValue.value)
+
+// We need queryStr to react to modelValue changing, but still be a ref for local changes
+const modelValueLabel = computed(() => props.modelValue.label)
+watch(modelValueLabel, (val) => (queryStr.value = val))
+
+const handleQuery = debounce((val: string) => {
+  if (val.toLowerCase() === queryStr.value.toLowerCase()) return
+  queryStr.value = val
   if (val.toLowerCase() === props.modelValue.label.toLowerCase()) return
-  query.value = val
-}
+  fetchResults(val)
+}, 500)
 
 const results = ref<Result[] | null>(null)
 
@@ -41,17 +51,31 @@ const shapeResults = (data: Record<string, any>[]): Result[] => {
   })
 }
 
-watch(query, async (val) => {
-  if (val.length < 3) return
-  const response = await fetchArmours(val)
+const fetchResults = async (val: string) => {
+  const response = await props.query(val)
   results.value = shapeResults(response.data.data)
-})
+}
 
 const select = (result: Result) => {
-  results.value = null
-  query.value = ''
   emit('update:modelValue', result)
+  queryStr.value = result.label
 }
+
+const handleClickOutside = (e: MouseEvent) => {
+  results.value = null
+  if (e.target instanceof Element && resultsList.value !== e.target.parentElement) {
+    queryStr.value = props.modelValue.value
+    emit('blur')
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('click', handleClickOutside)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('click', handleClickOutside)
+})
 </script>
 
 <style>

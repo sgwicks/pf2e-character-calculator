@@ -7,8 +7,18 @@
       type="number"
       :disabled="disabled"
       v-maska:[mask]
+      @focus="emit('focus')"
+      @blur="emit('blur')"
     />
-    <input v-else v-model="value" type="text" :disabled="disabled" v-maska:[mask] />
+    <input
+      v-else
+      v-model="value"
+      type="text"
+      :disabled="disabled"
+      v-maska:[mask]
+      @focus="emit('focus')"
+      @blur="emit('blur')"
+    />
   </label>
 </template>
 
@@ -28,7 +38,7 @@ const props = withDefaults(
   }
 )
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'focus', 'blur'])
 
 const value = computed({
   get: () => (props.modelValue === null ? '' : props.modelValue),

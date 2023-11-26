@@ -2,7 +2,12 @@
   <SGSection title="Armour">
     <div class="armour">
       <div class="flex wrap">
-        <SGSearchableInput v-model="armourToResult" label="Armour" style="width: 60%" />
+        <SGSearchableInput
+          v-model="armourToResult"
+          label="Armour"
+          :query="fetchArmours"
+          style="width: 60%"
+        />
         <!-- AC -->
         <SGInput v-model="armour.armour_class" label="AC" class="number-input" disabled />
         <!-- Dex Cap -->
@@ -45,6 +50,7 @@ import { useCharacterStore } from '@/stores/character'
 import { useEquipmentStore } from '@/stores/equipment'
 import { storeToRefs } from 'pinia'
 import { setCharacterArmour, removeCharacterArmour } from '@/api/armour'
+import { fetchArmours } from '@/api/armour'
 
 const characterStore = useCharacterStore()
 const { syncApiCharacterDown } = characterStore
@@ -61,6 +67,8 @@ const armourToResult = computed<Result>({
   }),
   set: async (val) => {
     if (!character.value) return
+    // If they've selected the armour they're already wearing, no need to update
+    if (val.label === armour.value.name) return
     if (armour.value.id > 0) {
       // We only want 1 piece of armour on a character,
       // so first we remove the old one, if it exists

@@ -88,7 +88,7 @@ onBeforeMount(() => {
 
   const userCharacter = user.value.characters[charId - 1]
 
-  if (!character) {
+  if (!userCharacter) {
     error.value = 'No character with that id'
     router.push('/error')
     return
