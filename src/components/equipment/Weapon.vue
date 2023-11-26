@@ -1,6 +1,6 @@
 <template>
   <hr />
-  <SGInput v-model="weapon.name" label="Weapon" />
+  <SGSearchableInput v-model="weaponToResult" label="Weapon" :query="fetchWeapons" />
   <div class="weapon">
     <!-- To Hit -->
     <fieldset class="flex wrap">
@@ -12,30 +12,30 @@
         <span class="plus" />
         <SGInput :model-value="proficiency" label="Prof" disabled />
         <span class="plus" />
-        <SGInput v-model="weapon.item" label="Item" />
+        <!-- <SGInput :model-value="weapon.item" label="Item" /> -->
       </div>
       <fieldset class="full-width flex space-around">
         <label>
           Melee
-          <input type="radio" v-model="weapon.type" name="weapon-type" value="melee" />
+          <input type="radio" v-model="isRanged" value="false" disabled />
         </label>
         <label>
           Ranged
-          <input type="radio" v-model="weapon.type" name="weapon-type" value="ranged" />
+          <input type="radio" v-model="isRanged" value="true" disabled />
         </label>
       </fieldset>
       <fieldset class="full-width flex space-around">
         <label>
           Simple
-          <input type="radio" v-model="weapon.class" name="weapon-class" value="simple" />
+          <input type="radio" :checked="weapon.category === 'S'" disabled />
         </label>
         <label>
           Martial
-          <input type="radio" v-model="weapon.class" name="weapon-class" value="martial" />
+          <input type="radio" :checked="weapon.category === 'M'" disabled />
         </label>
         <label>
           Other
-          <input type="radio" v-model="weapon.class" name="weapon-class" value="other" />
+          <input type="radio" :checked="weapon.category === 'A'" disabled />
         </label>
       </fieldset>
     </fieldset>
@@ -44,38 +44,45 @@
     <fieldset>
       <legend>Damage</legend>
       <div class="full-width flex wrap">
-        <SGInput v-model="diceString" label="Dice" style="width: 6em" />
-        <span v-if="weapon.type === 'melee'" class="plus" />
-        <SGInput v-if="weapon.type === 'melee'" :model-value="attribute" label="Str" disabled />
+        <SGInput :model-value="diceString" label="Dice" style="width: 6em" disabled />
+        <span v-if="!isRanged" class="plus" />
+        <SGInput v-if="!isRanged" :model-value="attribute" label="Str" disabled />
       </div>
       <div class="flex column">
         <label class="flex space-between">
           Bludgeoning
-          <SGCheckbox v-model="weapon.bludgeoning" />
+          <SGCheckbox :model-value="weapon.damage_type === 'B'" disabled />
         </label>
         <label class="flex space-between">
           Piercing
-          <SGCheckbox v-model="weapon.piercing" />
+          <SGCheckbox :model-value="weapon.damage_type === 'P'" disabled />
         </label>
         <label class="flex space-between">
           Slashing
-          <SGCheckbox v-model="weapon.slashing" />
+          <SGCheckbox :model-value="weapon.damage_type === 'S'" disabled />
         </label>
       </div>
     </fieldset>
+
+    <SGInput label="Traits" :model-value="weaponTraits" disabled />
   </div>
-  <SGInput v-model="weapon.other" label="Other" />
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
 import SGInput from '@/components/form/SGInput.vue'
+import SGSearchableInput from '../form/SGSearchableInput.vue'
 import SGCheckbox from '@/components/form/SGCheckbox.vue'
 
 import { useCharacterStore } from '@/stores/character'
 import { useEquipmentStore } from '@/stores/equipment'
+import { fetchWeapons, setCharacterWeapon, updateCharacterWeapon } from '@/api/weapon'
+import { storeToRefs } from 'pinia'
+import { toTitleCase } from '@/utils'
 
-const { character } = useCharacterStore()
+const characterStore = useCharacterStore()
+const { syncApiCharacterDown } = characterStore
+const { character } = storeToRefs(characterStore)
 
 const equipmentStore = useEquipmentStore()
 const { getWeaponProficiency } = equipmentStore
@@ -84,40 +91,48 @@ const props = defineProps<{
   weapon: Weapon
 }>()
 
-const { weapon } = props
-
-const strength = character?.abilities.strength || 0
-const dexterity = character?.abilities.dexterity || 0
-
-const attribute = computed(() => (weapon.type === 'melee' ? strength : dexterity))
-
-const proficiency = computed(() =>
-  weapon.class === 'other' ? getWeaponProficiency(weapon.other) : getWeaponProficiency(weapon.class)
-)
-
-const toHit = computed(() => attribute.value + proficiency.value + weapon.item)
-
-const diceString = computed({
-  get: () => `${weapon.dice.amount}d${weapon.dice.size}`,
-  set: (val: string) => {
-    const [amount, size] = val.split('d')
-    weapon.dice.amount = parseInt(amount) ? parseInt(amount) : 1
-    const parsedSize = parseInt(size)
-    switch (parsedSize) {
-      case 2:
-      case 4:
-      case 6:
-      case 8:
-      case 10:
-      case 12:
-      case 20:
-        weapon.dice.size = parsedSize
-        break
-      default:
-        weapon.dice.size = 2
+const weaponToResult = computed<Result>({
+  get: () => ({
+    id: props.weapon.id,
+    label: props.weapon.name,
+    value: props.weapon.name
+  }),
+  set: async (weaponResult) => {
+    if (!character.value) return
+    if (props.weapon.id === 0) {
+      // This is an empty weapon
+      await setCharacterWeapon(character.value.id, weaponResult.id)
+    } else {
+      // This is an existing weapon
+      await updateCharacterWeapon(character.value.id, props.weapon.id, weaponResult.id)
     }
+    syncApiCharacterDown(character.value.id)
   }
 })
+
+const weaponTraits = computed(() => props.weapon.traits.map((w) => toTitleCase(w)).join(', '))
+
+const strength = character.value?.abilities.strength || 0
+const dexterity = character.value?.abilities.dexterity || 0
+
+const isRanged = computed({
+  get: () => props.weapon.range > 5,
+  set: () => {}
+})
+
+const attribute = computed(() => (isRanged.value ? dexterity : strength))
+
+const proficiency = computed(() =>
+  props.weapon.category === 'A'
+    ? getWeaponProficiency(props.weapon.name)
+    : getWeaponProficiency(props.weapon.category)
+)
+
+const toHit = computed(() => attribute.value + proficiency.value)
+
+const diceString = computed(
+  () => `${props.weapon.damage_die_amount}d${props.weapon.damage_die_type}`
+)
 </script>
 
 <style lang="scss" scoped>

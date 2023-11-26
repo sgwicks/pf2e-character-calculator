@@ -4,11 +4,11 @@
     <div class="flex">
       <label>
         Simple
-        <ProficiencyLevel v-model="weaponProficiencies.simple" />
+        <ProficiencyLevel v-model="weaponProficiencies.S" />
       </label>
       <label>
         Martial
-        <ProficiencyLevel v-model="weaponProficiencies.martial" />
+        <ProficiencyLevel v-model="weaponProficiencies.M" />
       </label>
     </div>
     <Weapon v-for="(weapon, i) in weapons" :key="`weapon-${i}`" :weapon="weapon" />

@@ -1,31 +1,27 @@
-import { reactive, computed, ref } from 'vue'
+import { reactive, computed } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 import { useCharacterStore } from './character'
 
 const emptyWeapon: Weapon = {
   id: 0,
   name: '',
-  type: 'melee',
-  class: 'simple',
-  other: null,
-  dice: {
-    amount: 1,
-    size: 2
-  },
-  bludgeoning: false,
-  piercing: false,
-  slashing: false,
-  specialised: false,
-  traits: [],
+  category: 'S',
+  range: 5,
+  damage_die_type: 4,
+  damage_die_amount: 1,
+  damage_type: 'B',
+  reload: 0,
+  hands: 1,
   price: 0,
   bulk: 0,
-  item: 0
+  group: 'club',
+  traits: []
 }
 
 const emptyArmour: Armour = {
   id: 0,
   name: '',
-  category: 'unarmoured',
+  category: 'U',
   armour_class: 0,
   dex_cap: null,
   check_penalty: 0,
@@ -55,15 +51,18 @@ export const useEquipmentStore = defineStore('equipment', () => {
     else return armour.value.speed_penalty
   })
 
-  const weapons: Weapon[] = reactive([
-    { ...emptyWeapon },
-    { ...emptyWeapon, type: 'ranged' },
-    { ...emptyWeapon }
-  ])
+  const weapons = computed<Weapon[]>(() => {
+    if (!character.value) return []
+    return [0, 1, 2].map((i) => {
+      if (!character.value) return { ...emptyWeapon }
+      return character.value.weapons[i] || { ...emptyWeapon }
+    })
+  })
 
   const weaponProficiencies: Proficiencies = reactive({
-    simple: 0,
-    martial: 0
+    U: 0,
+    S: 0,
+    M: 0
   })
 
   function getWeaponProficiency(type: string | null) {

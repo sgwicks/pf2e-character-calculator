@@ -19,7 +19,7 @@ interface Item {
   bulk: number
 }
 
-type ArmourCategory = 'unarmoured' | 'light' | 'medium' | 'heavy'
+type ArmourCategory = 'U' | 'L' | 'M' | 'H'
 type ArmourGroup =
   | null
   | 'cloth'
@@ -42,15 +42,14 @@ interface Armour extends Item {
 }
 
 interface Weapon extends Item {
-  type: 'melee' | 'ranged'
-  class: 'simple' | 'martial' | 'other'
-  other: string | null
-  dice: Dice
-  bludgeoning: boolean
-  piercing: boolean
-  slashing: boolean
-  specialised: boolean
-  item: number
+  category: 'U' | 'S' | 'M' | 'A'
+  range: number
+  damage_die_type: Dice['size']
+  damage_die_amount: number
+  damage_type: 'B' | 'P' | 'S'
+  reload: number
+  hands: 0 | 1 | 2
+  group: string
   traits: string[]
 }
 
@@ -191,6 +190,7 @@ interface Character {
   character_classes: CharacterClass[]
   items: Item[]
   armours: Armour[]
+  weapons: Weapon[]
   user: {
     id: number
     name: string

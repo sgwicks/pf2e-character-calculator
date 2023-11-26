@@ -65,13 +65,13 @@ const heavyProficiency = ref(0)
 const proficiency = computed(() => {
   switch (armour.value.category) {
     default:
-    case 'unarmoured':
+    case 'U':
       return unarmouredProficiency.value
-    case 'light':
+    case 'L':
       return lightProficiency.value
-    case 'medium':
+    case 'M':
       return mediumProficiency.value
-    case 'heavy':
+    case 'H':
       return heavyProficiency.value
   }
 })
