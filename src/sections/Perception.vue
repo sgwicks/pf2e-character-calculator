@@ -1,5 +1,5 @@
 <template>
-  <SGSection title="Perception">
+  <SGSection v-if="character" title="Perception">
     <SGInput :model-value="computedPerception" label="Per" disabled />
     <span class="equals" />
     <SGInput :model-value="wisdom" label="Wis" disabled />
@@ -33,6 +33,7 @@ const proficiency = computed<Proficiency>({
   get: () => perception.value.proficiency,
   set: debounce(async (val: Proficiency) => {
     if (!character.value) return
+    if (val === perception.value.proficiency) return
     await updatePerception(
       {
         ...perception.value,
@@ -48,6 +49,7 @@ const item = computed<number>({
   get: () => perception.value.item,
   set: debounce(async (val: number) => {
     if (!character.value) return
+    if (val === perception.value.item) return
     await updatePerception(
       {
         ...perception.value,
@@ -58,10 +60,12 @@ const item = computed<number>({
     syncApiCharacterDown(character.value.id)
   }, 500)
 })
+
 const senses = computed<string | null>({
   get: () => perception.value.senses.join(', '),
   set: debounce(async (val: string | null) => {
     if (!character.value) return
+    if (val === perception.value.senses.join(', ')) return
     await updatePerception(
       {
         ...perception.value,

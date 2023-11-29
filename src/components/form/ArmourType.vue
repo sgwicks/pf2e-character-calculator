@@ -3,19 +3,19 @@
     <legend>Category</legend>
     <label class="flex space-between">
       Unarmoured
-      <input v-model="equipped" name="equipped" type="radio" value="unarmoured" />
+      <input v-model="equipped" name="equipped" type="radio" value="U" disabled />
     </label>
     <label class="flex space-between">
       Light
-      <input v-model="equipped" name="equipped" type="radio" value="light" />
+      <input v-model="equipped" name="equipped" type="radio" value="L" disabled />
     </label>
     <label class="flex space-between">
       Medium
-      <input v-model="equipped" name="equipped" type="radio" value="medium" />
+      <input v-model="equipped" name="equipped" type="radio" value="M" disabled />
     </label>
     <label class="flex space-between">
       Heavy
-      <input v-model="equipped" name="equipped" type="radio" value="heavy" />
+      <input v-model="equipped" name="equipped" type="radio" value="H" disabled />
     </label>
   </fieldset>
 </template>

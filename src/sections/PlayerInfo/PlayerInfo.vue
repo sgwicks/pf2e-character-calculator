@@ -7,7 +7,6 @@
       <SGInput v-model="character.heritage" label="Heritage" />
       <SGInput v-model="character.background" label="Background" />
       <SGInput v-model="character.size" label="Size" />
-      <SGInput v-model="character.alignment" label="Alignment" />
       <SGInput v-model="traits" label="Traits" />
       <SGInput v-model="character.deity" label="Deity" />
     </div>

@@ -19,7 +19,7 @@ interface Item {
   bulk: number
 }
 
-type ArmourCategory = 'unarmoured' | 'light' | 'medium' | 'heavy'
+type ArmourCategory = 'U' | 'L' | 'M' | 'H'
 type ArmourGroup =
   | null
   | 'cloth'
@@ -42,15 +42,14 @@ interface Armour extends Item {
 }
 
 interface Weapon extends Item {
-  type: 'melee' | 'ranged'
-  class: 'simple' | 'martial' | 'other'
-  other: string | null
-  dice: Dice
-  bludgeoning: boolean
-  piercing: boolean
-  slashing: boolean
-  specialised: boolean
-  item: number
+  category: 'U' | 'S' | 'M' | 'A'
+  range: number
+  damage_die_type: Dice['size']
+  damage_die_amount: number
+  damage_type: 'B' | 'P' | 'S'
+  reload: number
+  hands: 0 | 1 | 2
+  group: string
   traits: string[]
 }
 
@@ -95,8 +94,17 @@ type Attribute = keyof Attributes
 type Proficiency = 0 | 2 | 4 | 6 | 8
 
 interface Proficiencies {
-  [k: string]: Proficiency
+  unarmoured: Proficiency
+  light: Proficiency
+  medium: Proficiency
+  heavy: Proficiency
+  unarmed: Proficiency
+  simple: Proficiency
+  martial: Proficiency
+  other: string
 }
+
+type ProficiencyKey = keyof Proficiencies
 
 interface CharacterClass {
   id: number
@@ -191,6 +199,8 @@ interface Character {
   character_classes: CharacterClass[]
   items: Item[]
   armours: Armour[]
+  weapons: Weapon[]
+  proficiencies: Proficiencies
   user: {
     id: number
     name: string
