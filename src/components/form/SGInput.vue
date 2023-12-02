@@ -1,5 +1,5 @@
 <template>
-  <label :class="{ number: type === 'number' }">
+  <label ref="labelRef" :class="{ number: type === 'number' }">
     {{ label }}
     <input
       v-if="type === 'number'"
@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { vMaska, type MaskInputOptions } from 'maska'
 
 const props = withDefaults(
@@ -37,6 +37,10 @@ const props = withDefaults(
     disabled: false
   }
 )
+
+const labelRef = ref<Element | null>(null)
+
+defineExpose({ labelRef })
 
 const emit = defineEmits(['update:modelValue', 'focus', 'blur'])
 
