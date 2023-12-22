@@ -124,10 +124,13 @@ interface Skill {
   item: number
 }
 
-interface Feat {
+interface CharacterFeat {
   id: number
   name: string
   description: string
+  chosen_level: number
+  traits: string[]
+  type: 'G' | 'S' | 'A' | 'C' | 'B'
 }
 
 interface Action {
@@ -194,7 +197,7 @@ interface Character {
   }
   saving_throws: CharacterSavingThrows
   skills: Skill[]
-  feats: Feat[]
+  feats: CharacterFeat[]
   actions: []
   character_classes: CharacterClass[]
   items: Item[]

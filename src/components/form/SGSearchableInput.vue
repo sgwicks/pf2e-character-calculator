@@ -1,6 +1,13 @@
 <template>
   <div class="searchable-input-wrapper">
-    <SGInput :model-value="queryStr" @update:model-value="handleQuery" :label="label" />
+    <SGInput
+      ref="input"
+      :model-value="queryStr"
+      :label="label"
+      :disabled="disabled"
+      @update:model-value="handleQuery"
+      @focus="() => fetchResults(modelValue.label)"
+    />
     <ul v-if="results" ref="resultsList">
       <li v-for="result in results" :key="result.value" @click="() => select(result)">
         {{ result.label }}
@@ -22,7 +29,8 @@ const props = defineProps<{
   query: (string: string) => Promise<AxiosResponse<any, any>>
 }>()
 
-const resultsList = ref(null)
+const input = ref<InstanceType<typeof SGInput> | null>(null)
+const resultsList = ref<Element | null>(null)
 
 const emit = defineEmits(['update:modelValue', 'blur'])
 
@@ -62,6 +70,12 @@ const select = (result: Result) => {
 }
 
 const handleClickOutside = (e: MouseEvent) => {
+  if (e.target instanceof Element && input.value?.labelRef === e.target.parentElement) {
+    // The user is clicking on the input/label
+    // Focus has fired and shows results
+    // So don't immediately nullify those results
+    return
+  }
   results.value = null
   if (e.target instanceof Element && resultsList.value !== e.target.parentElement) {
     queryStr.value = props.modelValue.value
@@ -91,6 +105,7 @@ ul {
   list-style-type: none;
   margin: 0;
   padding: 8px 0;
+  z-index: 100;
 }
 
 li {
