@@ -83,6 +83,7 @@ const handleActionChange = debounce(async (val: CharacterAction) => {
   if (action.value.id === 0) {
     await addCharacterAction(character.value.id, pickBy(val))
     syncApiCharacterDown(character.value.id)
+    action.value = cloneDeep(emptyAction)
   } else {
     await updateCharacterAction(character.value.id, pickBy(val))
     syncApiCharacterDown(character.value.id)
