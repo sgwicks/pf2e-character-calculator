@@ -22,21 +22,47 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import SGSection from '@/components/layout/SGSection.vue'
 import SGInput from '@/components/form/SGInput.vue'
 import ProficiencyLevel from '@/components/form/ProficiencyLevel.vue'
 import { useCharacterStore } from '@/stores/character'
+import { storeToRefs } from 'pinia'
+import { patchProficiency } from '@/api/proficiency'
+import { debounce } from 'lodash'
 
-const { getProficiencyValue, getClassKeySkill } = useCharacterStore()
+const characterStore = useCharacterStore()
+const { character } = storeToRefs(characterStore)
+const { getProficiencyValue, getClassKeySkill, syncApiCharacterDown } = useCharacterStore()
+
 const keySkill = computed(() => getClassKeySkill(0))
 
-const spellAttackProficiency = ref(0)
+const handleProficiencyChange = debounce(async (params: Partial<Proficiencies>) => {
+  if (!character.value) return
+  await patchProficiency(character.value.id, params)
+  syncApiCharacterDown(character.value.id)
+}, 1000)
+
+const spellAttackProficiency = computed({
+  get: () => character.value?.proficiencies.spell_attack || 0,
+  set: (val) => {
+    if (val === character.value?.proficiencies.spell_attack) return
+    handleProficiencyChange({ spell_attack: val })
+  }
+})
+
 const spellAttackRoll = computed<number>(
   () => keySkill.value + getProficiencyValue(spellAttackProficiency.value)
 )
 
-const spellDCProficiency = ref(0)
+const spellDCProficiency = computed({
+  get: () => character.value?.proficiencies.spell_dc || 0,
+  set: (val) => {
+    if (val === character.value?.proficiencies.spell_dc) return
+    handleProficiencyChange({ spell_dc: val })
+  }
+})
+
 const spellDC = computed<number>(
   () => 10 + keySkill.value + getProficiencyValue(spellDCProficiency.value)
 )
