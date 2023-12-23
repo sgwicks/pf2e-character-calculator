@@ -1,70 +1,146 @@
 <template>
-  <SGInput v-model="action.name" label="Name" />
-  <fieldset class="flex">
-    <legend>Action</legend>
-    <label v-for="cost in costs" class="flex column">
-      <ActionIcon :action="cost" :size="16" />
-      <input type="radio" name="action" v-model="action.cost" :value="cost" />
-    </label>
-  </fieldset>
-  <div v-if="isSpell">
+  <template v-if="character && action">
+    <SGInput v-model="action.name" label="Name" />
     <fieldset class="flex">
-      <legend>Components</legend>
-      <label v-for="(component, key) in components" class="flex column">
-        {{ key[0].toUpperCase() }}
-        <SGCheckbox v-model="components[key]" />
+      <legend>Action</legend>
+      <label v-for="cost in costs" :key="`${action.id}-${cost}`" class="flex column">
+        <ActionIcon :action="cost" :size="16" />
+        <input
+          type="radio"
+          :id="`${action.id}-action-${cost}`"
+          v-model="actionTime"
+          :value="cost"
+        />
       </label>
     </fieldset>
-    <label>
-      Prepared
-      <SGCheckbox v-model="prepared" />
+    <div v-if="isSpell">
+      <fieldset class="flex">
+        <legend>Components</legend>
+        <label v-for="(component, key) in components" :key="key" class="flex column">
+          {{ key[0].toUpperCase() }}
+          <SGCheckbox v-model="components[key]" />
+        </label>
+      </fieldset>
+      <label>
+        Prepared
+        <SGCheckbox v-model="prepared" />
+      </label>
+    </div>
+    <SGInput
+      v-if="action.action && ['bonus', 'reaction'].includes(action.action)"
+      v-model="action.trigger"
+      label="Trigger"
+    />
+    <SGInput v-model="traits" label="Traits" />
+    <SGInput v-model="action.source_book" label="Source Book" />
+    <SGInput v-model="action.source_page" label="Page" />
+    <label class="flex column" style="padding: 5px">
+      Description
+      <textarea v-model="description"></textarea>
     </label>
-  </div>
-  <SGInput
-    v-if="action.cost && ['bonus', 'reaction'].includes(action.cost)"
-    v-model="action.trigger"
-    label="Trigger"
-  />
-  <SGInput v-model="traits" label="Traits" />
-  <SGInput v-model="action.page" label="Page" />
-  <label class="flex column" style="padding: 5px">
-    Description
-    <textarea v-model="action.description"></textarea>
-  </label>
+  </template>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref, watch, type TextareaHTMLAttributes } from 'vue'
 import SGInput from './form/SGInput.vue'
 import ActionIcon from './layout/ActionIcon.vue'
 import SGCheckbox from './form/SGCheckbox.vue'
 
+import { useCharacterStore } from '@/stores/character'
+import { storeToRefs } from 'pinia'
+import { cloneDeep, debounce, isEqual, pickBy } from 'lodash'
+
+import { addCharacterAction, updateCharacterAction } from '@/api/action'
+
 const props = defineProps<{
+  actionId: number
   isSpell?: boolean
 }>()
 
-const action = ref<{
-  name: string
-  cost: ActionTime | null
-  traits: string[]
-  page: number
-  description: string
-  trigger: string
-}>({
+const emptyAction: CharacterAction = {
+  id: 0,
   name: '',
-  cost: null,
+  description: null,
+  action: 'single',
   traits: [],
-  page: 0,
-  description: '',
-  trigger: ''
+  trigger: null,
+  source_book: null,
+  source_page: null,
+  is_spell: props.isSpell,
+  components: null
+}
+
+const costs: ActionTime[] = ['bonus', 'single', 'double', 'triple', 'reaction']
+
+const characterStore = useCharacterStore()
+const { syncApiCharacterDown } = characterStore
+const { character } = storeToRefs(characterStore)
+
+const handleActionChange = debounce(async (val: CharacterAction) => {
+  if (!character.value || !action.value) return
+  if (isEqual(val, originalAction.value)) return
+  if (action.value.id === 0) {
+    await addCharacterAction(character.value.id, pickBy(val))
+    syncApiCharacterDown(character.value.id)
+    action.value = cloneDeep(emptyAction)
+  } else {
+    await updateCharacterAction(character.value.id, pickBy(val))
+    syncApiCharacterDown(character.value.id)
+  }
+  originalAction.value = cloneDeep(val)
+}, 1000)
+
+const originalAction = ref<CharacterAction | null>(null)
+const action = ref<CharacterAction | null>(null)
+
+watch(
+  action,
+  (val: CharacterAction | null, oldVal) => {
+    if (!val || !oldVal) return
+    handleActionChange(val)
+  },
+  { deep: true }
+)
+
+const description = computed<TextareaHTMLAttributes['value']>({
+  get: () => action.value?.description || '',
+  set: (val) => {
+    if (!action.value) return
+    action.value.description = val?.toString() || null
+  }
+})
+
+// Needs to be a ref so that radio buttons update on it
+const actionTime = ref<ActionTime>('single')
+// But we still watch it, so we can change update action when it updates
+watch(actionTime, (val) => {
+  if (!action.value) return
+  action.value.action = val
 })
 
 const traits = computed({
-  get: () => action.value.traits.join(', '),
-  set: (val) => (action.value.traits = val.split(',').map((trait) => trait.trim()))
+  get: () => action.value?.traits?.join(', ') || '',
+  set: (val: string) => {
+    if (!action.value) return
+    const newTraits = val.split(',').map((trait) => trait.trim())
+    if (newTraits !== action.value.traits) {
+      action.value.traits = newTraits
+    }
+  }
 })
 
-const costs: ActionTime[] = ['bonus', 'single', 'double', 'triple', 'reaction']
+onMounted(() => {
+  const characterAction =
+    character.value?.actions.find((action) => action.id === props.actionId) || emptyAction
+  originalAction.value = cloneDeep(characterAction)
+  action.value = cloneDeep(characterAction)
+  actionTime.value = characterAction.action
+})
+
+/**
+ * Spell stuff
+ */
 
 const prepared = ref(false)
 
