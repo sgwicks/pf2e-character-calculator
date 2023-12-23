@@ -133,14 +133,15 @@ interface CharacterFeat {
   type: 'G' | 'S' | 'A' | 'C' | 'B'
 }
 
-interface Action {
+interface CharacterAction {
   id: number
   name: string
-  description: string
+  description: string | null
   action: ActionTime
   traits: string[] | null
-  source_book: string
-  source_page: number
+  trigger: string | null
+  source_book: string | null
+  source_page: number | null
   is_spell: boolean
   components: string[] | null
 }
@@ -198,7 +199,7 @@ interface Character {
   saving_throws: CharacterSavingThrows
   skills: Skill[]
   feats: CharacterFeat[]
-  actions: []
+  actions: CharacterAction[]
   character_classes: CharacterClass[]
   items: Item[]
   armours: Armour[]

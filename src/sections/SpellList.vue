@@ -1,12 +1,6 @@
 <template>
   <SGSection title="Spells">
-    <Action is-spell />
-    <hr />
-    <Action is-spell />
-    <hr />
-    <Action is-spell />
-    <hr />
-    <Action is-spell />
+    <Action :action-id="0" is-spell />
   </SGSection>
 </template>
 
