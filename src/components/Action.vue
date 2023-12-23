@@ -1,6 +1,6 @@
 <template>
-  <template v-if="character">
-    <SGInput v-model="name" label="Name" />
+  <template v-if="character && action">
+    <SGInput v-model="action.name" label="Name" />
     <fieldset class="flex">
       <legend>Action</legend>
       <label v-for="cost in costs" :key="`${action.id}-${cost}`" class="flex column">
@@ -36,20 +36,20 @@
     <SGInput v-model="action.source_page" label="Page" />
     <label class="flex column" style="padding: 5px">
       Description
-      <textarea :model-value="action.description"></textarea>
+      <textarea v-model="description"></textarea>
     </label>
   </template>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch, type TextareaHTMLAttributes } from 'vue'
 import SGInput from './form/SGInput.vue'
 import ActionIcon from './layout/ActionIcon.vue'
 import SGCheckbox from './form/SGCheckbox.vue'
 
 import { useCharacterStore } from '@/stores/character'
 import { storeToRefs } from 'pinia'
-import { debounce, pickBy } from 'lodash'
+import { cloneDeep, debounce, isEqual, pickBy } from 'lodash'
 
 import { addCharacterAction, updateCharacterAction } from '@/api/action'
 
@@ -71,30 +71,42 @@ const emptyAction: CharacterAction = {
   components: null
 }
 
+const costs: ActionTime[] = ['bonus', 'single', 'double', 'triple', 'reaction']
+
 const characterStore = useCharacterStore()
 const { syncApiCharacterDown } = characterStore
 const { character } = storeToRefs(characterStore)
 
-const action = computed<CharacterAction>({
-  get: () => character.value?.actions.find((action) => action.id === props.actionId) || emptyAction,
-  set: debounce(async (val: CharacterAction) => {
-    if (!character.value) return
-    if (val.id === 0) {
-      await addCharacterAction(character.value.id, pickBy(val))
-      syncApiCharacterDown(character.value.id)
-    } else {
-      await updateCharacterAction(character.value.id, pickBy(val))
-      syncApiCharacterDown(character.value.id)
-    }
-  }, 300)
-})
+const handleActionChange = debounce(async (val: CharacterAction) => {
+  if (!character.value || !action.value) return
+  if (isEqual(val, originalAction.value)) return
+  if (action.value.id === 0) {
+    await addCharacterAction(character.value.id, pickBy(val))
+    syncApiCharacterDown(character.value.id)
+  } else {
+    await updateCharacterAction(character.value.id, pickBy(val))
+    syncApiCharacterDown(character.value.id)
+  }
+  originalAction.value = cloneDeep(val)
+}, 1000)
 
-const name = computed<string>({
-  get: () => action.value.name,
-  set: (val: string) => {
-    if (val !== action.value.name) {
-      action.value = { ...action.value, name: val }
-    }
+const originalAction = ref<CharacterAction | null>(null)
+const action = ref<CharacterAction | null>(null)
+
+watch(
+  action,
+  (val: CharacterAction | null, oldVal) => {
+    if (!val || !oldVal) return
+    handleActionChange(val)
+  },
+  { deep: true }
+)
+
+const description = computed<TextareaHTMLAttributes['value']>({
+  get: () => action.value?.description || '',
+  set: (val) => {
+    if (!action.value) return
+    action.value.description = val?.toString() || null
   }
 })
 
@@ -102,21 +114,32 @@ const name = computed<string>({
 const actionTime = ref<ActionTime>('single')
 // But we still watch it, so we can change update action when it updates
 watch(actionTime, (val) => {
-  if (val !== action.value.action) {
-    action.value = { ...action.value, action: val }
+  if (!action.value) return
+  action.value.action = val
+})
+
+const traits = computed({
+  get: () => action.value?.traits?.join(', ') || '',
+  set: (val: string) => {
+    if (!action.value) return
+    const newTraits = val.split(',').map((trait) => trait.trim())
+    if (newTraits !== action.value.traits) {
+      action.value.traits = newTraits
+    }
   }
 })
 
 onMounted(() => {
-  actionTime.value = action.value.action
+  const characterAction =
+    character.value?.actions.find((action) => action.id === props.actionId) || emptyAction
+  originalAction.value = cloneDeep(characterAction)
+  action.value = cloneDeep(characterAction)
+  actionTime.value = characterAction.action
 })
 
-const traits = computed({
-  get: () => action.value.traits?.join(', ') || '',
-  set: (val: string) => (action.value.traits = val.split(',').map((trait) => trait.trim()))
-})
-
-const costs: ActionTime[] = ['bonus', 'single', 'double', 'triple', 'reaction']
+/**
+ * Spell stuff
+ */
 
 const prepared = ref(false)
 
