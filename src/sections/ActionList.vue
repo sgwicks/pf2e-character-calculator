@@ -1,7 +1,9 @@
 <template>
   <SGSection v-if="character" title="Actions">
-    <Action v-for="action in character.actions" :key="action.id" :actionId="action.id" />
-    <hr />
+    <template v-for="action in actionList" :key="action.id">
+      <Action :actionId="action.id" />
+      <hr />
+    </template>
     <Action :actionId="0" />
   </SGSection>
 </template>
@@ -13,7 +15,11 @@ import Action from '@/components/Action.vue'
 import { useCharacterStore } from '@/stores/character'
 import { storeToRefs } from 'pinia'
 
+import { computed } from 'vue'
+
 const characterStore = useCharacterStore()
 
 const { character } = storeToRefs(characterStore)
+
+const actionList = computed(() => character.value?.actions.filter((action) => !action.is_spell))
 </script>
