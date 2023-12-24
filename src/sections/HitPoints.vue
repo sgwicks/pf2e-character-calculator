@@ -21,12 +21,14 @@ import SGInput from '@/components/form/SGInput.vue'
 
 import { useCharacterStore } from '@/stores/character'
 import { storeToRefs } from 'pinia'
-import { cloneDeep, debounce } from 'lodash'
+import { cloneDeep } from 'lodash'
 import { patchHealth } from '@/api/health'
+
+import { arrayToString } from '@/utils'
 
 const characterStore = useCharacterStore()
 
-const { syncApiCharacterDown } = characterStore
+const { createHandleUpdate } = characterStore
 const { character } = storeToRefs(characterStore)
 
 const hp = ref<CharacterHealth>({
@@ -42,30 +44,26 @@ const hp = ref<CharacterHealth>({
 })
 
 const resistances = computed<string>({
-  get: () => hp.value.resistances.map((item) => item.trim()).join(', '),
+  get: () => arrayToString(hp.value.resistances),
   set: (val) => (hp.value.resistances = val.split(','))
 })
 
 const immunities = computed<string>({
-  get: () => hp.value.immunities.map((item) => item.trim()).join(', '),
+  get: () => arrayToString(hp.value.immunities),
   set: (val) => (hp.value.immunities = val.split(','))
 })
 
 const conditions = computed<string>({
-  get: () => hp.value.conditions.map((item) => item.trim()).join(', '),
+  get: () => arrayToString(hp.value.conditions),
   set: (val) => (hp.value.conditions = val.split(','))
 })
 
 const weaknesses = computed<string>({
-  get: () => hp.value.weaknesses.map((item) => item.trim()).join(', '),
+  get: () => arrayToString(hp.value.weaknesses),
   set: (val) => (hp.value.weaknesses = val.split(','))
 })
 
-const handleUpdateHealth = debounce(async () => {
-  if (!character.value) return
-  await patchHealth(character.value.id, hp.value)
-  syncApiCharacterDown(character.value.id)
-}, 1000)
+const handleUpdateHealth = createHandleUpdate<CharacterHealth>(patchHealth)
 
 onBeforeMount(() => {
   if (character.value) {
@@ -77,8 +75,8 @@ onMounted(() => {
   // This allows us to skip watching the pre-mount API sync
   watch(
     hp,
-    () => {
-      handleUpdateHealth()
+    (val) => {
+      handleUpdateHealth(val)
     },
     { deep: true }
   )

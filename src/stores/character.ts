@@ -2,6 +2,7 @@ import { computed, ref, watch, type Ref } from 'vue'
 import { defineStore } from 'pinia'
 import { cloneDeep, debounce, isEqual } from 'lodash'
 import { fetchCharacter, patchCharacter } from '@/api/character'
+import type { AxiosResponse } from 'axios'
 
 const baseAttributes: Character['abilities'] = {
   strength: 0,
@@ -109,6 +110,16 @@ export const useCharacterStore = defineStore('character', () => {
     prevCharacter.value = cloneDeep(response.data.data)
   }, 500)
 
+  function createHandleUpdate<T>(
+    patch: (character_id: number, params: Partial<T>) => Promise<AxiosResponse<any, any>>
+  ) {
+    return debounce(async (params: Partial<T>) => {
+      if (!character.value) return
+      await patch(character.value.id, params)
+      syncApiCharacterDown(character.value.id)
+    }, 1000)
+  }
+
   return {
     character,
     abilities,
@@ -120,6 +131,7 @@ export const useCharacterStore = defineStore('character', () => {
     level,
     getProficiencyValue,
     getClassKeySkill,
-    syncApiCharacterDown
+    syncApiCharacterDown,
+    createHandleUpdate
   }
 })
