@@ -101,6 +101,9 @@ interface Proficiencies {
   unarmed: Proficiency
   simple: Proficiency
   martial: Proficiency
+  class_dc: Proficiency
+  spell_dc: Proficiency
+  spell_attack: Proficiency
   other: string
 }
 

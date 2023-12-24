@@ -78,13 +78,17 @@ const { syncApiCharacterDown } = characterStore
 const { character } = storeToRefs(characterStore)
 
 const handleActionChange = debounce(async (val: CharacterAction) => {
-  if (!character.value || !action.value) return
-  if (isEqual(val, originalAction.value)) return
+  if (!character.value || !action.value) return // This makes Typescript happy
+  if (!val.name) return // This is a new empty action
+  if (isEqual(val, originalAction.value)) return // This is the same action being reloaded
   if (action.value.id === 0) {
+    // This is an empty action being updated
     await addCharacterAction(character.value.id, pickBy(val))
     syncApiCharacterDown(character.value.id)
+    // After syncing we'll have the new action, so reset this one to empty
     action.value = cloneDeep(emptyAction)
   } else {
+    // This is an existing action being updated
     await updateCharacterAction(character.value.id, pickBy(val))
     syncApiCharacterDown(character.value.id)
   }
