@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onBeforeMount, onMounted, ref, watch } from 'vue'
 import SGSection from '@/components/layout/SGSection.vue'
 import SGInput from '@/components/form/SGInput.vue'
 
@@ -42,22 +42,22 @@ const hp = ref<CharacterHealth>({
 })
 
 const resistances = computed<string>({
-  get: () => hp.value.resistances.toString(),
+  get: () => hp.value.resistances.map((item) => item.trim()).join(', '),
   set: (val) => (hp.value.resistances = val.split(','))
 })
 
 const immunities = computed<string>({
-  get: () => hp.value.immunities.toString(),
+  get: () => hp.value.immunities.map((item) => item.trim()).join(', '),
   set: (val) => (hp.value.immunities = val.split(','))
 })
 
 const conditions = computed<string>({
-  get: () => hp.value.conditions.toString(),
+  get: () => hp.value.conditions.map((item) => item.trim()).join(', '),
   set: (val) => (hp.value.conditions = val.split(','))
 })
 
 const weaknesses = computed<string>({
-  get: () => hp.value.weaknesses.toString(),
+  get: () => hp.value.weaknesses.map((item) => item.trim()).join(', '),
   set: (val) => (hp.value.weaknesses = val.split(','))
 })
 
@@ -67,11 +67,14 @@ const handleUpdateHealth = debounce(async () => {
   syncApiCharacterDown(character.value.id)
 }, 1000)
 
-onMounted(() => {
+onBeforeMount(() => {
   if (character.value) {
     hp.value = cloneDeep(character.value.health)
   }
+})
 
+onMounted(() => {
+  // This allows us to skip watching the pre-mount API sync
   watch(
     hp,
     () => {
