@@ -15,8 +15,11 @@ type Dice = {
 interface Item {
   id: number
   name: string
-  price: number
+  hardness: number
+  max_hp: number
+  break_threshold: number
   bulk: number
+  price: number
 }
 
 type ArmourCategory = 'U' | 'L' | 'M' | 'H'
@@ -54,11 +57,8 @@ interface Weapon extends Item {
 }
 
 interface Shield extends Item {
-  ac: number
-  hardness: number
-  hp: number
-  bt: number
-  currentHp: number
+  armour_class: number
+  current_hp: number
   raised: boolean
 }
 
@@ -207,6 +207,7 @@ interface Character {
   items: Item[]
   armours: Armour[]
   weapons: Weapon[]
+  shield: Shield
   proficiencies: Proficiencies
   user: {
     id: number
