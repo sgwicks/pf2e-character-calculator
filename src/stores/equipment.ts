@@ -1,4 +1,4 @@
-import { reactive, computed } from 'vue'
+import { computed } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 import { useCharacterStore } from './character'
 
@@ -15,7 +15,10 @@ const emptyWeapon: Weapon = {
   price: 0,
   bulk: 0,
   group: 'club',
-  traits: []
+  traits: [],
+  hardness: 0,
+  max_hp: 0,
+  break_threshold: 0
 }
 
 const emptyArmour: Armour = {
@@ -30,7 +33,23 @@ const emptyArmour: Armour = {
   bulk: 0,
   group: null,
   price: 0,
-  traits: []
+  traits: [],
+  hardness: 0,
+  max_hp: 0,
+  break_threshold: 0
+}
+
+const emptyShield: Shield = {
+  id: 0,
+  name: '',
+  hardness: 0,
+  max_hp: 0,
+  break_threshold: 0,
+  bulk: 0,
+  price: 0,
+  armour_class: 0,
+  current_hp: 0,
+  raised: false
 }
 
 export const useEquipmentStore = defineStore('equipment', () => {
@@ -85,18 +104,7 @@ export const useEquipmentStore = defineStore('equipment', () => {
     return character.value.proficiencies[proficiency] + level.value
   }
 
-  const shield = reactive<Shield>({
-    id: 0,
-    ac: 0,
-    hardness: 0,
-    hp: 0,
-    bt: 0,
-    currentHp: 0,
-    raised: false,
-    name: '',
-    price: 0,
-    bulk: 0
-  })
+  const shield = computed<Shield>(() => character.value?.shield || emptyShield)
 
   return {
     armour,

@@ -19,14 +19,28 @@ import SGInput from '@/components/form/SGInput.vue'
 import ProficiencyLevel from '@/components/form/ProficiencyLevel.vue'
 import { computed, ref } from 'vue'
 
-import { useCharacterStore } from '@/stores/character'
+import { patchProficiency } from '@/api/proficiency'
 
-const { getProficiencyValue, getClassKeySkill } = useCharacterStore()
+import { useCharacterStore } from '@/stores/character'
+import { storeToRefs } from 'pinia'
+import { debounce } from 'lodash'
+
+const characterStore = useCharacterStore()
+const { character } = storeToRefs(characterStore)
+const { getProficiencyValue, getClassKeySkill, syncApiCharacterDown } = characterStore
 
 const classDC = computed(
   () => 10 + getClassKeySkill(0) + getProficiencyValue(proficiency.value) + item.value
 )
 
-const proficiency = ref(0)
+const proficiency = computed({
+  get: () => character.value?.proficiencies.class_dc || 0,
+  set: debounce(async (val) => {
+    if (!character.value) return
+    if (val === character.value?.proficiencies.class_dc) return
+    await patchProficiency(character.value.id, { class_dc: val })
+    syncApiCharacterDown(character.value.id)
+  }, 1000)
+})
 const item = ref(0)
 </script>

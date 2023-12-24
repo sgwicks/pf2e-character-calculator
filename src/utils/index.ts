@@ -11,4 +11,14 @@ const toTitleCase = (str: string) => {
     .join(' ')
 }
 
-export { toTitleCase }
+/**
+ * Handles the fact that string arrays returned from the API often have erroneous extra spacing
+ *
+ * @param arr
+ * @returns a comma-separated string with spacing
+ */
+const arrayToString = (arr: string[]) => {
+  return arr.map((str) => str.trim()).join(', ')
+}
+
+export { toTitleCase, arrayToString }

@@ -6,26 +6,79 @@
     <SGInput v-model="hp.dying" label="Dying" />
     <SGInput v-model="hp.wounded" label="Wounded" />
     <div style="width: 100%">
-      <SGInput v-model="hp.resistances" label="Resistances" />
-      <SGInput v-model="hp.immunities" label="Immunites" />
-      <SGInput v-model="hp.conditions" label="Conditions" />
+      <SGInput v-model="resistances" label="Resistances" />
+      <SGInput v-model="immunities" label="Immunites" />
+      <SGInput v-model="conditions" label="Conditions" />
+      <SGInput v-model="weaknesses" label="Weaknesses" />
     </div>
   </SGSection>
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { computed, onBeforeMount, onMounted, ref, watch } from 'vue'
 import SGSection from '@/components/layout/SGSection.vue'
 import SGInput from '@/components/form/SGInput.vue'
 
-const hp = reactive({
+import { useCharacterStore } from '@/stores/character'
+import { storeToRefs } from 'pinia'
+import { cloneDeep } from 'lodash'
+import { patchHealth } from '@/api/health'
+
+import { arrayToString } from '@/utils'
+
+const characterStore = useCharacterStore()
+
+const { createHandleUpdate } = characterStore
+const { character } = storeToRefs(characterStore)
+
+const hp = ref<CharacterHealth>({
   max: 0,
   current: 0,
   temporary: 0,
   dying: 0,
   wounded: 0,
-  resistances: '',
-  immunities: '',
-  conditions: ''
+  resistances: [],
+  immunities: [],
+  conditions: [],
+  weaknesses: []
+})
+
+const resistances = computed<string>({
+  get: () => arrayToString(hp.value.resistances),
+  set: (val) => (hp.value.resistances = val.split(','))
+})
+
+const immunities = computed<string>({
+  get: () => arrayToString(hp.value.immunities),
+  set: (val) => (hp.value.immunities = val.split(','))
+})
+
+const conditions = computed<string>({
+  get: () => arrayToString(hp.value.conditions),
+  set: (val) => (hp.value.conditions = val.split(','))
+})
+
+const weaknesses = computed<string>({
+  get: () => arrayToString(hp.value.weaknesses),
+  set: (val) => (hp.value.weaknesses = val.split(','))
+})
+
+const handleUpdateHealth = createHandleUpdate<CharacterHealth>(patchHealth)
+
+onBeforeMount(() => {
+  if (character.value) {
+    hp.value = cloneDeep(character.value.health)
+  }
+})
+
+onMounted(() => {
+  // This allows us to skip watching the pre-mount API sync
+  watch(
+    hp,
+    (val) => {
+      handleUpdateHealth(val)
+    },
+    { deep: true }
+  )
 })
 </script>

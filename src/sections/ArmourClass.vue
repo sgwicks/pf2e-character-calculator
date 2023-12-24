@@ -81,7 +81,7 @@ const dexToAc = computed(() => {
   return armour.value.dex_cap > props.dexterity ? props.dexterity : armour.value.dex_cap
 })
 
-const shieldToAc = computed(() => (shield.value.raised ? shield.value.ac : 0))
+const shieldToAc = computed(() => (shield.value.raised ? shield.value.armour_class : 0))
 
 const armourClass = computed(
   () =>
