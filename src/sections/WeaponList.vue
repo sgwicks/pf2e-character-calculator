@@ -1,11 +1,12 @@
 <template>
   <SGSection title="Weapons">
-    <h3>Proficiencies</h3>
-    <div class="flex">
+    <fieldset class="flex" style="width: fit-content">
+      <legend>Proficiencies</legend>
       <label>
         Unarmed
         <ProficiencyLevel v-model="unarmed" />
       </label>
+      <label></label>
       <label>
         Simple
         <ProficiencyLevel v-model="simple" />
@@ -14,8 +15,15 @@
         Martial
         <ProficiencyLevel v-model="martial" />
       </label>
+    </fieldset>
+    <div class="grid columns-2">
+      <!-- <div v-for="(weapon, i) in weapons" :key="`weapon-${i}`"> -->
+      <Weapon :weapon="weapons[0]" />
+      <div></div>
+      <Weapon :weapon="weapons[1]" />
+      <Weapon :weapon="weapons[2]" />
+      <!-- </div> -->
     </div>
-    <Weapon v-for="(weapon, i) in weapons" :key="`weapon-${i}`" :weapon="weapon" />
   </SGSection>
 </template>
 
@@ -77,3 +85,9 @@ const updateProficiencies = debounce(async () => {
   syncApiCharacterDown(character.value.id)
 }, 3000)
 </script>
+
+<style>
+.grid {
+  column-gap: 25px;
+}
+</style>

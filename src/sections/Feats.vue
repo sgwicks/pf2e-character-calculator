@@ -1,6 +1,6 @@
 <template>
   <!-- Ancestry -->
-  <SGSection title="Feats">
+  <SGSection>
     <div>
       <h3>Ancestry Feats</h3>
       <Feat
@@ -39,9 +39,7 @@
         type="G"
         :key="`general-feat-${level}`"
       />
-    </div>
-    <!-- Bonus -->
-    <div>
+      <!-- Bonus -->
       <h3>Bonus Feats</h3>
       <Feat :required-level="0" type="B" />
       <Feat :required-level="0" type="B" />

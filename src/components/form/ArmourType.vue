@@ -1,5 +1,5 @@
 <template>
-  <fieldset class="flex column space-between">
+  <fieldset class="grid columns-2">
     <legend>Category</legend>
     <label class="flex space-between">
       Unarmoured

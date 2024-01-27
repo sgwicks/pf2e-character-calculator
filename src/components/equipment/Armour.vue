@@ -1,15 +1,12 @@
 <template>
-  <SGSection title="Armour">
+  <SGSection>
     <div class="armour">
-      <div class="flex wrap">
-        <SGSearchableInput
-          v-model="armourToResult"
-          label="Armour"
-          :query="fetchArmours"
-          style="width: 60%"
-        />
+      <div class="flex" style="margin-inline-start: 30%; width: 70%">
+        <SGSearchableInput v-model="armourToResult" label="Armour" :query="fetchArmours" />
         <!-- AC -->
         <SGInput v-model="armour.armour_class" label="AC" class="number-input" disabled />
+      </div>
+      <div class="flex row">
         <!-- Dex Cap -->
         <SGInput v-model="dexCapComputed" label="Dex Cap" class="number-input" disabled />
         <!-- Strength Req -->
@@ -33,9 +30,9 @@
           class="number-input"
           disabled
         />
+        <!-- Category (U, L, M, H) -->
+        <ArmourType v-model="armour.category" style="width: 50%" />
       </div>
-      <!-- Category (U, L, M, H) -->
-      <ArmourType v-model="armour.category" />
     </div>
   </SGSection>
 </template>
@@ -91,7 +88,7 @@ const dexCapComputed = computed({
 
 <style lang="scss" scoped>
 .armour {
-  display: grid;
-  grid-template-columns: 4fr 2fr;
+  display: flex wrap;
+  width: 100%;
 }
 </style>

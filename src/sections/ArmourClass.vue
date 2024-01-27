@@ -1,8 +1,7 @@
 <template>
   <SGSection>
+    <SGInput :model-value="armourClass" label="Armour Class" disabled />
     <div class="flex space-between" style="width: 100%">
-      <SGInput :model-value="armourClass" label="Armour Class" disabled />
-      <span class="equals" />
       <SGInput :model-value="getProficiencyValue(proficiency)" label="Prof" disabled />
       <span class="plus" />
       <div class="flex dex-or-cap">
@@ -99,9 +98,12 @@ const armourClass = computed(
 fieldset {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   justify-items: center;
   align-items: center;
+  table {
+    margin-top: 0;
+  }
 }
 
 .dex-or-cap {

@@ -6,12 +6,12 @@
     <HitPoints id="health" class="row-span-3" />
     <Attributes id="attributes" />
     <SavingThrows id="saving-throws" class="flex wrap space-between" />
-    <Skills class="row-span-25 col-span-6" />
+    <Skills id="skills" />
     <ArmourClass :dexterity="character.abilities.dexterity" id="armour-class" class="flex wrap" />
-    <Shield class="col-span-6 row-span-4 flex wrap" />
-    <Armour class="row-span-4 col-span-6 flex wrap" />
-    <WeaponList class="row-span-24 col-span-6" />
-    <Feats class="row-span-24 col-span-12 flex wrap" />
+    <Shield id="shield" class="flex wrap" />
+    <Armour id="armour" />
+    <WeaponList id="weapons" />
+    <Feats class="row-span-18 col-span-12 flex wrap" />
     <ActionsExplainer class="row-span-3 col-span-2" />
     <ClassDC class="row-span-3 col-span-6 flex wrap" />
     <ActionList class="row-span-26 col-span-12" />
@@ -116,8 +116,30 @@ onBeforeMount(() => {
   grid-row: 9 / 15;
 }
 
+#skills {
+  grid-column: 7 / 13;
+  grid-row: 9 / 38;
+  z-index: 1;
+}
+
 #armour-class {
+  grid-column: 2 / 7;
+  grid-row: 15 / 23;
+}
+
+#shield {
+  grid-column: 1 / 2;
+  grid-row: 16 / 24;
+  z-index: 1;
+}
+
+#armour {
   grid-column: 1 / 7;
-  grid-row: 16 / 22;
+  grid-row: 23 / 27;
+}
+
+#weapons {
+  grid-column: 1 / 13;
+  grid-row: 27 / 49;
 }
 </style>

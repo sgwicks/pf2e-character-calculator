@@ -2,13 +2,15 @@
   <section>
     <div style="width: 100%" class="flex">
       <SGSearchableInput v-model="shieldToResult" label="Shield" :query="fetchShields" />
-      <label>
-        Raised?
-        <SGCheckbox v-model="raised" />
-      </label>
     </div>
-    <SGInput :model-value="shield.armour_class" label="AC" disabled />
-    <SGInput :model-value="shield.hardness" label="Hardness" disabled />
+    <label class="flex row">
+      Raised?
+      <SGCheckbox v-model="raised" />
+    </label>
+    <div class="flex row">
+      <SGInput :model-value="shield.armour_class" label="AC" disabled />
+      <SGInput :model-value="shield.hardness" label="Hardness" disabled />
+    </div>
     <SGInput :model-value="shield.max_hp" label="Max HP" disabled />
     <SGInput :model-value="shield.break_threshold" label="BT" disabled />
     <SGInput v-model="current_hp" label="Current HP" />
