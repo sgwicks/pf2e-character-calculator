@@ -1,5 +1,5 @@
 <template>
-  <SGSection title="Saving Throws">
+  <SGSection>
     <SavingThrow title="fortitude" attribute="constitution" />
     <SavingThrow title="reflex" attribute="dexterity" />
     <SavingThrow title="will" attribute="wisdom" />

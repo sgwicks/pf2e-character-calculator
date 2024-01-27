@@ -19,13 +19,21 @@
       />
       <span class="plus" />
       <SGInput :model-value="getProficiencyValue(skill.proficiency)" label="Prof" disabled />
+      <span class="plus" />
+      <SGInput :model-value="skill.item" label="Item" disabled />
+      <template v-if="skill.armour">
+        <span class="plus" />
+        <SGInput :model-value="getArmourCheckPenalty" label="Armour" disabled />
+      </template>
+      <template v-else>
+        <span class="plus" style="color: white" aria-hidden />
+        <div class="blank-input"></div>
+        <!-- <SGInput :model-value="1" /> -->
+      </template>
       <ProficiencyLevel
         :model-value="skill.proficiency"
         @update:model-value="(val) => handleSkillProficiency(skill.id, val)"
       />
-      <span class="plus" />
-      <SGInput :model-value="skill.item" label="Item" disabled />
-      <SGInput v-if="skill.armour" :model-value="getArmourCheckPenalty" label="Armour" disabled />
     </div>
   </SGSection>
 </template>
@@ -55,15 +63,14 @@ const handleSkillProficiency = async (skillId: number, proficiency: number) => {
 </script>
 
 <style scoped>
-.skill-row {
-  display: grid;
-  grid-template-columns: 50px 25px 50px 15px 50px 125px 15px 50px 50px 50px;
-  column-gap: 15px;
-  align-items: end;
-}
-
 .skill-row span {
   justify-self: center;
   padding-bottom: 5px;
+}
+
+.blank-input {
+  margin: 8px 4px;
+  width: 4em;
+  flex-grow: 1;
 }
 </style>

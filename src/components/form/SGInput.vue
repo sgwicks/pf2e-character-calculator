@@ -61,10 +61,12 @@ label {
   justify-content: space-between;
   font-weight: 600;
   height: 4rem;
+  font-size: 0.8rem;
 
   &.number {
-    width: 6em;
-    max-width: max-content;
+    width: 4em;
+    flex-grow: 1;
+    overflow-x: visible;
   }
 }
 </style>

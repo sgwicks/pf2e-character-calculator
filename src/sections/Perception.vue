@@ -1,11 +1,14 @@
 <template>
-  <SGSection v-if="character" title="Perception">
-    <SGInput :model-value="computedPerception" label="Per" disabled />
-    <span class="equals" />
-    <SGInput :model-value="wisdom" label="Wis" disabled />
-    <ProficiencyLevel v-model="proficiency" />
-    <SGInput v-model="item" label="Item" />
-    <SGInput v-model="senses" label="Senses" style="width: 100%" />
+  <SGSection v-if="character" title="">
+    <div class="skill-row">
+      <SGInput :model-value="computedPerception" label="Perception" disabled />
+      <span class="equals" />
+      <SGInput :model-value="wisdom" label="Wis" disabled />
+      <span class="plus" />
+      <SGInput v-model="item" label="Item" />
+      <ProficiencyLevel v-model="proficiency" />
+    </div>
+    <SGInput v-model="senses" label="Senses" />
   </SGSection>
 </template>
 

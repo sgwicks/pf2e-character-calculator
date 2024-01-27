@@ -1,5 +1,5 @@
 <template>
-  <SGSection title="Movement">
+  <SGSection>
     <SGInput v-model="maxSpeed" label="Max Speed" />
     <SGInput :model-value="currentSpeed" label="Current" disabled />
   </SGSection>

@@ -1,23 +1,25 @@
 <template>
-  <SGSection title="Armour Class">
-    <SGInput :model-value="armourClass" label="AC" disabled />
-    <span class="equals" />
-    <SGInput :model-value="getProficiencyValue(proficiency)" label="Prof" disabled />
-    <span class="plus" />
-    <div class="flex dex-or-cap">
-      <SGInput :model-value="dexterity" label="Dex" disabled />
-      <span class="or">OR</span>
-      <SGInput
-        :model-value="armour.dex_cap === null ? '' : armour.dex_cap"
-        label="Cap"
-        disabled
-        class="number-input cap"
-      />
+  <SGSection>
+    <div class="flex space-between" style="width: 100%">
+      <SGInput :model-value="armourClass" label="Armour Class" disabled />
+      <span class="equals" />
+      <SGInput :model-value="getProficiencyValue(proficiency)" label="Prof" disabled />
+      <span class="plus" />
+      <div class="flex dex-or-cap">
+        <SGInput :model-value="dexterity" label="Dex" disabled />
+        <span class="or">OR</span>
+        <SGInput
+          :model-value="armour.dex_cap === null ? '' : armour.dex_cap"
+          label="Cap"
+          disabled
+          class="number-input cap"
+        />
+      </div>
+      <span class="plus" />
+      <SGInput :model-value="armour.armour_class" label="Armour" disabled />
+      <span class="plus" />
+      <SGInput :model-value="shieldToAc" label="Shield" disabled />
     </div>
-    <span class="plus" />
-    <SGInput :model-value="armour.armour_class" label="Armour" disabled />
-    <span class="plus" />
-    <SGInput :model-value="shieldToAc" label="Shield" disabled />
     <fieldset class="flex wrap">
       <legend>Proficiencies</legend>
       <label>
@@ -97,8 +99,7 @@ const armourClass = computed(
 fieldset {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   justify-items: center;
   align-items: center;
 }

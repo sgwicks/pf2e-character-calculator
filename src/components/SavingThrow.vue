@@ -1,15 +1,17 @@
 <template>
-  <SGInput :model-value="savingThrow" disabled :label="title" />
-  <span class="equals" />
-  <SGInput :model-value="value" :label="attribute.slice(0, 3)" disabled />
-  <span class="plus" />
-  <SGInput :model-value="getProficiencyValue(savingThrows[title])" label="prof" disabled />
-  <span class="plus" />
-  <SGInput v-model="item" label="Item" />
-  <ProficiencyLevel
-    :model-value="savingThrows[title]"
-    @update:model-value="(val) => handleSavingThrowProficiency(val)"
-  />
+  <div class="flex">
+    <SGInput :model-value="savingThrow" disabled :label="title" />
+    <span class="equals" />
+    <SGInput :model-value="value" :label="attribute.slice(0, 3)" disabled />
+    <span class="plus" />
+    <SGInput :model-value="getProficiencyValue(savingThrows[title])" label="prof" disabled />
+    <span class="plus" />
+    <SGInput v-model="item" label="Item" />
+    <ProficiencyLevel
+      :model-value="savingThrows[title]"
+      @update:model-value="(val) => handleSavingThrowProficiency(val)"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">

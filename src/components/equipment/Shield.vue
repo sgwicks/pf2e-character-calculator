@@ -1,7 +1,6 @@
 <template>
   <section>
     <div style="width: 100%" class="flex">
-      <h2 style="width: 50%">Shield</h2>
       <SGSearchableInput v-model="shieldToResult" label="Shield" :query="fetchShields" />
       <label>
         Raised?
