@@ -9,6 +9,11 @@
 }
 
 @media (min-width: 1280px) {
+  header {
+    background-color: #eee;
+    padding: 5px;
+  }
+
   body {
     display: flex;
     place-items: center;
