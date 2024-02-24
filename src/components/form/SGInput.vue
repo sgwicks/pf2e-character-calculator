@@ -1,6 +1,6 @@
 <template>
   <label ref="labelRef" :class="{ number: type === 'number' }">
-    {{ label }}
+    <span>{{ label }}</span>
     <input
       v-if="type === 'number'"
       v-model.number="value"
@@ -56,17 +56,19 @@ const type = typeof props.modelValue === 'number' ? 'number' : 'text'
 label {
   display: flex;
   flex-direction: column;
-  margin: 8px 4px;
+  margin: 0.5em 0.25em;
   text-transform: capitalize;
   justify-content: space-between;
-  font-weight: 600;
-  height: 4rem;
-  font-size: 0.8rem;
+  height: 4em;
+  font-size: 0.8em;
 
-  &.number {
-    width: 4em;
-    flex-grow: 1;
-    overflow-x: visible;
+  > span {
+    font-weight: 600;
+    white-space: nowrap;
+    @media (max-width: 1279px) {
+      overflow: hidden;
+      text-overflow: '.';
+    }
   }
 }
 </style>

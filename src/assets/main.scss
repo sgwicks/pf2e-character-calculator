@@ -9,11 +9,6 @@
 }
 
 @media (min-width: 1280px) {
-  header {
-    background-color: #eee;
-    padding: 5px;
-  }
-
   body {
     display: flex;
     place-items: center;
@@ -23,19 +18,30 @@
     display: grid;
     grid-template-columns: 1fr;
   }
+  main {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: 3rem;
+    min-width: 1064px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 1279px) {
+  main {
+    display: flex;
+    font-size: 14px;
+  }
 }
 
 /* Element Styles */
-
-main {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-auto-rows: 3rem;
-  min-width: 1064px;
+header {
+  background-color: #eee;
+  padding: 5px;
 }
 
 section {
-  padding: 10px 20px;
+  padding: 0.5em;
   color: black;
   background-color: white;
   border: 1px solid red;
@@ -51,14 +57,14 @@ h3 {
 
 input,
 select {
-  font-size: 1rem;
+  font-size: 1em;
   width: 100%;
 }
 
 input[type='number'],
 .number-input input {
   appearance: textfield;
-  font-size: 1.3rem;
+  font-size: 1.5em;
   width: 2em;
   margin: 0 2px;
 }
@@ -124,9 +130,9 @@ hr {
 }
 
 $sizes: (
-  'sm': 8px,
-  'md': 16px,
-  'lg': 24px
+  'sm': 0.5em,
+  'md': 1em,
+  'lg': 1.5em
 );
 
 @each $name, $size in $sizes {
@@ -171,9 +177,17 @@ $sizes: (
 .equals,
 .plus,
 .minus {
-  margin-block-start: 1.7em;
-  font-size: 150%;
-  margin-inline-start: -0.2em;
+  margin-block-start: 1em;
+  font-size: 1.5em;
+  justify-self: end;
+
+  @media (max-width: 1279px) {
+    display: none;
+  }
+}
+
+.equals {
+  justify-self: start;
 }
 
 .equals::before {

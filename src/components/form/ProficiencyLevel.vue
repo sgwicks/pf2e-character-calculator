@@ -48,12 +48,12 @@ const legendary = computed({
 
 <style scoped lang="scss">
 table {
-  height: 2rem;
+  height: 2em;
   width: 100px;
   min-width: 100px;
-  margin: 4px;
-  margin-top: 22px;
-  font-size: 70%;
+  margin: 0.25em;
+  margin-top: 1.5em;
+  font-size: 0.7em;
 }
 
 td {
@@ -69,5 +69,11 @@ tr:first-of-type {
 tr:not(:first-of-type) td {
   border: 1px solid black;
   padding-block: 4px;
+}
+@media (max-width: 1279px) {
+  table {
+    width: fit-content;
+    min-width: 9em;
+  }
 }
 </style>
