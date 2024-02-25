@@ -25,7 +25,7 @@ const { getArmourSpeedPenalty } = storeToRefs(equipmentStore)
 
 const maxSpeed = ref(0)
 
-const currentSpeed = computed(() => maxSpeed.value + getArmourSpeedPenalty.value)
+const currentSpeed = computed(() => maxSpeed.value - getArmourSpeedPenalty.value)
 
 const handleUpdateMovement = createHandleUpdate<CharacterMovement>(patchMovement)
 

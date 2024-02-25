@@ -13,7 +13,7 @@
     </div>
     <SGInput :model-value="shield.max_hp" label="Max HP" disabled />
     <SGInput :model-value="shield.break_threshold" label="BT" disabled />
-    <SGInput v-model="current_hp" label="Current HP" />
+    <SGInput v-model="current_hp" label="Current" />
   </section>
 </template>
 

@@ -61,7 +61,7 @@ export const useEquipmentStore = defineStore('equipment', () => {
 
   const getArmourCheckPenalty = computed(() => {
     if (strength >= armour.value.strength) return 0
-    else return armour.value.check_penalty
+    else return armour.value.check_penalty * -1
   })
 
   const getArmourSpeedPenalty = computed(() => {

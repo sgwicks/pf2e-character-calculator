@@ -56,16 +56,20 @@ const type = typeof props.modelValue === 'number' ? 'number' : 'text'
 label {
   display: flex;
   flex-direction: column;
-  margin: 0.5em 0.25em;
+  margin: 0.5em 0.5em;
   text-transform: capitalize;
-  justify-content: space-between;
-  height: 4em;
+  justify-content: end;
   font-size: 0.8em;
+
+  &.number {
+    max-width: 4em;
+  }
 
   > span {
     font-weight: 600;
-    white-space: nowrap;
+    white-space: break-spaces;
     @media (max-width: 1279px) {
+      white-space: nowrap;
       overflow: hidden;
       text-overflow: '.';
     }

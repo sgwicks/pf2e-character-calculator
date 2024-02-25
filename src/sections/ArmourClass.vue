@@ -1,11 +1,12 @@
 <template>
-  <SGSection>
-    <SGInput :model-value="armourClass" label="Armour Class" disabled />
+  <SGSection title="Armour Class">
     <div class="flex space-between" style="width: 100%">
+      <SGInput :model-value="armourClass" label="" disabled />
+      <span class="equals" />
       <SGInput :model-value="getProficiencyValue(proficiency)" label="Prof" disabled />
       <span class="plus" />
       <div class="flex dex-or-cap">
-        <SGInput :model-value="dexterity" label="Dex" disabled />
+        <SGInput :model-value="abilities.dexterity" label="Dex" disabled />
         <span class="or">OR</span>
         <SGInput
           :model-value="armour.dex_cap === null ? '' : armour.dex_cap"
@@ -19,7 +20,7 @@
       <span class="plus" />
       <SGInput :model-value="shieldToAc" label="Shield" disabled />
     </div>
-    <fieldset class="flex wrap">
+    <fieldset>
       <legend>Proficiencies</legend>
       <label>
         Unarmoured
@@ -50,11 +51,9 @@ import { useCharacterStore } from '@/stores/character'
 import { useEquipmentStore } from '@/stores/equipment'
 import { storeToRefs } from 'pinia'
 
-const props = defineProps<{
-  dexterity: number
-}>()
-
-const { getProficiencyValue } = useCharacterStore()
+const characterStore = useCharacterStore()
+const { abilities } = storeToRefs(characterStore)
+const { getProficiencyValue } = characterStore
 const equipmentStore = useEquipmentStore()
 const { armour, shield } = storeToRefs(equipmentStore)
 
@@ -78,8 +77,10 @@ const proficiency = computed(() => {
 })
 
 const dexToAc = computed(() => {
-  if (armour.value.dex_cap === null) return props.dexterity
-  return armour.value.dex_cap > props.dexterity ? props.dexterity : armour.value.dex_cap
+  if (armour.value.dex_cap === null) return abilities.value.dexterity
+  return armour.value.dex_cap > abilities.value.dexterity
+    ? abilities.value.dexterity
+    : armour.value.dex_cap
 })
 
 const shieldToAc = computed(() => (shield.value.raised ? shield.value.armour_class : 0))
@@ -97,10 +98,9 @@ const armourClass = computed(
 <style scoped lang="scss">
 fieldset {
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  justify-items: center;
-  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: space-around;
   table {
     margin-top: 0;
   }

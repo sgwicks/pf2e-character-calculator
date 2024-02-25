@@ -1,1 +1,3 @@
-<template>Actions</template>
+<template>
+  <main>Actions</main>
+</template>

@@ -1,37 +1,32 @@
 <template>
   <SGSection>
     <div class="armour">
-      <div class="flex" style="margin-inline-start: 30%; width: 70%">
+      <div class="flex">
         <SGSearchableInput v-model="armourToResult" label="Armour" :query="fetchArmours" />
         <!-- AC -->
         <SGInput v-model="armour.armour_class" label="AC" class="number-input" disabled />
       </div>
-      <div class="flex row">
+      <!-- Category (U, L, M, H) -->
+      <ArmourType v-model="armour.category" class="row-span-2" />
+      <div class="flex row wrap">
         <!-- Dex Cap -->
         <SGInput v-model="dexCapComputed" label="Dex Cap" class="number-input" disabled />
         <!-- Strength Req -->
-        <SGInput
-          v-model="armour.strength"
-          label="Strength Required"
-          class="number-input"
-          disabled
-        />
+        <SGInput v-model="armour.strength" label="Str Req" class="number-input" disabled />
         <!-- Check Penalty -->
         <SGInput
-          v-model="armour.check_penalty"
-          label="Check Penalty"
+          :model-value="armour.check_penalty * -1"
+          label="Skill"
           class="number-input"
           disabled
         />
         <!-- Speed Penalty -->
         <SGInput
-          v-model="armour.speed_penalty"
-          label="Speed Penalty"
+          :model-value="armour.speed_penalty * -1"
+          label="Speed"
           class="number-input"
           disabled
         />
-        <!-- Category (U, L, M, H) -->
-        <ArmourType v-model="armour.category" style="width: 50%" />
       </div>
     </div>
   </SGSection>
@@ -88,7 +83,7 @@ const dexCapComputed = computed({
 
 <style lang="scss" scoped>
 .armour {
-  display: flex wrap;
-  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 </style>

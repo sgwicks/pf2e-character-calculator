@@ -1,1 +1,1 @@
-<template>Feats</template>
+<template><main>Feats</main></template>

@@ -1,1 +1,1 @@
-<template>Spells</template>
+<template><main>Spells</main></template>

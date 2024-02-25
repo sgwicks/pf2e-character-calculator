@@ -1,6 +1,8 @@
 <template>
   <header class="full-width flex space-between">
     <div v-if="character" class="tabs" style="color: black">
+      <RouterLink :to="`/character/${character.id}/`">Home</RouterLink>
+      &nbsp; | &nbsp;
       <RouterLink :to="`/character/${character.id}/attributes`">Attributes</RouterLink>
       &nbsp;|&nbsp;
       <RouterLink :to="`/character/${character.id}/equipment`">Equipment</RouterLink>

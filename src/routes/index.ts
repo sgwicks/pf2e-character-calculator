@@ -1,6 +1,7 @@
 import Login from '@/pages/LoginPage.vue'
 import CharacterSelect from '@/pages/CharacterSelect.vue'
-import CharacterSheetAttributes from '@/pages/CharacterSheet/index.vue'
+import CharacterSheetHome from '@/pages/CharacterSheet/index.vue'
+import CharacterSheetAttributes from '@/pages/CharacterSheet/Attributes.vue'
 import CharacterSheetSkills from '@/pages/CharacterSheet/Skills.vue'
 import CharacterSheetFeats from '@/pages/CharacterSheet/Feats.vue'
 import CharacterSheetActions from '@/pages/CharacterSheet/Actions.vue'
@@ -14,7 +15,7 @@ const routes = [
   { path: '/login', component: Login },
   { path: '/character-select', component: CharacterSelect },
   { path: '/character/new', component: CharacterCreate },
-  { path: '/character/:id/', component: CharacterSheetAttributes },
+  { path: '/character/:id/', component: CharacterSheetHome },
   { path: '/character/:id/attributes', component: CharacterSheetAttributes },
   { path: '/character/:id/skills', component: CharacterSheetSkills },
   { path: '/character/:id/feats', component: CharacterSheetFeats },
