@@ -1,13 +1,15 @@
 <template>
-  <SGSection title="" class="flex wrap">
-    <div class="grid columns-5">
-      <SGInput v-model="hp.max" label="Max HP" />
+  <SGSection title="Hit Points" class="flex wrap">
+    <div class="flex">
+      <SGInput v-model="hp.max" label="Max" />
       <SGInput v-model="hp.current" label="Current" />
       <SGInput v-model="hp.temporary" label="Temp" />
+    </div>
+    <div class="flex">
       <SGInput v-model="hp.dying" label="Dying" />
       <SGInput v-model="hp.wounded" label="Wounded" />
     </div>
-    <div class="grid columns-4">
+    <div class="flex column">
       <SGInput v-model="resistances" label="Resistances" />
       <SGInput v-model="immunities" label="Immunites" />
       <SGInput v-model="conditions" label="Conditions" />

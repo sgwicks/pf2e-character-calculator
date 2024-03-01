@@ -78,11 +78,6 @@ const handleSkillProficiency = async (skillId: number, proficiency: number) => {
   }
 }
 
-.skill-row span {
-  justify-self: center;
-  padding-bottom: 5px;
-}
-
 /* Sames CSS class as a label.number */
 .blank-input {
   margin: 8px 4px;

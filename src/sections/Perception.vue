@@ -1,5 +1,5 @@
 <template>
-  <SGSection v-if="character" title="">
+  <SGSection v-if="character" title="Perception">
     <div class="skill-row">
       <SGInput :model-value="computedPerception" label="Perception" disabled />
       <span class="equals" />

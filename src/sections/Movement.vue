@@ -1,6 +1,6 @@
 <template>
-  <SGSection>
-    <SGInput v-model="maxSpeed" label="Max Speed" />
+  <SGSection title="Speed">
+    <SGInput v-model="maxSpeed" label="Max" />
     <SGInput :model-value="currentSpeed" label="Current" disabled />
   </SGSection>
 </template>

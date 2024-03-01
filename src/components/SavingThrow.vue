@@ -1,5 +1,5 @@
 <template>
-  <div class="flex">
+  <div class="saving-throw">
     <SGInput :model-value="savingThrow" disabled :label="title" />
     <span class="equals" />
     <SGInput :model-value="value" :label="attribute.slice(0, 3)" disabled />
@@ -51,3 +51,18 @@ const savingThrow = computed(
   () => value.value + getProficiencyValue(savingThrows.value[props.title]) + item.value
 )
 </script>
+
+<style lang="scss" scoped>
+.saving-throw {
+  display: grid;
+  grid-auto-rows: 4.5em;
+
+  @media (max-width: 1279px) {
+    grid-template-columns: 4em repeat(3, 3em) 3.3em auto;
+  }
+
+  @media (min-width: 1280px) {
+    grid-template-columns: 3.5em 1em 3em 1em 3em 1em 3em auto;
+  }
+}
+</style>
