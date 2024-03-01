@@ -98,6 +98,22 @@ hr {
 .flex {
   display: flex;
 
+  &.align-end {
+    align-items: end;
+  }
+
+  &.align-center {
+    align-items: center;
+  }
+
+  &.align-start {
+    align-items: start;
+  }
+
+  &.align-baseline {
+    align-items: baseline;
+  }
+
   &.column {
     flex-direction: column;
   }

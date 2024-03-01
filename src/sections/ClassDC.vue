@@ -1,15 +1,17 @@
 <template>
   <SGSection title="Class DC">
-    <SGInput :model-value="classDC" label="Total" disabled />
-    <span class="equals" />
-    <SGInput :model-value="10" disabled label="Base" class="number-input" />
-    <span class="plus" />
-    <SGInput :model-value="getClassKeySkill(0)" label="Key" disabled />
-    <span class="plus" />
-    <SGInput :model-value="getProficiencyValue(proficiency)" label="Prof" disabled />
-    <ProficiencyLevel v-model="proficiency" />
-    <span class="plus" />
-    <SGInput v-model="item" label="Item" />
+    <div class="skill-row">
+      <SGInput :model-value="classDC" label="Total" disabled />
+      <span class="equals" />
+      <SGInput :model-value="10" disabled label="Base" class="number-input" />
+      <span class="plus" />
+      <SGInput :model-value="getClassKeySkill(0)" label="Key" disabled />
+      <span class="plus" />
+      <SGInput :model-value="getProficiencyValue(proficiency)" label="Prof" disabled />
+      <span class="plus" />
+      <SGInput v-model="item" label="Item" />
+      <ProficiencyLevel v-model="proficiency" />
+    </div>
   </SGSection>
 </template>
 
