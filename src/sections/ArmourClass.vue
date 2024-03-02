@@ -1,7 +1,7 @@
 <template>
   <SGSection title="Armour Class">
-    <div class="flex space-between" style="width: 100%">
-      <SGInput :model-value="armourClass" label="" disabled />
+    <div class="flex space-between align-end" style="width: 100%">
+      <SGInput :model-value="armourClass" label="AC" disabled />
       <span class="equals" />
       <SGInput :model-value="getProficiencyValue(proficiency)" label="Prof" disabled />
       <span class="plus" />
@@ -99,8 +99,9 @@ const armourClass = computed(
 fieldset {
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
-  align-items: space-around;
+  gap: 1em;
   table {
     margin-top: 0;
   }
@@ -118,7 +119,7 @@ fieldset {
   border: 1px solid white;
   height: 2.2em;
   position: absolute;
-  top: 2.5rem;
+  top: 2em;
   right: 40%;
   left: 40%;
   text-align: center;

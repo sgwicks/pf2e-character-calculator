@@ -68,6 +68,7 @@ const handleSkillProficiency = async (skillId: number, proficiency: number) => {
   display: grid;
   grid-auto-rows: 5em;
   gap: 0.25em;
+  align-items: end;
 
   @media (max-width: 1279px) {
     grid-template-columns: 4em repeat(3, 3em) 3.3em auto;

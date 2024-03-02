@@ -1,9 +1,14 @@
 <template>
   <main>
-    <Armour class="armour" />
-    <Shield class="shield" />
-    <ArmourClass class="armour-class" />
-    <WeaponList class="weapons" />
+    <ArmourClass class="armour" />
+    <div class="shield">
+      <hr />
+      <Armour class="flex-wrap" />
+      <hr />
+      <Shield class="flex wrap" />
+      <hr />
+    </div>
+    <WeaponList />
   </main>
 </template>
 
@@ -17,40 +22,22 @@ import WeaponList from '@/sections/WeaponList.vue'
 <style lang="scss" scoped>
 main {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto auto auto;
-}
+  grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
+  grid-template-areas:
+    '. armour'
+    '. shield';
+  column-gap: 1em;
 
-.armour,
-.armour-class,
-.shield {
-  padding-block: 1em;
-}
-
-.armour-class {
-  grid-column: 2/3;
-  grid-row: 1/2;
-  z-index: 1;
+  @media (max-width: 1279px) {
+    grid-template-areas: 'armour' 'shield';
+  }
 }
 
 .armour {
-  grid-column: 2/3;
-  grid-row: 2/3;
-  z-index: 1;
-  display: flex;
-  flex-wrap: wrap;
+  grid-area: armour;
 }
 
 .shield {
-  grid-column: 2/3;
-  grid-row: 3/4;
-  z-index: 1;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.weapons {
-  grid-column: 1/3;
-  grid-row: 1/-1;
+  grid-area: shield;
 }
 </style>

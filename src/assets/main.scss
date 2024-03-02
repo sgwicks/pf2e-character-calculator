@@ -38,16 +38,20 @@
 }
 
 /* Element Styles */
+main {
+  background-color: white;
+  color: black;
+}
+
 header {
   background-color: #eee;
   padding: 5px;
 }
 
-section {
+section,
+.section {
   padding: 0.5em 1em;
-  color: black;
-  background-color: white;
-  border: 1px solid red;
+  // border: 1px solid red;
 }
 
 h2,
@@ -69,6 +73,17 @@ input[type='number'],
   appearance: textfield;
   width: 2em;
   margin: 0 2px;
+}
+
+input[type='radio'] {
+  width: 0.8em;
+  height: 0.8em;
+  margin: 0.2em;
+}
+
+input[type='checkbox'] {
+  width: 1.1em;
+  height: 1.1em;
 }
 
 hr {

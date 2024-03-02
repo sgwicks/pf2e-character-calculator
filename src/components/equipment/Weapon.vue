@@ -1,20 +1,18 @@
 <template>
-  <div>
+  <div class="section">
     <SGSearchableInput v-model="weaponToResult" label="Weapon" :query="fetchWeapons" />
     <div class="weapon">
       <!-- To Hit -->
       <fieldset class="flex wrap">
         <legend>To Hit</legend>
-        <div class="flex wrap full-width">
+        <div class="flex">
           <SGInput :model-value="toHit" label="Total" disabled />
           <span class="equals" />
           <SGInput :model-value="attribute" label="Att" disabled />
           <span class="plus" />
           <SGInput :model-value="proficiency" label="Prof" disabled />
-          <span class="plus" />
-          <!-- <SGInput :model-value="weapon.item" label="Item" /> -->
         </div>
-        <fieldset class="full-width flex space-around">
+        <fieldset class="flex wrap space-around">
           <label>
             Melee
             <input type="radio" v-model="isRanged" value="false" disabled />
@@ -24,7 +22,7 @@
             <input type="radio" v-model="isRanged" value="true" disabled />
           </label>
         </fieldset>
-        <fieldset class="full-width flex space-around">
+        <fieldset class="flex wrap space-around">
           <label>
             Unarmed
             <input type="radio" :checked="weapon.category === 'U'" disabled />
@@ -47,17 +45,18 @@
       <!-- Damage -->
       <fieldset>
         <legend>Damage</legend>
-        <div class="full-width flex wrap">
+        <div class="flex">
           <SGInput
             v-model="diceString"
             label="Dice"
-            style="width: 6em"
             :disabled="isEmptyWeapon"
             :key="weaponInput"
+            style="width: 4em"
           />
           <span v-if="!isRanged" class="plus" />
           <SGInput v-if="!isRanged" :model-value="attribute" label="Str" disabled />
         </div>
+
         <div class="flex column">
           <label class="flex space-between">
             Bludgeoning
@@ -188,8 +187,7 @@ const diceString = computed({
 <style lang="scss" scoped>
 .weapon {
   display: grid;
-  grid-template-columns: 60% 40%;
-  width: 100%;
+  grid-template-columns: auto auto;
 }
 
 fieldset {
@@ -199,5 +197,10 @@ fieldset {
 textarea {
   resize: none;
   width: 100%;
+}
+
+.equals,
+.plus {
+  display: inline;
 }
 </style>
