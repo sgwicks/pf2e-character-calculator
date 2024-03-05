@@ -3,12 +3,14 @@
 #app {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 8px 4px;
-
   font-weight: normal;
 }
 
 @media (min-width: 1280px) {
+  #app {
+    padding: 8px 4px;
+  }
+
   body {
     display: flex;
     place-items: start;
@@ -21,12 +23,6 @@
   main {
     width: 1272px;
     font-size: 18px;
-
-    &#attributes-page {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      grid-auto-rows: 3rem;
-    }
   }
 }
 
@@ -60,6 +56,7 @@ h3 {
   margin: 0;
   line-height: normal;
   font-size: large;
+  border-bottom: 2px solid black;
 }
 
 input,
@@ -272,4 +269,27 @@ a.router-button {
   display: flex;
   justify-content: space-between;
   align-items: end;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5em 0.5em;
+  text-transform: capitalize;
+  justify-content: end;
+  font-size: 0.8em;
+
+  &.number {
+    max-width: 4em;
+  }
+
+  > span {
+    font-weight: 600;
+    white-space: break-spaces;
+    @media (max-width: 1279px) {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: '.';
+    }
+  }
 }

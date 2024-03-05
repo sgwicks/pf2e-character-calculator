@@ -1,16 +1,15 @@
 <template>
-  <SGSection v-if="character" title="">
+  <SGSection v-if="character">
     <div class="player-info">
       <SGInput :model-value="playerName" label="Player Name" disabled />
       <SGInput v-model="character.name" label="Character Name" />
-      <div class="grid columns-2">
-        <SGInput v-model="character.ancestry" label="Ancestry" />
-        <SGInput v-model="character.heritage" label="Heritage" />
-      </div>
-      <div class="grid columns-2">
-        <SGInput v-model="character.background" label="Background" />
-        <SGInput v-model="character.size" label="Size" />
-      </div>
+
+      <SGInput v-model="character.ancestry" label="Ancestry" />
+      <SGInput v-model="character.heritage" label="Heritage" />
+
+      <SGInput v-model="character.background" label="Background" />
+      <SGInput v-model="character.size" label="Size" />
+
       <SGInput v-model="character.deity" label="Deity" />
       <SGInput v-model="traits" label="Traits" />
       <CharacterClasses :character="character" class="col-span-2" />
@@ -48,24 +47,14 @@ const traits = computed<string | null>({
 const playerName = user.value?.name || ''
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .player-info {
   display: grid;
   gap: 10px;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  min-width: 750px;
-}
+  grid-template-columns: repeat(5, 1fr);
 
-label {
-  display: flex;
-  flex-direction: column;
-}
-
-select {
-  background-color: white;
-  border: 1px solid #888;
-  margin-top: 5px;
-  padding: 2px;
-  border-radius: 3px;
+  @media (max-width: 1279px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 </style>

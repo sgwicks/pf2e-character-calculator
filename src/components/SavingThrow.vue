@@ -58,7 +58,7 @@ const savingThrow = computed(
   grid-auto-rows: 4.5em;
 
   @media (max-width: 1279px) {
-    grid-template-columns: 4em repeat(3, 3em) 3.3em auto;
+    grid-template-columns: repeat(4, 4em) auto;
   }
 
   @media (min-width: 1280px) {

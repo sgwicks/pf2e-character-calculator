@@ -1,11 +1,14 @@
 <template>
   <main id="attributes-page" v-if="character">
-    <PlayerInfo class="col-span-full row-span-4" />
-    <Movement id="movement" class="flex wrap" />
-    <Perception id="perception" :wisdom="character.abilities.wisdom" />
-    <HitPoints id="health" />
+    <PlayerInfo id="player-info" />
+    <hr class="full-width" />
     <Attributes id="attributes" />
     <SavingThrows id="saving-throws" />
+    <div>
+      <Movement id="movement" class="flex wrap" />
+      <Perception id="perception" :wisdom="character.abilities.wisdom" />
+    </div>
+    <HitPoints id="health" />
   </main>
 </template>
 
@@ -64,33 +67,17 @@ onBeforeMount(() => {
 })
 </script>
 
-<style scoped>
-#movement {
-  grid-column: 6 / 8;
-  grid-row: 9 / 11;
-  z-index: 2;
+<style lang="scss" scoped>
+#attributes-page {
   display: flex;
-  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
-#perception {
-  grid-column: 6 / 10;
-  grid-row: 5 / 9;
+#player-info {
+  width: 100%;
 }
 
 #health {
-  grid-column: 10 / 13;
-  grid-row: 5 / 14;
-}
-
-#attributes {
-  grid-column: 1 / 2;
-  grid-row: 5 / 14;
-  z-index: 2;
-}
-
-#saving-throws {
-  grid-column: 2 / 6;
-  grid-row: 5 / 11;
+  flex: 1 1 min-content;
 }
 </style>

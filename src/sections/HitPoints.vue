@@ -1,5 +1,5 @@
 <template>
-  <SGSection title="Hit Points" class="flex wrap">
+  <SGSection title="Hit Points" class="flex column">
     <div class="flex">
       <SGInput v-model="hp.max" label="Max" />
       <SGInput v-model="hp.current" label="Current" />

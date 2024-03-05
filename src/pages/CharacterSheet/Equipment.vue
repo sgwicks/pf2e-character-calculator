@@ -2,11 +2,9 @@
   <main>
     <ArmourClass class="armour" />
     <div class="shield">
-      <hr />
       <Armour class="flex-wrap" />
-      <hr />
+
       <Shield class="flex wrap" />
-      <hr />
     </div>
     <WeaponList />
   </main>
