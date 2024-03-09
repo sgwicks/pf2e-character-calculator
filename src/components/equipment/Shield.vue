@@ -1,19 +1,20 @@
 <template>
-  <section>
-    <div style="width: 100%" class="flex">
-      <h2 style="width: 50%">Shield</h2>
+  <SGSection title="Shield">
+    <div class="flex column">
       <SGSearchableInput v-model="shieldToResult" label="Shield" :query="fetchShields" />
-      <label>
-        Raised?
-        <SGCheckbox v-model="raised" />
-      </label>
+      <div class="flex row">
+        <SGInput :model-value="shield.armour_class" label="AC" disabled />
+        <SGInput :model-value="shield.hardness" label="Hardness" disabled />
+        <SGInput :model-value="shield.max_hp" label="Max HP" disabled />
+        <SGInput :model-value="shield.break_threshold" label="BT" disabled />
+        <SGInput v-model="current_hp" label="Current" />
+      </div>
     </div>
-    <SGInput :model-value="shield.armour_class" label="AC" disabled />
-    <SGInput :model-value="shield.hardness" label="Hardness" disabled />
-    <SGInput :model-value="shield.max_hp" label="Max HP" disabled />
-    <SGInput :model-value="shield.break_threshold" label="BT" disabled />
-    <SGInput v-model="current_hp" label="Current HP" />
-  </section>
+    <label>
+      Raised?
+      <SGCheckbox v-model="raised" />
+    </label>
+  </SGSection>
 </template>
 
 <script setup lang="ts">
@@ -27,6 +28,7 @@ import SGSearchableInput from '../form/SGSearchableInput.vue'
 import { useCharacterStore } from '@/stores/character'
 
 import { storeToRefs } from 'pinia'
+import SGSection from '../layout/SGSection.vue'
 
 const emptyShield: Shield = {
   id: 0,

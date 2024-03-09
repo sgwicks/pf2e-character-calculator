@@ -1,25 +1,17 @@
 <template>
-  <header v-if="character">
-    <PlayerInfo class="col-span-full row-span-5" />
-    <CharacterClasses :character="character" class="col-span-full row-span-2" />
-    <Perception :wisdom="character.abilities.wisdom" class="col-span-5 row-span-4 flex wrap" />
-    <HitPoints class="col-span-7 row-span-6 flex wrap" />
-    <Movement class="col-span-5 row-span-2 flex wrap" />
-  </header>
-
   <main v-if="character">
-    <!-- Character Sheet -->
-    <Attributes class="row-span-9 col-span-2" />
-    <SavingThrows class="row-span-6 col-span-5 flex wrap space-between" />
-    <ArmourClass
-      :dexterity="character.abilities.dexterity"
-      class="row-span-6 col-span-5 flex wrap"
-    />
-    <Shield class="row-span-3 col-span-4 flex wrap" />
-    <Armour class="row-span-4 col-span-6 flex wrap" />
-    <WeaponList class="row-span-26 col-span-6" />
-    <Skills class="row-span-25 col-span-6" />
-    <Feats class="row-span-24 col-span-12 flex wrap" />
+    <PlayerInfo class="col-span-full row-span-4" />
+    <Movement id="movement" class="flex wrap" />
+    <Perception :wisdom="character.abilities.wisdom" id="perception" />
+    <HitPoints id="health" class="row-span-3" />
+    <Attributes id="attributes" />
+    <SavingThrows id="saving-throws" class="flex wrap space-between" />
+    <Skills id="skills" />
+    <ArmourClass :dexterity="character.abilities.dexterity" id="armour-class" class="flex wrap" />
+    <Shield id="shield" class="flex wrap" />
+    <Armour id="armour" />
+    <WeaponList id="weapons" />
+    <Feats class="row-span-18 col-span-12 flex wrap" />
     <ActionsExplainer class="row-span-3 col-span-2" />
     <ClassDC class="row-span-3 col-span-6 flex wrap" />
     <ActionList class="row-span-26 col-span-12" />
@@ -30,7 +22,6 @@
 
 <script setup lang="ts">
 import PlayerInfo from '@/sections/PlayerInfo/PlayerInfo.vue'
-import CharacterClasses from '@/sections/PlayerInfo/CharacterClasses.vue'
 import Perception from '@/sections/Perception.vue'
 import HitPoints from '@/sections/HitPoints.vue'
 import Movement from '@/sections/Movement.vue'
@@ -95,4 +86,60 @@ onBeforeMount(() => {
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+#movement {
+  grid-column: 11 / 13;
+  grid-row: 5 / 7;
+  z-index: 2;
+  display: flex;
+  justify-content: space-around;
+}
+
+#perception {
+  grid-column: 2 / 6;
+  grid-row: 5 / 9;
+}
+
+#health {
+  grid-column: 6 / 13;
+  grid-row: 5 / 9;
+}
+
+#attributes {
+  grid-column: 1 / 2;
+  grid-row: 5 / 16;
+  z-index: 2;
+}
+
+#saving-throws {
+  grid-column: 2 / 7;
+  grid-row: 9 / 15;
+}
+
+#skills {
+  grid-column: 7 / 13;
+  grid-row: 9 / 38;
+  z-index: 1;
+}
+
+#armour-class {
+  grid-column: 2 / 7;
+  grid-row: 15 / 23;
+}
+
+#shield {
+  grid-column: 1 / 2;
+  grid-row: 16 / 24;
+  z-index: 1;
+}
+
+#armour {
+  grid-column: 1 / 7;
+  grid-row: 23 / 27;
+}
+
+#weapons {
+  grid-column: 1 / 13;
+  grid-row: 27 / 49;
+}
+</style>

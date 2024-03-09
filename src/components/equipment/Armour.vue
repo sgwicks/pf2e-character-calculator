@@ -1,41 +1,33 @@
 <template>
   <SGSection title="Armour">
     <div class="armour">
-      <div class="flex wrap">
-        <SGSearchableInput
-          v-model="armourToResult"
-          label="Armour"
-          :query="fetchArmours"
-          style="width: 60%"
-        />
+      <div class="flex align-start">
+        <SGSearchableInput v-model="armourToResult" label="Armour" :query="fetchArmours" />
         <!-- AC -->
         <SGInput v-model="armour.armour_class" label="AC" class="number-input" disabled />
+      </div>
+      <div class="armour-modifiers">
         <!-- Dex Cap -->
         <SGInput v-model="dexCapComputed" label="Dex Cap" class="number-input" disabled />
         <!-- Strength Req -->
-        <SGInput
-          v-model="armour.strength"
-          label="Strength Required"
-          class="number-input"
-          disabled
-        />
+        <SGInput v-model="armour.strength" label="Str Req" class="number-input" disabled />
         <!-- Check Penalty -->
         <SGInput
-          v-model="armour.check_penalty"
-          label="Check Penalty"
+          :model-value="armour.check_penalty * -1"
+          label="Skill"
           class="number-input"
           disabled
         />
         <!-- Speed Penalty -->
         <SGInput
-          v-model="armour.speed_penalty"
-          label="Speed Penalty"
+          :model-value="armour.speed_penalty * -1"
+          label="Speed"
           class="number-input"
           disabled
         />
       </div>
       <!-- Category (U, L, M, H) -->
-      <ArmourType v-model="armour.category" />
+      <ArmourType v-model="armour.category" class="col-span-2" />
     </div>
   </SGSection>
 </template>
@@ -92,6 +84,15 @@ const dexCapComputed = computed({
 <style lang="scss" scoped>
 .armour {
   display: grid;
-  grid-template-columns: 4fr 2fr;
+  grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
+}
+
+.armour-modifiers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(2em, 25%));
+  justify-items: end;
+  &:deep(label) {
+    align-items: end;
+  }
 }
 </style>

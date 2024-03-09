@@ -1,22 +1,26 @@
 <template>
   <div>
     <SGSection title="Spell Attack Roll" class="flex wrap full-width">
-      <SGInput :model-value="spellAttackRoll" label="Roll" disabled />
-      <span class="equals" />
-      <SGInput :model-value="keySkill" label="Key" disabled />
-      <span class="plus" />
-      <SGInput :model-value="spellAttackProficiency" label="Prof" disabled />
-      <ProficiencyLevel v-model="spellAttackProficiency" />
+      <div class="skill-row">
+        <SGInput :model-value="spellAttackRoll" label="Roll" disabled />
+        <span class="equals" />
+        <SGInput :model-value="keySkill" label="Key" disabled />
+        <span class="plus" />
+        <SGInput :model-value="spellAttackProficiency" label="Prof" disabled />
+        <ProficiencyLevel v-model="spellAttackProficiency" />
+      </div>
     </SGSection>
     <SGSection title="Spell Save DC" class="flex wrap full-width">
-      <SGInput :model-value="spellDC" label="DC" disabled />
-      <span class="equals" />
-      <SGInput model-value="10" class="number-input" label="Base" disabled />
-      <span class="plus" />
-      <SGInput :model-value="keySkill" label="Key" disabled />
-      <span class="plus" />
-      <SGInput :model-value="spellDCProficiency" label="Prof" disabled />
-      <ProficiencyLevel v-model="spellDCProficiency" />
+      <div class="skill-row">
+        <SGInput :model-value="spellDC" label="DC" disabled />
+        <span class="equals" />
+        <SGInput model-value="10" class="number-input" label="Base" disabled />
+        <span class="plus" />
+        <SGInput :model-value="keySkill" label="Key" disabled />
+        <span class="plus" />
+        <SGInput :model-value="spellDCProficiency" label="Prof" disabled />
+        <ProficiencyLevel v-model="spellDCProficiency" />
+      </div>
     </SGSection>
   </div>
 </template>

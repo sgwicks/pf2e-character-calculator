@@ -1,6 +1,6 @@
 <template>
   <SGSection title="Attributes">
-    <div class="flex column">
+    <div class="attr">
       <template v-for="(ability, key) in abilities" :key="key">
         <SGInput
           :model-value="ability"
@@ -28,3 +28,13 @@ const alterAbility = (ability: Attribute, value: number) => {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.attr {
+  display: flex;
+
+  @media (min-width: 1279px) {
+    flex-direction: column;
+  }
+}
+</style>

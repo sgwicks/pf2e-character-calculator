@@ -1,82 +1,82 @@
 <template>
-  <hr />
-  <SGSearchableInput v-model="weaponToResult" label="Weapon" :query="fetchWeapons" />
-  <div class="weapon">
-    <!-- To Hit -->
-    <fieldset class="flex wrap">
-      <legend>To Hit</legend>
-      <div class="flex wrap full-width">
-        <SGInput :model-value="toHit" label="Total" disabled />
-        <span class="equals" />
-        <SGInput :model-value="attribute" label="Att" disabled />
-        <span class="plus" />
-        <SGInput :model-value="proficiency" label="Prof" disabled />
-        <span class="plus" />
-        <!-- <SGInput :model-value="weapon.item" label="Item" /> -->
-      </div>
-      <fieldset class="full-width flex space-around">
-        <label>
-          Melee
-          <input type="radio" v-model="isRanged" value="false" disabled />
-        </label>
-        <label>
-          Ranged
-          <input type="radio" v-model="isRanged" value="true" disabled />
-        </label>
+  <div class="section">
+    <SGSearchableInput v-model="weaponToResult" label="Weapon" :query="fetchWeapons" />
+    <div class="weapon">
+      <!-- To Hit -->
+      <fieldset class="flex wrap">
+        <legend>To Hit</legend>
+        <div class="flex">
+          <SGInput :model-value="toHit" label="Total" disabled />
+          <span class="equals" />
+          <SGInput :model-value="attribute" label="Att" disabled />
+          <span class="plus" />
+          <SGInput :model-value="proficiency" label="Prof" disabled />
+        </div>
+        <fieldset class="flex wrap space-around">
+          <label>
+            Melee
+            <input type="radio" v-model="isRanged" value="false" disabled />
+          </label>
+          <label>
+            Ranged
+            <input type="radio" v-model="isRanged" value="true" disabled />
+          </label>
+        </fieldset>
+        <fieldset class="flex wrap space-around">
+          <label>
+            Unarmed
+            <input type="radio" :checked="weapon.category === 'U'" disabled />
+          </label>
+          <label>
+            Simple
+            <input type="radio" :checked="weapon.category === 'S'" disabled />
+          </label>
+          <label>
+            Martial
+            <input type="radio" :checked="weapon.category === 'M'" disabled />
+          </label>
+          <label>
+            Other
+            <input type="radio" :checked="weapon.category === 'A'" disabled />
+          </label>
+        </fieldset>
       </fieldset>
-      <fieldset class="full-width flex space-around">
-        <label>
-          Unarmed
-          <input type="radio" :checked="weapon.category === 'U'" disabled />
-        </label>
-        <label>
-          Simple
-          <input type="radio" :checked="weapon.category === 'S'" disabled />
-        </label>
-        <label>
-          Martial
-          <input type="radio" :checked="weapon.category === 'M'" disabled />
-        </label>
-        <label>
-          Other
-          <input type="radio" :checked="weapon.category === 'A'" disabled />
-        </label>
-      </fieldset>
-    </fieldset>
 
-    <!-- Damage -->
-    <fieldset>
-      <legend>Damage</legend>
-      <div class="full-width flex wrap">
-        <SGInput
-          v-model="diceString"
-          label="Dice"
-          style="width: 6em"
-          :disabled="isEmptyWeapon"
-          :key="weaponInput"
-        />
-        <span v-if="!isRanged" class="plus" />
-        <SGInput v-if="!isRanged" :model-value="attribute" label="Str" disabled />
-      </div>
-      <div class="flex column">
-        <label class="flex space-between">
-          Bludgeoning
-          <input :checked="weapon.damage_type === 'B'" type="radio" disabled />
-        </label>
-        <label class="flex space-between">
-          Piercing
-          <input :checked="weapon.damage_type === 'P'" type="radio" disabled />
-        </label>
-        <label class="flex space-between">
-          Slashing
-          <input :checked="weapon.damage_type === 'S'" type="radio" disabled />
-        </label>
-      </div>
-    </fieldset>
-    <label>
-      Traits
-      <textarea :value="weaponTraits" disabled />
-    </label>
+      <!-- Damage -->
+      <fieldset>
+        <legend>Damage</legend>
+        <div class="flex">
+          <SGInput
+            v-model="diceString"
+            label="Dice"
+            :disabled="isEmptyWeapon"
+            :key="weaponInput"
+            style="width: 4em"
+          />
+          <span v-if="!isRanged" class="plus" />
+          <SGInput v-if="!isRanged" :model-value="attribute" label="Str" disabled />
+        </div>
+
+        <div class="flex column">
+          <label class="flex space-between">
+            Bludgeoning
+            <input :checked="weapon.damage_type === 'B'" type="radio" disabled />
+          </label>
+          <label class="flex space-between">
+            Piercing
+            <input :checked="weapon.damage_type === 'P'" type="radio" disabled />
+          </label>
+          <label class="flex space-between">
+            Slashing
+            <input :checked="weapon.damage_type === 'S'" type="radio" disabled />
+          </label>
+        </div>
+      </fieldset>
+      <label class="col-span-2">
+        Traits
+        <textarea :value="weaponTraits" disabled />
+      </label>
+    </div>
   </div>
 </template>
 
@@ -187,11 +187,20 @@ const diceString = computed({
 <style lang="scss" scoped>
 .weapon {
   display: grid;
-  grid-template-columns: 60% 40%;
-  width: 100%;
+  grid-template-columns: auto auto;
 }
 
 fieldset {
   margin: 4px;
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+}
+
+.equals,
+.plus {
+  display: inline;
 }
 </style>

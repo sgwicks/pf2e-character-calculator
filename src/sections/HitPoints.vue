@@ -1,11 +1,15 @@
 <template>
-  <SGSection title="Health">
-    <SGInput v-model="hp.max" label="Max" />
-    <SGInput v-model="hp.current" label="Current" />
-    <SGInput v-model="hp.temporary" label="Temp" />
-    <SGInput v-model="hp.dying" label="Dying" />
-    <SGInput v-model="hp.wounded" label="Wounded" />
-    <div style="width: 100%">
+  <SGSection title="Hit Points" class="flex column">
+    <div class="flex">
+      <SGInput v-model="hp.max" label="Max" />
+      <SGInput v-model="hp.current" label="Current" />
+      <SGInput v-model="hp.temporary" label="Temp" />
+    </div>
+    <div class="flex">
+      <SGInput v-model="hp.dying" label="Dying" />
+      <SGInput v-model="hp.wounded" label="Wounded" />
+    </div>
+    <div class="flex column">
       <SGInput v-model="resistances" label="Resistances" />
       <SGInput v-model="immunities" label="Immunites" />
       <SGInput v-model="conditions" label="Conditions" />

@@ -1,7 +1,7 @@
 <template>
   <div v-if="characterClass" class="character-class gap-sm">
     <label>
-      Class
+      <span>Class</span>
       <select v-model="characterClassModel">
         <option
           v-for="classOption in classOptions"
@@ -15,7 +15,7 @@
     </label>
     <SGInput v-model="levelModel" label="Level" />
     <label>
-      Key Skill
+      <span>Key Skill</span>
       <select v-model="selectedAbilityModel">
         <option
           v-for="ability in characterClass.ability_options"
@@ -92,5 +92,13 @@ const levelModel = computed<number>({
 .character-class {
   display: grid;
   grid-template-columns: 1fr 4em 1fr;
+}
+
+select {
+  background-color: white;
+  border: 1px solid #888;
+  margin-top: 5px;
+  padding: 2px;
+  border-radius: 3px;
 }
 </style>

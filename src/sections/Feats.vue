@@ -1,7 +1,7 @@
 <template>
   <!-- Ancestry -->
-  <SGSection title="Feats">
-    <div>
+  <SGSection>
+    <div class="feat-wrapper">
       <h3>Ancestry Feats</h3>
       <Feat
         v-for="level in ancestryFeats"
@@ -11,7 +11,7 @@
       />
     </div>
     <!-- Class -->
-    <div>
+    <div class="feat-wrapper">
       <h3>Class Feats</h3>
       <Feat
         v-for="level in classFeats"
@@ -21,7 +21,7 @@
       />
     </div>
     <!-- Skill -->
-    <div>
+    <div class="feat-wrapper">
       <h3>Skill Feats</h3>
       <Feat
         v-for="level in skillFeats"
@@ -31,7 +31,7 @@
       />
     </div>
     <!-- General -->
-    <div>
+    <div class="feat-wrapper">
       <h3>General Feats</h3>
       <Feat
         v-for="level in generalFeats"
@@ -39,10 +39,8 @@
         type="G"
         :key="`general-feat-${level}`"
       />
-    </div>
-    <!-- Bonus -->
-    <div>
-      <h3>Bonus Feats</h3>
+      <!-- Bonus -->
+      <h3 class="feat-wrapper">Bonus Feats</h3>
       <Feat :required-level="0" type="B" />
       <Feat :required-level="0" type="B" />
     </div>
@@ -66,3 +64,9 @@ for (let i = 1; i < 21; i++) {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.feat-wrapper {
+  flex-grow: 1;
+}
+</style>

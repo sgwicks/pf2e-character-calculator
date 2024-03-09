@@ -1,22 +1,14 @@
 <template>
-  <fieldset class="flex column space-between">
+  <fieldset class="grid columns-4">
     <legend>Category</legend>
-    <label class="flex space-between">
-      Unarmoured
-      <input v-model="equipped" name="equipped" type="radio" value="U" disabled />
-    </label>
-    <label class="flex space-between">
-      Light
-      <input v-model="equipped" name="equipped" type="radio" value="L" disabled />
-    </label>
-    <label class="flex space-between">
-      Medium
-      <input v-model="equipped" name="equipped" type="radio" value="M" disabled />
-    </label>
-    <label class="flex space-between">
-      Heavy
-      <input v-model="equipped" name="equipped" type="radio" value="H" disabled />
-    </label>
+    <label for="unarmour"> Unarmoured </label>
+    <input v-model="equipped" name="unarmourf" type="radio" value="U" disabled />
+    <label for="light"> Light </label>
+    <input v-model="equipped" name="light" type="radio" value="L" disabled />
+    <label for="medium"> Medium </label>
+    <input v-model="equipped" name="medium" type="radio" value="M" disabled />
+    <label for="heavy"> Heavy </label>
+    <input v-model="equipped" name="heavy" type="radio" value="H" disabled />
   </fieldset>
 </template>
 

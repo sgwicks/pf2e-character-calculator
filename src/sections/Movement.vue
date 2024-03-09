@@ -1,6 +1,6 @@
 <template>
-  <SGSection title="Movement">
-    <SGInput v-model="maxSpeed" label="Max Speed" />
+  <SGSection title="Speed">
+    <SGInput v-model="maxSpeed" label="Max" />
     <SGInput :model-value="currentSpeed" label="Current" disabled />
   </SGSection>
 </template>
@@ -25,7 +25,7 @@ const { getArmourSpeedPenalty } = storeToRefs(equipmentStore)
 
 const maxSpeed = ref(0)
 
-const currentSpeed = computed(() => maxSpeed.value + getArmourSpeedPenalty.value)
+const currentSpeed = computed(() => maxSpeed.value - getArmourSpeedPenalty.value)
 
 const handleUpdateMovement = createHandleUpdate<CharacterMovement>(patchMovement)
 

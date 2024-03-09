@@ -1,31 +1,40 @@
 <template>
   <SGSection title="Skills">
-    <div v-for="(skill, key) in skills" class="skill-row" :key="key">
-      <SGInput
-        :model-value="
-          abilities[skill.ability] +
-          getProficiencyValue(skill.proficiency) +
-          skill.item +
-          (skill.armour ? getArmourCheckPenalty : 0)
-        "
-        :label="skill.name"
-        disabled
-      />
-      <span class="equals" />
-      <SGInput
-        :model-value="abilities[skill.ability]"
-        :label="skill.ability.slice(0, 3)"
-        disabled
-      />
-      <span class="plus" />
-      <SGInput :model-value="getProficiencyValue(skill.proficiency)" label="Prof" disabled />
-      <ProficiencyLevel
-        :model-value="skill.proficiency"
-        @update:model-value="(val) => handleSkillProficiency(skill.id, val)"
-      />
-      <span class="plus" />
-      <SGInput :model-value="skill.item" label="Item" disabled />
-      <SGInput v-if="skill.armour" :model-value="getArmourCheckPenalty" label="Armour" disabled />
+    <div class="skill-grid">
+      <template v-for="(skill, key) in skills" :key="key">
+        <SGInput
+          :model-value="
+            abilities[skill.ability] +
+            getProficiencyValue(skill.proficiency) +
+            skill.item +
+            (skill.armour ? getArmourCheckPenalty : 0)
+          "
+          :label="skill.name"
+          disabled
+        />
+        <span class="equals" />
+        <SGInput
+          :model-value="abilities[skill.ability]"
+          :label="skill.ability.slice(0, 3)"
+          disabled
+        />
+        <span class="plus" />
+        <SGInput :model-value="getProficiencyValue(skill.proficiency)" label="Prof" disabled />
+        <span class="plus" />
+        <SGInput :model-value="skill.item" label="Item" disabled />
+        <template v-if="skill.armour">
+          <span class="plus" />
+          <SGInput :model-value="getArmourCheckPenalty" label="Armour" disabled />
+        </template>
+        <template v-else>
+          <span class="plus" style="color: white" aria-hidden />
+          <div class="blank-input"></div>
+        </template>
+        <ProficiencyLevel
+          :model-value="skill.proficiency"
+          @update:model-value="(val) => handleSkillProficiency(skill.id, val)"
+        />
+      </template>
     </div>
   </SGSection>
 </template>
@@ -55,15 +64,33 @@ const handleSkillProficiency = async (skillId: number, proficiency: number) => {
 </script>
 
 <style scoped>
-.skill-row {
+.skill-grid {
   display: grid;
-  grid-template-columns: 50px 25px 50px 15px 50px 125px 15px 50px 50px 50px;
-  column-gap: 15px;
+  grid-auto-rows: 5em;
+  gap: 0.25em;
   align-items: end;
+
+  @media (max-width: 1279px) {
+    grid-template-columns: 4em repeat(3, 3em) 3.3em auto;
+  }
+
+  @media (min-width: 1280px) {
+    grid-template-columns: 4em repeat(7, 2em) 3.3em auto;
+  }
 }
 
-.skill-row span {
-  justify-self: center;
-  padding-bottom: 5px;
+/* Sames CSS class as a label.number */
+.blank-input {
+  margin: 8px 4px;
+  width: 4em;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 8px 4px;
+  text-transform: capitalize;
+  justify-content: space-between;
+  font-weight: 600;
+  height: 4em;
+  font-size: 0.8rem;
 }
 </style>

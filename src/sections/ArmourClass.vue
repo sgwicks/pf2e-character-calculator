@@ -1,24 +1,26 @@
 <template>
   <SGSection title="Armour Class">
-    <SGInput :model-value="armourClass" label="AC" disabled />
-    <span class="equals" />
-    <SGInput :model-value="getProficiencyValue(proficiency)" label="Prof" disabled />
-    <span class="plus" />
-    <div class="flex dex-or-cap">
-      <SGInput :model-value="dexterity" label="Dex" disabled />
-      <span class="or">OR</span>
-      <SGInput
-        :model-value="armour.dex_cap === null ? '' : armour.dex_cap"
-        label="Cap"
-        disabled
-        class="number-input cap"
-      />
+    <div class="flex space-between align-end" style="width: 100%">
+      <SGInput :model-value="armourClass" label="AC" disabled />
+      <span class="equals" />
+      <SGInput :model-value="getProficiencyValue(proficiency)" label="Prof" disabled />
+      <span class="plus" />
+      <div class="flex dex-or-cap">
+        <SGInput :model-value="abilities.dexterity" label="Dex" disabled />
+        <span class="or">OR</span>
+        <SGInput
+          :model-value="armour.dex_cap === null ? '' : armour.dex_cap"
+          label="Cap"
+          disabled
+          class="number-input cap"
+        />
+      </div>
+      <span class="plus" />
+      <SGInput :model-value="armour.armour_class" label="Armour" disabled />
+      <span class="plus" />
+      <SGInput :model-value="shieldToAc" label="Shield" disabled />
     </div>
-    <span class="plus" />
-    <SGInput :model-value="armour.armour_class" label="Armour" disabled />
-    <span class="plus" />
-    <SGInput :model-value="shieldToAc" label="Shield" disabled />
-    <fieldset class="flex wrap">
+    <fieldset>
       <legend>Proficiencies</legend>
       <label>
         Unarmoured
@@ -49,11 +51,9 @@ import { useCharacterStore } from '@/stores/character'
 import { useEquipmentStore } from '@/stores/equipment'
 import { storeToRefs } from 'pinia'
 
-const props = defineProps<{
-  dexterity: number
-}>()
-
-const { getProficiencyValue } = useCharacterStore()
+const characterStore = useCharacterStore()
+const { abilities } = storeToRefs(characterStore)
+const { getProficiencyValue } = characterStore
 const equipmentStore = useEquipmentStore()
 const { armour, shield } = storeToRefs(equipmentStore)
 
@@ -77,8 +77,10 @@ const proficiency = computed(() => {
 })
 
 const dexToAc = computed(() => {
-  if (armour.value.dex_cap === null) return props.dexterity
-  return armour.value.dex_cap > props.dexterity ? props.dexterity : armour.value.dex_cap
+  if (armour.value.dex_cap === null) return abilities.value.dexterity
+  return armour.value.dex_cap > abilities.value.dexterity
+    ? abilities.value.dexterity
+    : armour.value.dex_cap
 })
 
 const shieldToAc = computed(() => (shield.value.raised ? shield.value.armour_class : 0))
@@ -96,11 +98,13 @@ const armourClass = computed(
 <style scoped lang="scss">
 fieldset {
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  justify-items: center;
-  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 1em;
+  table {
+    margin-top: 0;
+  }
 }
 
 .dex-or-cap {
@@ -115,7 +119,7 @@ fieldset {
   border: 1px solid white;
   height: 2.2em;
   position: absolute;
-  top: 2.5rem;
+  top: 2em;
   right: 40%;
   left: 40%;
   text-align: center;
