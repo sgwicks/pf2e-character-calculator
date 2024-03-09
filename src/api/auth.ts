@@ -2,6 +2,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 
 import { globalRouter } from '@/routes/globalRouter'
+import { jwtDecode } from 'jwt-decode'
 
 const authClient = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_URL + '/auth'
@@ -42,6 +43,19 @@ const refresh = async () => {
   const token = Cookies.get('bearer')
 
   if (!token) throw 'No token stored'
+
+  const expiry = jwtDecode(token).exp
+
+  if (!expiry) throw 'Invalid JWT'
+
+  const expiryMS = expiry * 1000
+
+  const expiresIn = expiryMS - Date.now()
+  const refreshCutoff = import.meta.env.VITE_APP_REFRESH_TIMEOUT_IN_MINUTES * 60 * 1000
+
+  if (expiresIn > refreshCutoff) {
+    return token.toString()
+  }
 
   const response = await authClient.post(
     '/refresh',
