@@ -1,31 +1,27 @@
 import axios from 'axios'
-
-import Cookies from 'js-cookie'
+import { logout, refresh } from './auth'
+import { globalRouter } from '@/routes/globalRouter'
 
 const client = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_URL
 })
 
-client.interceptors.request.use((request) => {
-  // TODO: Refresh auth
-  const token = Cookies.get('bearer')
+client.interceptors.request.use(async (config) => {
+  const freshToken = await refresh()
 
-  if (token) {
-    request.headers.Authorization = token
-  }
+  config.headers.Authorization = `Bearer ${freshToken}`
 
-  return request
+  return config
 })
 
-client.interceptors.response.use((response) => {
-  if (typeof response.headers.getAuthorization == 'function') {
-    const token = response.headers.getAuthorization()
-    if (token) {
-      Cookies.set('bearer', token.toString())
+client.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response.status === 401) {
+      globalRouter.router?.push('/')
+      logout()
     }
   }
-
-  return response
-})
+)
 
 export default client
