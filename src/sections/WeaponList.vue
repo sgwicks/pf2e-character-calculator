@@ -23,7 +23,6 @@
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import SGSection from '@/components/layout/SGSection.vue'
 import Weapon from '@/components/equipment/Weapon.vue'
 import { useEquipmentStore } from '@/stores/equipment'
 import { useCharacterStore } from '@/stores/character'

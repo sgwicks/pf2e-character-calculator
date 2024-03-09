@@ -50,17 +50,58 @@ import ProficiencyLevel from '@/components/form/ProficiencyLevel.vue'
 import { useCharacterStore } from '@/stores/character'
 import { useEquipmentStore } from '@/stores/equipment'
 import { storeToRefs } from 'pinia'
+import { patchProficiency } from '@/api/proficiency'
+import { debounce } from 'lodash'
 
 const characterStore = useCharacterStore()
-const { abilities } = storeToRefs(characterStore)
-const { getProficiencyValue } = characterStore
+const { abilities, character } = storeToRefs(characterStore)
+const { getProficiencyValue, syncApiCharacterDown } = characterStore
 const equipmentStore = useEquipmentStore()
 const { armour, shield } = storeToRefs(equipmentStore)
 
-const unarmouredProficiency = ref(0)
-const lightProficiency = ref(0)
-const mediumProficiency = ref(0)
-const heavyProficiency = ref(0)
+const unarmouredProficiency = computed({
+  get: () => character.value?.proficiencies.unarmoured || 0,
+  set: (val) => {
+    proficiencies.value.unarmoured = val
+    updateProficiencies()
+  }
+})
+
+const lightProficiency = computed({
+  get: () => character.value?.proficiencies.light || 0,
+  set: (val) => {
+    proficiencies.value.light = val
+    updateProficiencies()
+  }
+})
+
+const mediumProficiency = computed({
+  get: () => character.value?.proficiencies.medium || 0,
+  set: (val) => {
+    proficiencies.value.medium = val
+    updateProficiencies()
+  }
+})
+
+const heavyProficiency = computed({
+  get: () => character.value?.proficiencies.heavy || 0,
+  set: (val) => {
+    proficiencies.value.heavy = val
+    updateProficiencies()
+  }
+})
+
+const proficiencies = ref<{
+  unarmoured: Proficiency,
+  light: Proficiency,
+  medium: Proficiency,
+  heavy: Proficiency
+}>({
+  unarmoured: 0,
+  light: 0,
+  medium: 0,
+  heavy: 0
+})
 
 const proficiency = computed(() => {
   switch (armour.value.category) {
@@ -75,6 +116,12 @@ const proficiency = computed(() => {
       return heavyProficiency.value
   }
 })
+
+const updateProficiencies = debounce(async () => {
+  if (!character.value) return
+  await patchProficiency(character.value.id, proficiencies.value)
+  syncApiCharacterDown(character.value.id)
+}, 3000)
 
 const dexToAc = computed(() => {
   if (armour.value.dex_cap === null) return abilities.value.dexterity

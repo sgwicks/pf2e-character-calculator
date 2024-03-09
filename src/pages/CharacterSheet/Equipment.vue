@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main v-if="character">
     <ArmourClass class="armour" />
     <div class="shield">
       <Armour class="flex-wrap" />
@@ -15,6 +15,11 @@ import Armour from '@/components/equipment/Armour.vue'
 import ArmourClass from '@/sections/ArmourClass.vue'
 import Shield from '@/components/equipment/Shield.vue'
 import WeaponList from '@/sections/WeaponList.vue'
+
+import { useCharacterStore } from '@/stores/character'
+import { storeToRefs } from 'pinia'
+const characterStore = useCharacterStore()
+const { character } = storeToRefs(characterStore)
 </script>
 
 <style lang="scss" scoped>

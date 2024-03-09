@@ -134,4 +134,4 @@ export const useCharacterStore = defineStore('character', () => {
     syncApiCharacterDown,
     createHandleUpdate
   }
-})
+}, { persist: true })
