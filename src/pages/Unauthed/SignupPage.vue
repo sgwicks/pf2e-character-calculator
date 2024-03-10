@@ -19,6 +19,7 @@ import { useRouter } from 'vue-router'
 
 import SGInput from '@/components/form/SGInput.vue'
 import constants from '@/constants'
+import LaravelValidationError from '@/errors/LaravelValidationError'
 
 const router = useRouter()
 
@@ -42,18 +43,18 @@ const emailRegex = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)
 const submit = async () => {
   resetErrors()
 
-  // Name validation
-  if (!name.value) addError('Name is required')
+  // // Name validation
+  // if (!name.value) addError('Name is required')
 
-  // Email validation
-  if (!email.value) addError('Email is required')
-  if (!emailRegex.test(email.value)) addError('Email must be a valid email')
+  // // Email validation
+  // if (!email.value) addError('Email is required')
+  // if (!emailRegex.test(email.value)) addError('Email must be a valid email')
 
-  // Password validation
-  if (!password.value) addError('Password is required')
-  if (!checkPassword.value) addError('Repeat Password is required')
+  // // Password validation
+  // if (!password.value) addError('Password is required')
+  // if (!checkPassword.value) addError('Repeat Password is required')
   if (password.value.length < constants.MIN_PASSWORD_LENGTH)
-    addError('Password must be at least 16 characters')
+    addError(`Password must be at least ${constants.MIN_PASSWORD_LENGTH} characters`)
   if (password.value !== checkPassword.value) addError('Passwords must match')
 
   if (errorText.value.length > 0) return
@@ -62,8 +63,12 @@ const submit = async () => {
     const res = await signup(name.value, email.value, password.value)
     if (res.status === 201) addError('Success!')
   } catch (err) {
-    console.log(err)
-    addError('Something went wrong')
+    if (err instanceof LaravelValidationError) {
+      err.errors.forEach((error) => addError(error))
+    } else {
+      console.log(err)
+      addError('Something went wrong')
+    }
   }
 }
 </script>

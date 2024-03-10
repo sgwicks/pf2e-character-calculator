@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { logout, refresh } from './auth'
 import { globalRouter } from '@/routes/globalRouter'
+import LaravelValidationError from '@/errors/LaravelValidationError'
 
 const client = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_URL
@@ -21,6 +22,16 @@ client.interceptors.response.use(
       globalRouter.router?.push('/')
       logout()
     }
+
+    if (error?.response) {
+      const data = error.response.data
+      if (data?.message === 'The given data was invalid.') {
+        throw new LaravelValidationError(data.errors)
+      }
+
+      throw error.response
+    }
+    throw error
   }
 )
 
