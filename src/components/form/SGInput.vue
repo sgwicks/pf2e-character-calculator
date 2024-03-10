@@ -13,7 +13,7 @@
     <input
       v-else
       v-model="value"
-      type="text"
+      :type="password ? 'password' : 'text'"
       :disabled="disabled"
       v-maska:[mask]
       @focus="emit('focus')"
@@ -32,9 +32,11 @@ const props = withDefaults(
     label?: string
     disabled?: boolean
     mask?: MaskInputOptions
+    password?: boolean
   }>(),
   {
-    disabled: false
+    disabled: false,
+    password: false
   }
 )
 

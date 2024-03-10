@@ -22,8 +22,7 @@ authClient.interceptors.response.use(
     return response
   },
   (error) => {
-    console.log(error.response)
-    if (error.response.status === 401) {
+    if (error.response?.status === 401) {
       Cookies.remove('bearer')
       globalRouter.router?.push('/logout')
     }
@@ -46,7 +45,7 @@ const login = (username: string, password: string) => {
 const refresh = async () => {
   const token = Cookies.get('bearer')
 
-  if (!token) throw 'No token stored'
+  if (!token) return
 
   const expiry = jwtDecode(token).exp
 

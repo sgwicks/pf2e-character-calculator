@@ -1,16 +1,19 @@
 <template>
-  <form class="flex column" @submit.prevent="submit">
-    <label class="flex space-between margin-y-sm">
-      Email
-      <input v-model="email" class="margin-x-sm" />
-    </label>
-    <label class="flex space-between- margin-y-sm">
-      Password
-      <input v-model="password" type="password" class="margin-x-sm" />
-    </label>
-    <button class="margin-md">Submit</button>
-  </form>
-  <div v-if="error" style="color: red">Incorrect login</div>
+  <main id="unauthed">
+    <form class="flex column" @submit.prevent="submit">
+      <label class="flex space-between margin-y-sm">
+        Email
+        <input v-model="email" class="margin-x-sm" />
+      </label>
+      <label class="flex space-between- margin-y-sm">
+        Password
+        <input v-model="password" type="password" class="margin-x-sm" />
+      </label>
+      <button class="margin-md">Submit</button>
+    </form>
+    <div v-if="error" style="color: red">Incorrect login</div>
+    <RouterLink to="signup">Signup</RouterLink>
+  </main>
 </template>
 
 <script setup lang="ts">

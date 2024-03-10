@@ -1,7 +1,7 @@
-import axios from 'axios'
+import client from '.'
 
-const getUser = () => {
-  return axios.get('http://localhost:8000/api/v1/users/1')
+const signup = (name: string, email: string, password: string) => {
+  return client.post('/signup', { name, email, password })
 }
 
-export { getUser }
+export { signup }

@@ -37,6 +37,17 @@
 main {
   background-color: white;
   color: black;
+
+  &#unauthed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    form {
+      max-width: 600px;
+      margin-inline: auto;
+    }
+  }
 }
 
 header {
