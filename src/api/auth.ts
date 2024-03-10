@@ -4,6 +4,8 @@ import Cookies from 'js-cookie'
 import { globalRouter } from '@/routes/globalRouter'
 import { jwtDecode } from 'jwt-decode'
 
+import constants from '@/contstants'
+
 const authClient = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_URL + '/auth'
 })
@@ -51,7 +53,7 @@ const refresh = async () => {
   const expiryMS = expiry * 1000
 
   const expiresIn = expiryMS - Date.now()
-  const refreshCutoff = import.meta.env.VITE_APP_REFRESH_TIMEOUT_IN_MINUTES * 60 * 1000
+  const refreshCutoff = constants.REFRESH_TIMEOUT * 60 * 1000
 
   if (expiresIn > refreshCutoff) {
     return token.toString()
