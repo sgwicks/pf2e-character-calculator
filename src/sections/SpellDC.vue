@@ -34,6 +34,7 @@ import { useCharacterStore } from '@/stores/character'
 import { storeToRefs } from 'pinia'
 import { patchProficiency } from '@/api/proficiency'
 import { debounce } from 'lodash'
+import constants from '@/contstants'
 
 const characterStore = useCharacterStore()
 const { character } = storeToRefs(characterStore)
@@ -45,7 +46,7 @@ const handleProficiencyChange = debounce(async (params: Partial<Proficiencies>) 
   if (!character.value) return
   await patchProficiency(character.value.id, params)
   syncApiCharacterDown(character.value.id)
-}, 1000)
+}, constants.AUTOSAVE_INTERVAL)
 
 const spellAttackProficiency = computed({
   get: () => character.value?.proficiencies.spell_attack || 0,

@@ -52,6 +52,7 @@ import { useEquipmentStore } from '@/stores/equipment'
 import { storeToRefs } from 'pinia'
 import { patchProficiency } from '@/api/proficiency'
 import { debounce } from 'lodash'
+import constants from '@/contstants'
 
 const characterStore = useCharacterStore()
 const { abilities, character } = storeToRefs(characterStore)
@@ -92,9 +93,9 @@ const heavyProficiency = computed({
 })
 
 const proficiencies = ref<{
-  unarmoured: Proficiency,
-  light: Proficiency,
-  medium: Proficiency,
+  unarmoured: Proficiency
+  light: Proficiency
+  medium: Proficiency
   heavy: Proficiency
 }>({
   unarmoured: 0,
@@ -121,7 +122,7 @@ const updateProficiencies = debounce(async () => {
   if (!character.value) return
   await patchProficiency(character.value.id, proficiencies.value)
   syncApiCharacterDown(character.value.id)
-}, 3000)
+}, constants.AUTOSAVE_INTERVAL)
 
 const dexToAc = computed(() => {
   if (armour.value.dex_cap === null) return abilities.value.dexterity

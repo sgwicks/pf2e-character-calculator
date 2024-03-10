@@ -96,6 +96,7 @@ import {
 import { storeToRefs } from 'pinia'
 import { toTitleCase } from '@/utils'
 import { debounce } from 'lodash'
+import constants from '@/contstants'
 
 const weaponInput = ref(0)
 
@@ -180,7 +181,7 @@ const diceString = computed({
 
     await syncApiCharacterDown(character.value.id)
     weaponInput.value++
-  }, 1000)
+  }, constants.AUTOSAVE_INTERVAL)
 })
 </script>
 

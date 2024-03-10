@@ -77,5 +77,5 @@ const handleSkillUpdate = debounce(async () => {
     updateables.value.item
   )
   syncApiCharacterDown(character.value.id)
-}, constants.CHARACTER_SYNC_TIMEOUT)
+}, constants.AUTOSAVE_INTERVAL)
 </script>

@@ -30,6 +30,7 @@ import ProficiencyLevel from '@/components/form/ProficiencyLevel.vue'
 import { computed, ref } from 'vue'
 import { patchProficiency } from '@/api/proficiency'
 import { debounce } from 'lodash'
+import constants from '@/contstants'
 
 const characterStore = useCharacterStore()
 const { syncApiCharacterDown } = characterStore
@@ -76,7 +77,7 @@ const updateProficiencies = debounce(async () => {
   if (!character.value) return
   await patchProficiency(character.value.id, proficiencies.value)
   syncApiCharacterDown(character.value.id)
-}, 3000)
+}, constants.AUTOSAVE_INTERVAL)
 </script>
 
 <style lang="scss" scoped>

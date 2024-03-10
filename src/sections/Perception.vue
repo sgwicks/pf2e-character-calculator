@@ -23,6 +23,7 @@ import { useCharacterStore } from '@/stores/character'
 
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
+import constants from '@/contstants'
 
 const props = defineProps<{
   wisdom: number
@@ -45,7 +46,7 @@ const proficiency = computed<Proficiency>({
       character.value.id
     )
     syncApiCharacterDown(character.value.id)
-  }, 500)
+  }, constants.AUTOSAVE_INTERVAL)
 })
 
 const item = computed<number>({
@@ -61,7 +62,7 @@ const item = computed<number>({
       character.value.id
     )
     syncApiCharacterDown(character.value.id)
-  }, 500)
+  }, constants.AUTOSAVE_INTERVAL)
 })
 
 const senses = computed<string | null>({
@@ -77,7 +78,7 @@ const senses = computed<string | null>({
       character.value.id
     )
     syncApiCharacterDown(character.value.id)
-  }, 500)
+  }, constants.AUTOSAVE_INTERVAL)
 })
 
 const computedPerception = computed(

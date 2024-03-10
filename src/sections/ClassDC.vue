@@ -26,6 +26,7 @@ import { patchProficiency } from '@/api/proficiency'
 import { useCharacterStore } from '@/stores/character'
 import { storeToRefs } from 'pinia'
 import { debounce } from 'lodash'
+import constants from '@/contstants'
 
 const characterStore = useCharacterStore()
 const { character } = storeToRefs(characterStore)
@@ -42,7 +43,7 @@ const proficiency = computed({
     if (val === character.value?.proficiencies.class_dc) return
     await patchProficiency(character.value.id, { class_dc: val })
     syncApiCharacterDown(character.value.id)
-  }, 1000)
+  }, constants.AUTOSAVE_INTERVAL)
 })
 const item = ref(0)
 </script>

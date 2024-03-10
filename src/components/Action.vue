@@ -53,6 +53,8 @@ import { cloneDeep, debounce, isEqual, pickBy } from 'lodash'
 
 import { addCharacterAction, updateCharacterAction } from '@/api/action'
 
+import constants from '@/contstants'
+
 const props = defineProps<{
   actionId: number
   isSpell?: boolean
@@ -93,7 +95,7 @@ const handleActionChange = debounce(async (val: CharacterAction) => {
     syncApiCharacterDown(character.value.id)
   }
   originalAction.value = cloneDeep(val)
-}, 1000)
+}, constants.AUTOSAVE_INTERVAL)
 
 const originalAction = ref<CharacterAction | null>(null)
 const action = ref<CharacterAction | null>(null)
