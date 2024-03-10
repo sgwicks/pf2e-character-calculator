@@ -23,9 +23,13 @@ export const useUserStore = defineStore(
       return
     }
 
+    function $reset() {
+      user.value = null
+    }
+
     const authToken: Ref<string | null> = ref(null)
 
-    return { user, authToken, getUser, setUser }
+    return { user, authToken, getUser, setUser, $reset }
   },
   { persist: true }
 )

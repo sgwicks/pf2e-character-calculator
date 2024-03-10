@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 import { globalRouter } from '@/routes/globalRouter'
 import { jwtDecode } from 'jwt-decode'
 
-import constants from '@/contstants'
+import constants from '@/constants'
 
 const authClient = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_URL + '/auth'
@@ -22,8 +22,10 @@ authClient.interceptors.response.use(
     return response
   },
   (error) => {
+    console.log(error.response)
     if (error.response.status === 401) {
-      globalRouter.router?.push('/')
+      Cookies.remove('bearer')
+      globalRouter.router?.push('/logout')
     }
   }
 )
@@ -75,10 +77,12 @@ const refresh = async () => {
 }
 
 const logout = async () => {
+  globalRouter.router?.push('/logout')
   const token = Cookies.get('bearer')
-  authClient.post('/logout', {}, { headers: { Authorization: token } })
-  Cookies.remove('bearer')
-  globalRouter.router?.push('/')
+  if (token) {
+    authClient.post('/logout', {}, { headers: { Authorization: token } })
+    Cookies.remove('bearer')
+  }
 }
 
 export { login, refresh, logout }

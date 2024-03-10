@@ -9,6 +9,7 @@ import CharacterSheetSpells from '@/pages/CharacterSheet/Spells.vue'
 import CharacterSheetEquipment from '@/pages/CharacterSheet/Equipment.vue'
 import CharacterCreate from '@/pages/CharacterCreate.vue'
 import Error from '@/pages/Error.vue'
+import Logout from '@/pages/LogoutPage.vue'
 
 const routes = [
   { path: '/', component: Login },
@@ -22,7 +23,8 @@ const routes = [
   { path: '/character/:id/actions', component: CharacterSheetActions },
   { path: '/character/:id/spells', component: CharacterSheetSpells },
   { path: '/character/:id/equipment', component: CharacterSheetEquipment },
-  { path: '/error', component: Error }
+  { path: '/error', component: Error },
+  { path: '/logout', component: Logout }
 ]
 
 export { routes }

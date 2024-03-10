@@ -42,7 +42,7 @@ import { updateSkillProficiency } from '@/api/skill'
 import ProficiencyLevel from '@/components/form/ProficiencyLevel.vue'
 import { ref, watch } from 'vue'
 import { debounce } from 'lodash'
-import constants from '@/contstants'
+import constants from '@/constants'
 
 const props = defineProps<{
   skill: Skill
@@ -79,3 +79,4 @@ const handleSkillUpdate = debounce(async () => {
   syncApiCharacterDown(character.value.id)
 }, constants.AUTOSAVE_INTERVAL)
 </script>
+@/constants

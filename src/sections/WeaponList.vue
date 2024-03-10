@@ -30,7 +30,7 @@ import ProficiencyLevel from '@/components/form/ProficiencyLevel.vue'
 import { computed, ref } from 'vue'
 import { patchProficiency } from '@/api/proficiency'
 import { debounce } from 'lodash'
-import constants from '@/contstants'
+import constants from '@/constants'
 
 const characterStore = useCharacterStore()
 const { syncApiCharacterDown } = characterStore
@@ -85,3 +85,4 @@ fieldset {
   margin-block: auto;
 }
 </style>
+@/constants

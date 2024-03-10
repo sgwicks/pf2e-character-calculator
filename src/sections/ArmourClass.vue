@@ -52,7 +52,7 @@ import { useEquipmentStore } from '@/stores/equipment'
 import { storeToRefs } from 'pinia'
 import { patchProficiency } from '@/api/proficiency'
 import { debounce } from 'lodash'
-import constants from '@/contstants'
+import constants from '@/constants'
 
 const characterStore = useCharacterStore()
 const { abilities, character } = storeToRefs(characterStore)
@@ -177,3 +177,4 @@ fieldset {
   line-height: 1.9em;
 }
 </style>
+@/constants

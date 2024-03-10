@@ -34,7 +34,7 @@ import { useCharacterStore } from '@/stores/character'
 import { storeToRefs } from 'pinia'
 import { patchProficiency } from '@/api/proficiency'
 import { debounce } from 'lodash'
-import constants from '@/contstants'
+import constants from '@/constants'
 
 const characterStore = useCharacterStore()
 const { character } = storeToRefs(characterStore)
@@ -72,3 +72,4 @@ const spellDC = computed<number>(
   () => 10 + keySkill.value + getProficiencyValue(spellDCProficiency.value)
 )
 </script>
+@/constants

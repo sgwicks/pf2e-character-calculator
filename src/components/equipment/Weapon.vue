@@ -96,7 +96,7 @@ import {
 import { storeToRefs } from 'pinia'
 import { toTitleCase } from '@/utils'
 import { debounce } from 'lodash'
-import constants from '@/contstants'
+import constants from '@/constants'
 
 const weaponInput = ref(0)
 
@@ -205,3 +205,4 @@ textarea {
   display: inline;
 }
 </style>
+@/constants

@@ -23,7 +23,7 @@ import { useCharacterStore } from '@/stores/character'
 
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
-import constants from '@/contstants'
+import constants from '@/constants'
 
 const props = defineProps<{
   wisdom: number
@@ -85,3 +85,4 @@ const computedPerception = computed(
   () => props.wisdom + getProficiencyValue(perception.value.proficiency) + perception.value.item
 )
 </script>
+@/constants

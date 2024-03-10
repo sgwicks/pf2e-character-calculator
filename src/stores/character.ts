@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import { cloneDeep, debounce, isEqual } from 'lodash'
 import { fetchCharacter, patchCharacter } from '@/api/character'
 import type { AxiosResponse } from 'axios'
-import constants from '@/contstants'
+import constants from '@/constants'
 
 const baseAttributes: Character['abilities'] = {
   strength: 0,
@@ -97,6 +97,7 @@ export const useCharacterStore = defineStore(
     // When we update character, update the API after 3 seconds
     const save = debounce(async (val) => {
       if (isEqual(val, prevCharacter.value)) return
+      if ((character.value = null)) return
 
       try {
         const updatedCharacter = await patchCharacter(val.id, val)
@@ -125,6 +126,11 @@ export const useCharacterStore = defineStore(
       }, constants.AUTOSAVE_INTERVAL)
     }
 
+    function $reset() {
+      character.value = null
+      prevCharacter.value = null
+    }
+
     return {
       character,
       abilities,
@@ -137,7 +143,8 @@ export const useCharacterStore = defineStore(
       getProficiencyValue,
       getClassKeySkill,
       syncApiCharacterDown,
-      createHandleUpdate
+      createHandleUpdate,
+      $reset
     }
   },
   { persist: true }

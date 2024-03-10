@@ -24,16 +24,13 @@ import { useUserStore } from '@/stores/user'
 import { useCharacterStore } from '@/stores/character'
 import { RouterLink } from 'vue-router'
 import { storeToRefs } from 'pinia'
+import { logout } from '@/api/auth'
 
 const userStore = useUserStore()
-const { getUser, setUser } = userStore
+const { getUser } = userStore
 
 const characterStore = useCharacterStore()
 const { character } = storeToRefs(characterStore)
 
 const user = getUser()
-
-const logout = async () => {
-  await setUser(null)
-}
 </script>
