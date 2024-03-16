@@ -26,7 +26,7 @@ import { patchProficiency } from '@/api/proficiency'
 import { useCharacterStore } from '@/stores/character'
 import { storeToRefs } from 'pinia'
 import { debounce } from 'lodash'
-import constants from '@/contstants'
+import constants from '@/constants'
 
 const characterStore = useCharacterStore()
 const { character } = storeToRefs(characterStore)
@@ -47,3 +47,4 @@ const proficiency = computed({
 })
 const item = ref(0)
 </script>
+@/constants

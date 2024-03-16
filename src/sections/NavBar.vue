@@ -1,5 +1,5 @@
 <template>
-  <header class="full-width flex space-between">
+  <header v-if="user" class="full-width flex space-between">
     <div v-if="character" class="tabs" style="color: black">
       <RouterLink :to="`/character/${character.id}/`">Home</RouterLink>
       &nbsp; | &nbsp;
@@ -15,7 +15,11 @@
       &nbsp;|&nbsp;
       <RouterLink :to="`/character/${character.id}/Spells`">Spells</RouterLink>
     </div>
-    <RouterLink v-if="user" to="/" @click="logout">Logout</RouterLink>
+    <div>
+      <RouterLink to="/character-select">Characters</RouterLink>
+      &nbsp;|&nbsp;
+      <RouterLink to="/logout" @click="logout">Logout</RouterLink>
+    </div>
   </header>
 </template>
 
@@ -24,16 +28,13 @@ import { useUserStore } from '@/stores/user'
 import { useCharacterStore } from '@/stores/character'
 import { RouterLink } from 'vue-router'
 import { storeToRefs } from 'pinia'
+import { logout } from '@/api/auth'
 
 const userStore = useUserStore()
-const { getUser, setUser } = userStore
+const { getUser } = userStore
 
 const characterStore = useCharacterStore()
 const { character } = storeToRefs(characterStore)
 
 const user = getUser()
-
-const logout = async () => {
-  await setUser(null)
-}
 </script>

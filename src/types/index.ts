@@ -1,3 +1,13 @@
+type User = {
+  id: number
+  name: string
+  email: string
+  characters: {
+    id: Character['id']
+    name: Character['name']
+  }[]
+}
+
 type Rarity = 'common' | 'uncommon' | 'rare' | 'legendary'
 
 type Coin = 'cp' | 'sp' | 'gp' | 'pp'

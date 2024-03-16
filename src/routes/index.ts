@@ -1,4 +1,6 @@
-import Login from '@/pages/LoginPage.vue'
+import Login from '@/pages/Unauthed/LoginPage.vue'
+import Signup from '@/pages/Unauthed/SignupPage.vue'
+import Logout from '@/pages/Unauthed/LogoutPage.vue'
 import CharacterSelect from '@/pages/CharacterSelect.vue'
 import CharacterSheetHome from '@/pages/CharacterSheet/index.vue'
 import CharacterSheetAttributes from '@/pages/CharacterSheet/Attributes.vue'
@@ -13,6 +15,7 @@ import Error from '@/pages/Error.vue'
 const routes = [
   { path: '/', component: Login },
   { path: '/login', component: Login },
+  { path: '/signup', component: Signup },
   { path: '/character-select', component: CharacterSelect },
   { path: '/character/new', component: CharacterCreate },
   { path: '/character/:id/', component: CharacterSheetHome },
@@ -22,7 +25,8 @@ const routes = [
   { path: '/character/:id/actions', component: CharacterSheetActions },
   { path: '/character/:id/spells', component: CharacterSheetSpells },
   { path: '/character/:id/equipment', component: CharacterSheetEquipment },
-  { path: '/error', component: Error }
+  { path: '/error', component: Error },
+  { path: '/logout', component: Logout }
 ]
 
 export { routes }

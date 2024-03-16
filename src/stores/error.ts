@@ -6,7 +6,11 @@ export const useErrorStore = defineStore(
   () => {
     const error: Ref<null | string> = ref(null)
 
-    return { error }
+    function $reset() {
+      error.value = null
+    }
+
+    return { error, $reset }
   },
   { persist: true }
 )

@@ -12,6 +12,7 @@
 
       <SGInput v-model="character.deity" label="Deity" />
       <SGInput v-model="traits" label="Traits" />
+
       <CharacterClasses :character="character" class="col-span-2" />
     </div>
   </SGSection>

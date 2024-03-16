@@ -53,7 +53,7 @@ import { cloneDeep, debounce, isEqual, pickBy } from 'lodash'
 
 import { addCharacterAction, updateCharacterAction } from '@/api/action'
 
-import constants from '@/contstants'
+import constants from '@/constants'
 
 const props = defineProps<{
   actionId: number
@@ -156,3 +156,4 @@ const components = ref({
   somatic: false
 })
 </script>
+@/constants
