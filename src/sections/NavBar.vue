@@ -15,7 +15,11 @@
       &nbsp;|&nbsp;
       <RouterLink :to="`/character/${character.id}/Spells`">Spells</RouterLink>
     </div>
-    <RouterLink to="/logout" @click="logout">Logout</RouterLink>
+    <div>
+      <RouterLink to="/character-select">Characters</RouterLink>
+      &nbsp;|&nbsp;
+      <RouterLink to="/logout" @click="logout">Logout</RouterLink>
+    </div>
   </header>
 </template>
 

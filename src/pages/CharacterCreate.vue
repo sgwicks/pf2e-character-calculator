@@ -27,7 +27,7 @@ const submit = async () => {
   try {
     const res = await createCharacter(userStore.user?.id, name.value)
     if (res.status === 201) {
-      router.push(`/character/${res.data.id}`)
+      router.push(`/character/${res.data.data.id}`)
     }
   } catch (err) {
     console.warn(err)
