@@ -60,18 +60,22 @@ const refresh = async () => {
     return token.toString()
   }
 
-  const response = await authClient.post(
-    '/refresh',
-    {},
-    { headers: { Authorization: `Bearer ${token}` } }
-  )
+  try {
+    const response = await authClient.post(
+      '/refresh',
+      {},
+      { headers: { Authorization: `Bearer ${token}` } }
+    )
 
-  if (typeof response.headers.getAuthorization == 'function') {
-    const token = response.headers.getAuthorization()
-    if (token) {
-      Cookies.set('bearer', token.toString())
-      return token.toString()
+    if (typeof response.headers.getAuthorization == 'function') {
+      const token = response.headers.getAuthorization()
+      if (token) {
+        Cookies.set('bearer', token.toString())
+        return token.toString()
+      }
     }
+  } catch (err) {
+    logout()
   }
 }
 

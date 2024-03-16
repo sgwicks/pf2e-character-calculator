@@ -1,11 +1,6 @@
 <template>
   <div>
-    <CharacterClass
-      v-for="(character_class, i) in character.character_classes"
-      :key="'class-' + character_class.id"
-      :index="i"
-      :class-options="characterClassOptions"
-    />
+    <CharacterClass :index="0" :class-options="characterClassOptions" />
   </div>
 </template>
 

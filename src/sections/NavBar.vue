@@ -1,5 +1,5 @@
 <template>
-  <header class="full-width flex space-between">
+  <header v-if="user" class="full-width flex space-between">
     <div v-if="character" class="tabs" style="color: black">
       <RouterLink :to="`/character/${character.id}/`">Home</RouterLink>
       &nbsp; | &nbsp;
@@ -15,7 +15,7 @@
       &nbsp;|&nbsp;
       <RouterLink :to="`/character/${character.id}/Spells`">Spells</RouterLink>
     </div>
-    <RouterLink v-if="user" to="/" @click="logout">Logout</RouterLink>
+    <RouterLink to="/logout" @click="logout">Logout</RouterLink>
   </header>
 </template>
 

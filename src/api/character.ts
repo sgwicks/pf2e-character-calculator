@@ -4,6 +4,10 @@ const fetchCharacter = async (id: number) => {
   return client.get(`/characters/${id}`)
 }
 
+const createCharacter = async (user_id: number, name: string) => {
+  return client.post(`/users/${user_id}/characters`, { name })
+}
+
 const patchCharacter = async (id: number, character: Character) => {
   return client.patch(`/characters/${id}`, character)
 }
@@ -33,6 +37,7 @@ const removeCharacterClass = async (characterId: number, classId: number) => {
 
 export {
   fetchCharacter,
+  createCharacter,
   patchCharacter,
   fetchCharacterClasses,
   updateCharacterClass,

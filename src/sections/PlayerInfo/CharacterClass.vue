@@ -1,5 +1,5 @@
 <template>
-  <div v-if="characterClass" class="character-class gap-sm">
+  <div class="character-class gap-sm">
     <label>
       <span>Class</span>
       <select v-model="characterClassModel">
@@ -14,7 +14,7 @@
       </select>
     </label>
     <SGInput v-model="levelModel" label="Level" />
-    <label>
+    <label v-if="characterClass">
       <span>Key Skill</span>
       <select v-model="selectedAbilityModel">
         <option
@@ -51,15 +51,11 @@ const characterClass = computed(() => character.value?.character_classes[props.i
 const characterClassModel = computed({
   get: () => characterClass.value?.name,
   set: async (val) => {
-    if (!character.value || !characterClass.value || !val) return
-    if (val === 'remove') {
+    if (!character.value || !val) return
+    if (characterClass.value) {
       await removeCharacterClass(character.value.id, characterClass.value.id)
-    } else {
-      await Promise.all([
-        removeCharacterClass(character.value.id, characterClass.value.id),
-        addCharacterClass(character.value.id, { class_name: val })
-      ])
     }
+    await addCharacterClass(character.value.id, { class_name: val })
     syncApiCharacterDown(character.value.id)
   }
 })

@@ -1,14 +1,8 @@
 <template>
   <main id="unauthed">
     <form class="flex column" @submit.prevent="submit">
-      <label class="flex space-between margin-y-sm">
-        Email
-        <input v-model="email" class="margin-x-sm" />
-      </label>
-      <label class="flex space-between- margin-y-sm">
-        Password
-        <input v-model="password" type="password" class="margin-x-sm" />
-      </label>
+      <SGInput v-model="email" label="Email" />
+      <SGInput v-model="password" label="Password" password />
       <button class="margin-md">Submit</button>
     </form>
     <div v-if="error" style="color: red">Incorrect login</div>
@@ -21,6 +15,7 @@ import { ref } from 'vue'
 import { login } from '@/api/auth'
 import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
+import SGInput from '@/components/form/SGInput.vue'
 
 const router = useRouter()
 

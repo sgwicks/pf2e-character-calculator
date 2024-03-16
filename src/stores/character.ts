@@ -91,13 +91,14 @@ export const useCharacterStore = defineStore(
 
     function getClassKeySkill(index: number) {
       if (!character.value) return 0
+      if (!character.value.character_classes.length) return 0
       return character.value.abilities[character.value.character_classes[index].ability_options[0]]
     }
 
     // When we update character, update the API after 3 seconds
     const save = debounce(async (val) => {
       if (isEqual(val, prevCharacter.value)) return
-      if ((character.value = null)) return
+      if (character.value === null) return
 
       try {
         const updatedCharacter = await patchCharacter(val.id, val)
