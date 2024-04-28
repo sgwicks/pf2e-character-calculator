@@ -9,6 +9,7 @@ import CharacterSheetFeats from '@/pages/CharacterSheet/Feats.vue'
 import CharacterSheetActions from '@/pages/CharacterSheet/Actions.vue'
 import CharacterSheetSpells from '@/pages/CharacterSheet/Spells.vue'
 import CharacterSheetEquipment from '@/pages/CharacterSheet/Equipment.vue'
+import CharacterSheetNotes from '@/pages/CharacterSheet/Notes.vue'
 import CharacterCreate from '@/pages/CharacterCreate.vue'
 import Error from '@/pages/Error.vue'
 
@@ -25,6 +26,7 @@ const routes = [
   { path: '/character/:id/actions', component: CharacterSheetActions },
   { path: '/character/:id/spells', component: CharacterSheetSpells },
   { path: '/character/:id/equipment', component: CharacterSheetEquipment },
+  { path: '/character/:id/notes', component: CharacterSheetNotes },
   { path: '/error', component: Error },
   { path: '/logout', component: Logout }
 ]

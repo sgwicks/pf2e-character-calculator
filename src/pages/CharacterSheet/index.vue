@@ -5,6 +5,7 @@
   <Feats />
   <Actions />
   <Spells />
+  <Notes />
 </template>
 
 <script setup lang="ts">
@@ -14,4 +15,5 @@ import Equipment from './Equipment.vue'
 import Feats from './Feats.vue'
 import Skills from './Skills.vue'
 import Spells from './Spells.vue'
+import Notes from './Notes.vue'
 </script>

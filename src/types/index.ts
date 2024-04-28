@@ -219,6 +219,10 @@ interface Character {
   weapons: Weapon[]
   shield: Shield
   proficiencies: Proficiencies
+  notes: {
+    id: number
+    body: string
+  }
   user: {
     id: number
     name: string
