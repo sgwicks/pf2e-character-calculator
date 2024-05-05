@@ -13,7 +13,9 @@
       &nbsp;|&nbsp;
       <RouterLink :to="`/character/${character.id}/actions`">Actions</RouterLink>
       &nbsp;|&nbsp;
-      <RouterLink :to="`/character/${character.id}/Spells`">Spells</RouterLink>
+      <RouterLink :to="`/character/${character.id}/spells`">Spells</RouterLink>
+      &nbsp;|&nbsp;
+      <RouterLink :to="`/character/${character.id}/notes`">Notes</RouterLink>
     </div>
     <div>
       <RouterLink to="/character-select">Characters</RouterLink>
