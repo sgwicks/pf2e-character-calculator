@@ -56,7 +56,6 @@ const refresh = async () => {
   const expiresIn = expiryMS - Date.now()
   const refreshCutoff = constants.TOKEN_REFRESH_TIMEOUT * 60 * 1000
 
-  console.log('expiresIn: ', expiresIn, `refreshCutoff: `, refreshCutoff, expiresIn > refreshCutoff)
   if (expiresIn > refreshCutoff) {
     return token.toString()
   }

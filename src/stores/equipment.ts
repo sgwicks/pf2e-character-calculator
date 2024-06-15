@@ -54,21 +54,10 @@ const emptyShield: Shield = {
 
 export const useEquipmentStore = defineStore('equipment', () => {
   const characterStore = useCharacterStore()
-  const { abilities, character } = storeToRefs(characterStore)
-  const { strength } = abilities.value || 0
+  const { getArmourCheckPenalty, getArmourSpeedPenalty } = characterStore
+  const { character } = storeToRefs(characterStore)
 
   const armour = computed<Armour>(() => character.value?.armours?.[0] || emptyArmour)
-
-  const getArmourCheckPenalty = computed(() => {
-    if (strength >= armour.value.strength) return 0
-    else return armour.value.check_penalty * -1
-  })
-
-  const getArmourSpeedPenalty = computed(() => {
-    if (armour.value.speed_penalty === 0) return 0
-    if (strength >= armour.value.strength) return armour.value.speed_penalty + 5
-    else return armour.value.speed_penalty
-  })
 
   const weapons = computed<Weapon[]>(() => {
     if (!character.value) return []
