@@ -1,7 +1,7 @@
 <template>
   <SGSearchableInput
     v-model="featToResult"
-    :label="`Level ${requiredLevel}`"
+    :label="label"
     :disabled="level < requiredLevel"
     :query="fetchCharacterFeats"
   />
@@ -33,6 +33,10 @@ const emptyFeat: CharacterFeat = {
   type: props.type,
   traits: []
 }
+
+const label = computed<string>(() => {
+  return props.type === 'B' ? `Bonus ${props.requiredLevel + 1}` : `Level ${props.requiredLevel}`
+})
 
 const feat = computed<CharacterFeat>(() => {
   if (!character.value) return { ...emptyFeat }
@@ -66,11 +70,9 @@ const featToResult = computed<Result>({
 const fetchCharacterFeats = async (string: string) => {
   return fetchFeats({
     name: string,
-    level: props.requiredLevel,
     type: props.type,
-    character_id: character.value?.id || null
+    character_id: character.value?.id || null,
+    ...(props.type !== 'B' && { level: props.requiredLevel })
   })
 }
-
-// const feat = ref('')
 </script>

@@ -42,7 +42,10 @@
       <!-- Bonus -->
       <h3 class="feat-wrapper">Bonus Feats</h3>
       <Feat :required-level="0" type="B" />
-      <Feat :required-level="0" type="B" />
+      <Feat :required-level="1" type="B" />
+      <Feat :required-level="2" type="B" />
+      <Feat :required-level="3" type="B" />
+      <Feat :required-level="4" type="B" />
     </div>
   </SGSection>
 </template>
