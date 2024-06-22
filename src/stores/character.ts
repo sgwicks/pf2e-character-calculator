@@ -89,6 +89,21 @@ export const useCharacterStore = defineStore(
       return prof ? prof + level.value : 0
     }
 
+    const armour = computed(() => character.value?.armours[0])
+
+    function getArmourCheckPenalty() {
+      if (!armour.value) return 0
+      if (abilities.value.strength >= armour.value.strength) return 0
+      return armour.value.check_penalty * -1
+    }
+
+    function getArmourSpeedPenalty() {
+      if (!armour.value) return 0
+      if (armour.value.speed_penalty === 0) return 0
+      if (abilities.value.strength >= armour.value.strength) return armour.value.speed_penalty - 5
+      else return armour.value.speed_penalty
+    }
+
     function getClassKeySkill(index: number) {
       if (!character.value) return 0
       if (!character.value.character_classes.length) return 0
@@ -143,6 +158,8 @@ export const useCharacterStore = defineStore(
       level,
       getProficiencyValue,
       getClassKeySkill,
+      getArmourCheckPenalty,
+      getArmourSpeedPenalty,
       syncApiCharacterDown,
       createHandleUpdate,
       $reset

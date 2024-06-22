@@ -2,7 +2,7 @@ import client from '.'
 
 const fetchFeats = async (query: {
   name: string
-  level: number
+  level?: number
   type: CharacterFeat['type']
   character_id: number | null
 }) => {

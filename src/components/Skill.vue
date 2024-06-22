@@ -4,7 +4,7 @@
       abilities[skill.ability] +
       getProficiencyValue(skill.proficiency) +
       skill.item +
-      (skill.armour ? getArmourCheckPenalty : 0)
+      armourCheckPenalty
     "
     :label="skill.name"
     disabled
@@ -21,7 +21,7 @@
   />
   <template v-if="skill.armour">
     <span class="plus" />
-    <SGInput :model-value="getArmourCheckPenalty" label="Armour" disabled />
+    <SGInput :model-value="armourCheckPenalty" label="Armour" disabled />
   </template>
   <template v-else>
     <span class="plus" style="color: white" aria-hidden />
@@ -35,12 +35,11 @@
 
 <script lang="ts" setup>
 import SGInput from '@/components/form/SGInput.vue'
-import { useEquipmentStore } from '@/stores/equipment'
 import { useCharacterStore } from '@/stores/character'
 import { storeToRefs } from 'pinia'
 import { updateSkillProficiency } from '@/api/skill'
 import ProficiencyLevel from '@/components/form/ProficiencyLevel.vue'
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { debounce } from 'lodash'
 import constants from '@/constants'
 
@@ -49,11 +48,10 @@ const props = defineProps<{
 }>()
 
 const characterStore = useCharacterStore()
-const { getProficiencyValue, syncApiCharacterDown } = characterStore
+const { getProficiencyValue, getArmourCheckPenalty, syncApiCharacterDown } = characterStore
 const { character, abilities } = storeToRefs(characterStore)
 
-const equipmentStore = useEquipmentStore()
-const { getArmourCheckPenalty } = storeToRefs(equipmentStore)
+const armourCheckPenalty = computed(() => getArmourCheckPenalty())
 
 const updateables = ref({
   item: props.skill.item,
