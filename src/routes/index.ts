@@ -12,6 +12,17 @@ import CharacterSheetEquipment from '@/pages/CharacterSheet/Equipment.vue'
 import CharacterSheetNotes from '@/pages/CharacterSheet/Notes.vue'
 import CharacterCreate from '@/pages/CharacterCreate.vue'
 import Error from '@/pages/Error.vue'
+import type { NavigationGuard } from 'vue-router'
+import { useCharacterStore } from '@/stores/character'
+
+const refreshCharacter: NavigationGuard = async (to, from, next) => {
+  const [characterId] = to.params.id
+  if (!characterId) return false
+  const characterStore = useCharacterStore()
+  const { syncApiCharacterDown } = characterStore
+  await syncApiCharacterDown(Number(characterId))
+  return next()
+}
 
 const routes = [
   { path: '/', component: Login },
@@ -19,14 +30,26 @@ const routes = [
   { path: '/signup', component: Signup },
   { path: '/character-select', component: CharacterSelect },
   { path: '/character/new', component: CharacterCreate },
-  { path: '/character/:id/', component: CharacterSheetHome },
-  { path: '/character/:id/attributes', component: CharacterSheetAttributes },
-  { path: '/character/:id/skills', component: CharacterSheetSkills },
-  { path: '/character/:id/feats', component: CharacterSheetFeats },
-  { path: '/character/:id/actions', component: CharacterSheetActions },
-  { path: '/character/:id/spells', component: CharacterSheetSpells },
-  { path: '/character/:id/equipment', component: CharacterSheetEquipment },
-  { path: '/character/:id/notes', component: CharacterSheetNotes },
+  { path: '/character/:id/', component: CharacterSheetHome, beforeEnter: refreshCharacter },
+  {
+    path: '/character/:id/attributes',
+    component: CharacterSheetAttributes,
+    beforeEnter: refreshCharacter
+  },
+  { path: '/character/:id/skills', component: CharacterSheetSkills, beforeEnter: refreshCharacter },
+  { path: '/character/:id/feats', component: CharacterSheetFeats, beforeEnter: refreshCharacter },
+  {
+    path: '/character/:id/actions',
+    component: CharacterSheetActions,
+    beforeEnter: refreshCharacter
+  },
+  { path: '/character/:id/spells', component: CharacterSheetSpells, beforeEnter: refreshCharacter },
+  {
+    path: '/character/:id/equipment',
+    component: CharacterSheetEquipment,
+    beforeEnter: refreshCharacter
+  },
+  { path: '/character/:id/notes', component: CharacterSheetNotes, beforeEnter: refreshCharacter },
   { path: '/error', component: Error },
   { path: '/logout', component: Logout }
 ]

@@ -1,9 +1,10 @@
 <template>
-  <textarea v-model="notes"></textarea>
+  <main>
+    <textarea v-model="notes"></textarea>
+  </main>
 </template>
 
 <script setup lang="ts">
-import SGSection from '@/components/layout/SGSection.vue'
 import { updateCharacterNotes } from '@/api/notes'
 
 import { useCharacterStore } from '@/stores/character'
@@ -22,7 +23,14 @@ const notes = computed({
     if (body === character.value.notes.body) return
     if (!body) return
     await updateCharacterNotes(character.value.id, body)
-    syncApiCharacterDown(character.value.id)
-  }, 500)
+  }, 1500)
 })
 </script>
+
+<style lang="scss" scoped>
+textarea {
+  min-height: 95vh;
+  min-width: 100%;
+  resize: none;
+}
+</style>
