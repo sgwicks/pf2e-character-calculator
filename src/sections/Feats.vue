@@ -23,6 +23,7 @@
     <!-- Skill -->
     <div class="feat-wrapper">
       <h3>Skill Feats</h3>
+      <Feat :required-level="1" type="S" />
       <Feat
         v-for="level in skillFeats"
         :required-level="level"
@@ -45,7 +46,6 @@
       <Feat :required-level="1" type="B" />
       <Feat :required-level="2" type="B" />
       <Feat :required-level="3" type="B" />
-      <Feat :required-level="4" type="B" />
     </div>
   </SGSection>
 </template>
@@ -56,7 +56,7 @@ import SGSection from '@/components/layout/SGSection.vue'
 import { ref } from 'vue'
 
 const skillFeats = ref<number[]>([])
-const generalFeats = ref<number[]>([3, 7, 11, 15, 19])
+const generalFeats = ref<number[]>([1, 3, 7, 11, 15, 19])
 const ancestryFeats = ref([1, 5, 9, 13, 17])
 const classFeats = ref([1])
 
