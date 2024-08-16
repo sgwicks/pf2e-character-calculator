@@ -8,11 +8,11 @@ import { routes } from './routes'
 import { createPinia } from 'pinia'
 import piniaPluginPersistedState from 'pinia-plugin-persistedstate'
 
-// import * as Sentry from '@sentry/vue'
+import * as Sentry from '@sentry/vue'
 
 import App from './App.vue'
 
-// const env = import.meta.env
+const env = import.meta.env
 
 const router = createRouter({
   history: createWebHistory(),
@@ -21,17 +21,17 @@ const router = createRouter({
 
 const app = createApp(App)
 
-// if (process.env.NODE_ENV === 'production') {
-//   Sentry.init({
-//     app,
-//     dsn: env.VITE_APP_SENTRY_DSN,
-//     integrations: [Sentry.browserTracingIntegration(), Sentry.replayIntegration()],
-//     tracesSampleRate: 1,
-//     tracePropagationTargets: ['localhost', env.VITE_APP_BASE_URL, env.VITE_APP_WEB_URL],
-//     replaysSessionSampleRate: 1,
-//     replaysOnErrorSampleRate: 1
-//   })
-// }
+if (process.env.NODE_ENV === 'production') {
+  Sentry.init({
+    app,
+    dsn: env.VITE_APP_SENTRY_DSN,
+    integrations: [Sentry.browserTracingIntegration(), Sentry.replayIntegration()],
+    tracesSampleRate: 1,
+    tracePropagationTargets: ['localhost', env.VITE_APP_BASE_URL, env.VITE_APP_WEB_URL],
+    replaysSessionSampleRate: 1,
+    replaysOnErrorSampleRate: 1
+  })
+}
 
 // Set up pinia plugins
 const pinia = createPinia()
