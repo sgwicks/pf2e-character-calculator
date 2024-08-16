@@ -3,7 +3,7 @@
     <span>{{ label }}</span>
     <input
       v-if="type === 'number'"
-      v-model.number="value"
+      v-model.number.lazy="value"
       type="number"
       :disabled="disabled"
       v-maska:[mask]
@@ -12,7 +12,7 @@
     />
     <input
       v-else
-      v-model="value"
+      v-model.lazy.trim="value"
       :type="password ? 'password' : 'text'"
       :disabled="disabled"
       v-maska:[mask]
