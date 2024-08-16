@@ -4,8 +4,9 @@
     <input
       v-if="type === 'number'"
       v-model.number.lazy="value"
+      :class="{ loading }"
       type="number"
-      :disabled="disabled"
+      :disabled="disabled || loading"
       v-maska:[mask]
       @focus="emit('focus')"
       @blur="emit('blur')"
@@ -13,8 +14,9 @@
     <input
       v-else
       v-model.lazy.trim="value"
+      :class="{ loading }"
       :type="password ? 'password' : 'text'"
-      :disabled="disabled"
+      :disabled="disabled || loading"
       v-maska:[mask]
       @focus="emit('focus')"
       @blur="emit('blur')"
@@ -31,6 +33,7 @@ const props = withDefaults(
     modelValue: string | number | null
     label?: string
     disabled?: boolean
+    loading?: boolean
     mask?: MaskInputOptions
     password?: boolean
   }>(),
@@ -53,3 +56,21 @@ const value = computed({
 
 const type = typeof props.modelValue === 'number' ? 'number' : 'text'
 </script>
+
+<style lang="scss" scoped>
+@keyframes loading {
+  from {
+    background-color: hsl(200, 20%, 95%);
+    border-color: hsl(200, 20%, 95%);
+  }
+  to {
+    background-color: hsl(200, 20%, 85%);
+    border-color: hsl(200, 20%, 85%);
+  }
+}
+
+.loading {
+  animation: loading 1.3s ease-in-out infinite alternate;
+  border-style: solid;
+}
+</style>

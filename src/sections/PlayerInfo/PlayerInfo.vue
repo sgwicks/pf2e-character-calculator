@@ -1,5 +1,5 @@
 <template>
-  <SGSection v-if="character">
+  <SGSection v-if="true === false">
     <div class="player-info">
       <SGInput :model-value="playerName" label="Player Name" disabled />
       <SGInput v-model="character.name" label="Character Name" />
@@ -16,6 +16,7 @@
       <CharacterClasses :character="character" class="col-span-2" />
     </div>
   </SGSection>
+  <PlayerInfoLoading v-else />
 </template>
 
 <script setup lang="ts">
@@ -26,6 +27,7 @@ import { useUserStore } from '@/stores/user'
 import { useCharacterStore } from '@/stores/character'
 import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
+import PlayerInfoLoading from '@/components/loading/PlayerInfo/PlayerInfo.vue'
 
 const userStore = useUserStore()
 const characterStore = useCharacterStore()
@@ -48,7 +50,7 @@ const traits = computed<string | null>({
 const playerName = user.value?.name || ''
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .player-info {
   display: grid;
   gap: 10px;
